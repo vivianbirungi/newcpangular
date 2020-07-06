@@ -1,0 +1,166 @@
+<div class="">
+        <div class="container demo-bg">
+                <div class="row">
+                
+                <div class="col-sm-4">
+                <div class="business-hours">
+                <h2 class="title">Facility Name  <small style="color:aliceblue" class="text-center">clinic</small></h2>
+               
+                <ul class="list-unstyled opening-hours">
+                <li> <span class="pull-right">Sole Proprietorship</span></li>
+               
+                <li><i class="fa fa-address-card" aria-hidden="true"></i>  <span class="pull-right" style="padding-left:20px">231 road town <br>district western country</span></li>
+                <li><i class="fa fa-phone" aria-hidden="true"></i><span class="pull-right" style="padding-left:20px">0570-XX-XXXX</span></li>
+                <li><i class="fa fa-calendar danger" aria-hidden="true"></i> Collection Date Saturday :<br/> <span class="pull-right" style="color: #17a2b8; padding-left:25px">14:00-23:30</span></li>
+                </ul>
+                </div>
+                </div>
+                <div class="col-sm-8">
+                    <h4 style="color: white">Business Submited Documents</h4>
+                    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                        
+                    
+                    <div class="form-group row" style="padding-top: 20px" *ngFor =" let doc of businessdocuments; let i = index">
+                                <!-- <label for="happy" class="col-sm-9 col-md-9 control-label ">Are you happy ?</label> -->
+                                <div class="col-9 col-lg-9" >
+                                        <span class="checkout-step-number">{{i + 1}}</span>
+                                      <label class="checkout-step-title">{{doc.name}}</label>
+                                      <div class="form-group" *ngIf="doc.docState === 'INVALID'">
+                                            <label for="reason">If No why is it rejected</label>
+                                        <textarea type="email" class="form-control" id="reason" aria-describedby="emailHelp"  [(ngModel)]="doc.reason" name="reason"></textarea>                                     
+                                            <small id="emailHelp" class="form-text text-muted">It will be forwared to the user</small>
+                                        </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="input-group">
+                                            <div ng-init="options =FALSE"></div>
+                                           
+                                        <div id="radioBtn" class="btn-group">
+                                            <a class="btn btn-primary btn-sm active" >
+                                                    <input [(ngModel)]="doc.docState "  name="{{doc.name}}" type="radio" value="VALID" checked > VALID
+                                            </a>
+                                            <a class="btn btn-primary btn-sm notActive"  >
+                                                <input [(ngModel)]=" doc.docState "  name="{{doc.name}}" type="radio" value="INVALID" >INVALID</a>
+                                        </div>
+                                      
+                                    </div>
+                                    
+                                </div>
+                               
+                            </div>
+                            <div *ngIf ="role === 'superAdmin'">
+                                <div id="radioBtn" class="btn-group">
+                                    <fieldset class="form-group">
+                                        <div class="">
+                                          <h6>Which State is this Facility?</h6>
+                                          <div class="" style="padding-left: 20px">
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="radio" name="businessState" [(ngModel)]=" businessState"  id="Approved" value="Approved" checked>
+                                              <label class="form-check-label" style="color: #3d4884;" for="Approved">
+                                                Approved
+                                              </label>
+                                            </div>
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="radio" name="businessState" [(ngModel)]=" businessState" id="Pending" value="Pending">
+                                              <label class="form-check-label" for="Pending" style="color: #3d4884;">
+                                                Pending
+                                              </label>
+                                            </div>
+                                            
+                                          </div>
+                                        </div>
+                                      </fieldset>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group row">
+                                    <div class="col-9 col-lg-9">
+                                            <span class="checkout-step-number">1</span>
+                                          <label class="checkout-step-title">Personal Details</label>
+                                          <div class="form-group" *ngIf="!options">
+                                                <label for="exampleInputEmail1">If No why is it rejected</label>
+                                            <textarea type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>                                     
+                                                <small id="emailHelp" class="form-text text-muted">It will be forwared to the user</small>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <div class="input-group">
+                                            <div id="radioBtn" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" >
+                                                            <input [(ngModel)]="options" type="radio" [value]="true" checked="true"> YES
+                                                    </a>
+                                                    <a class="btn btn-primary btn-sm notActive"  ><input [(ngModel)]="options" type="radio" [value]="false">NO</a>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div> 
+                               <div class="form-group row">
+                                        <div class="col-9 col-lg-9">
+                                                <span class="checkout-step-number">1</span>
+                                              <label class="checkout-step-title">Personal Details</label>
+
+                                              <div class="form-group" *ngIf="!options">
+                                                    <label for="exampleInputEmail1">If No why is it rejected</label>
+                                                <textarea type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>                                     
+                                                    <small id="emailHelp" class="form-text text-muted">It will be forwared to the user</small>
+                                                </div>
+                                        </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <div class="input-group">
+                                            <div id="radioBtn" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" >
+                                                            <input [(ngModel)]="options" type="radio" [value]="true" checked="true"> YES
+                                                    </a>
+                                                    <a class="btn btn-primary btn-sm notActive"  ><input [(ngModel)]="options" type="radio" [value]="false">NO</a>
+                                            </div>
+                                          
+                                        </div>
+                                       
+                                    </div>
+                                </div> 
+                                <div class="form-group row"> 
+                                        <div class="col-9 col-lg-9">
+                                                <span class="checkout-step-number">1</span>
+                                              <label class="checkout-step-title">Personal Details</label>
+                                              <div class="form-group" *ngIf="!options">
+                                                    <label for="exampleInputEmail1">If No why is it rejected</label>
+                                                <textarea type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>                                     
+                                                    <small id="emailHelp" class="form-text text-muted">It will be forwared to the user</small>
+                                                </div>
+                                        </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <div class="input-group">
+                                            <div id="radioBtn" class="btn-group">
+                                                    <a class="btn btn-primary btn-sm active" >
+                                                            <input [(ngModel)]="options" type="radio" [value]="true" checked="true"> YES
+                                                    </a>
+                                                    <a class="btn btn-primary btn-sm notActive"  ><input [(ngModel)]="options" type="radio" [value]="false">NO</a>
+                                            </div>
+                                         
+                                        </div>
+                                       
+                                    </div>
+                                </div>  -->
+                                <button type="goback" (click)="goback()" class=" button" style="margin-top: 30px; margin-left: 20px; margin-bottom: 20px; background: #ffffff; color:#17a2b8">Go Back</button>
+                            
+                                <button type="submit" class=" button" style="margin-top: 30px; margin-left: 20px; margin-bottom: 20px; background: #ffffff; color:#17a2b8">Submit</button>
+                        
+                        
+                            </form>
+                </div>
+               
+                </div>
+                
+        </div>
+    
+    
+   
+    <br /><br />
+    <!-- <input name="options"  [(ngModel)]="options" type="radio" [value]="true" [checked]="options"/> Yes
+
+    <input name="options"[(ngModel)]="options" type="radio" [value]="false" [checked]="!options"/> No
+   
+    <h2 *ngIf="options">Supply</h2>
+    <h2 *ngIf="!options">Demand</h2> -->
+</div>

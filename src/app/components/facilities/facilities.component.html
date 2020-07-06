@@ -1,0 +1,167 @@
+<app-header></app-header>
+
+<section class="body">
+    <div class="row main">
+        <div class="col-2 left-side">
+          <div class="profile">
+            <div class="profilepic"></div>
+            <div class="details text-center">
+                <span><b>Amanyire Betty</b></span><br/>
+                <span class="faint">Admin</span><br/>
+                <span class="faint">amanyire@cp.com</span><br/>
+                <button type="button" class="btn btn-info btn-cp">Edit</button>
+            </div>
+          </div>
+          <div class="fieldOfficers">
+              <h5 class="text-center text-divider"><span>Field Officers</span></h5>
+
+              <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="media">
+                            <img src="..." class="mr-3" alt="...">
+                            <div class="media-body">
+                                <h6 class="mt-0">Media heading</h6>
+                                <span class="faint">Makindye</span><br/>
+
+                                <span class="faint">10 Facilities</span>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                            <div class="media">
+                                <img src="..." class="mr-3" alt="...">
+                                <div class="media-body">
+                                    <h6 class="mt-0">Media heading</h6>
+                                <span class="faint">Makindye</span><br/>
+
+                                     <span class="faint">10 Facilities</span>
+                                    
+                                </div>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <img src="..." class="mr-3" alt="...">
+                            <div class="media-body">
+                                <h6 class="mt-0">Media heading</h6>
+                                <span class="faint">Makindye</span><br/>
+
+                                <span class="faint">10 Facilities</span>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <img src="..." class="mr-3" alt="...">
+                            <div class="media-body">
+                                <h6 class="mt-0">Media heading</h6>
+                                <span class="faint">Makindye</span><br/>
+
+                                <span class="faint">10 Facilities</span>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <img src="..." class="mr-3" alt="...">
+                            <div class="media-body">
+                                <h6 class="mt-0">Media heading</h6>
+                                <span class="faint">Makindye</span><br/>
+
+                                <span class="faint">10 Facilities</span>
+
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <img src="..." class="mr-3" alt="...">
+                            <div class="media-body">
+                                <h6 class="mt-0">Media heading</h6>
+                                <span class="faint">Makindye</span><br/>
+
+                                <span class="faint">10 Facilities</span>
+                            </div>
+                        </div>
+                    </li>
+             </ul>
+          </div>
+        </div>
+        <div class="col-10 right-side">
+             <div class="mainbody">
+                 <div class="row">
+                     <div class="col-3">
+                            <div class="card text-center">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Facility Request</h5>
+                                      <span class="card-number">30</span><br/>
+                                      <a href="#" class="card-link">View Details</a>
+                                    </div>
+                            </div>
+                     </div>
+                     <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Facility Request</h5>
+                                    <span class="card-number">30</span><br/>
+                                    <a href="#" class="card-link">View Details</a>
+                                </div>
+                            </div>
+                     </div>
+                     <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Facility Request</h5>
+                                    <span class="card-number">30</span><br/>
+                                    <a href="#" class="card-link">View Details</a>
+                                </div>
+                            </div>
+                     </div>
+                     <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Facility Request</h5>
+                                    <span class="card-number">30</span><br/>
+                                    <a href="#" class="card-link">View Details</a>
+                                </div>
+                            </div>
+                     </div>
+                 </div>
+                 <div class="table">
+                 <h3>Facility Requests</h3>
+
+                    <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="seqNo">
+                            <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+                            <mat-cell *matCellDef="let lesson">{{lesson.seqNo}}</mat-cell>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="description">
+                            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+                            <mat-cell class="description-cell"
+                                      *matCellDef="let lesson">{{lesson.description}}</mat-cell>
+                      
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="duration">
+                            <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
+                            <mat-cell class="duration-cell"
+                                      *matCellDef="let lesson">{{lesson.duration}}</mat-cell>
+                        </ng-container>
+                      
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      
+                        <mat-row *matRowDef="let row; columns: displayedColumns"  (click)="onRowClicked(row)"></mat-row>
+                      
+                      </mat-table>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+</section>

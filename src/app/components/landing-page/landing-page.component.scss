@@ -1,0 +1,204 @@
+
+
+.first{
+    background-image: url("../../../assets/background.png");
+    background-repeat: repeat;
+    height: 100%;
+    max-width: 100% !important;
+    margin: 0;
+    padding: 15px;
+    padding-top:30px; 
+   
+}
+
+.with{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.rounded-circle{
+    width:30px !important;
+}
+.media-body{
+    p{
+        font-size:18px !important;
+    }
+}
+#whyus{
+    padding-top: 30px;
+}
+.container-wrapper{
+    position: absolute;
+    right: 10px;
+    top:100px;
+}
+
+#contactus{
+    position: relative;
+    background-image: url("../../../assets/background.png");
+    background-repeat: repeat;
+    height: 100%;
+    max-width: 100% !important;
+   
+    #contact{
+        background: transparent;
+    }
+}
+.contact-form{
+background: rgba(0,188,212,.64);
+    padding: 20px;
+    color: #000;
+    margin-top: 50px;
+
+
+}
+.body{
+  
+  
+}
+#whyus{
+    // background-image: url("../../../assets/background.png");
+    // background-repeat: repeat;
+    margin-bottom: 20px !important;
+    max-width: 100% !important;
+    
+    div{
+        background: transparent;
+    }
+
+
+}
+.buttons{
+   
+    bottom:-50px !important;
+   
+   margin-left:100px !important;
+    
+}
+.card{
+    width: 70%;
+    border-radius: 25px !important;
+    // height: 140px;
+    // width: 320px;
+    box-shadow: 5px 5px 3px rgb(202, 202, 202);
+    .card-img{
+        border-radius: 25px !important;
+       height: 180px;
+
+    }
+    .card-img-overlay{
+        top:50px !important;
+    }
+}
+.testimonies{
+    background: transparent;
+    box-shadow: 8px  8px 5px rgb(202, 202, 202);
+    padding: 20px !important;
+    margin-left: 0 !important;
+    margin-bottom: 40px !important;
+    // padding-right: 0 !important;
+}
+
+.my-float{
+	margin-top:22px;
+}
+.chat{
+	position:fixed;
+	width:60px;
+	height:60px;
+    bottom:30px !important;
+	left:30px;
+	background-color:#17a2b8;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.divider {
+    position: relative;
+     display: inline-block;
+   width:100%;
+     margin: 50px 0,;
+    // margin-top: 50px;
+    // margin-left: 60px;
+    // margin-right: 109px;
+    color: #e2e2e2;
+}
+.divider.d-single {
+    width: 100%;
+    height: 1px;
+    border-color: #e2e2e2;
+    border-top-width: 1px;
+}
+.d-single.d-solid {
+    border-top-style: solid;
+}
+.divider i {
+    position: absolute;
+    top: -15px;
+    left: 45%;
+    width: 140px;
+    background: #fff;
+    font-size: 18px;
+    color: gray;
+}
+.fa{
+background: white;
+}
+.btnRegister{
+    // float: right;
+    margin-top: 7%;
+    padding:1%;
+    border: none;
+    border-radius: 1.5rem;
+    background: #17a2b8;
+    color: #fff;
+    font-weight: 600;
+    width: 150px;
+    cursor: pointer;
+}
+@media only screen and (max-width: 767px){
+    .body{
+        margin: 0 !important;
+    }
+    .card {
+        width: 100%;
+        margin-bottom: 20px !important;
+        .card-img-overlay{
+            top: 0px !important;
+        }
+    }
+    #whyus{
+            margin-bottom: 0 !important;
+            padding-top: 100px !important;
+    }
+    .card-text{
+        font-size: .8rem !important;
+    }
+    .card-title{
+        font-size: 1rem !important;
+    }
+    .float{
+        position:fixed;
+        width:60px;
+        height:50px;
+        top: 30%;
+    }
+    .testimonies{
+        margin-top: 40px !important;
+        padding: 0 px !important;
+        
+    margin-bottom: 0!important;
+    // padding-right: 0 !important;
+
+    }
+    .sbutton{
+        margin:0 !important;
+        margin-right: 10px !important;
+    }
+    .divider i {
+        left: 40%;
+    }
+}

@@ -1,0 +1,26 @@
+.body{
+    .main{
+        .btn{
+                margin-left: 50px;
+                margin-top: 60px;
+        }
+        margin-top: 60px;
+        .left-side{
+         height: 100vh;
+         .card{
+            margin-top: 60px;
+            margin-left: 50px;
+
+         }
+        }
+        .right-side{
+            height: 100vh;
+            .card{
+                margin-left: 200px;
+                margin-right: 50px;
+                margin-top: 60px;
+
+            }
+        }
+    }
+}

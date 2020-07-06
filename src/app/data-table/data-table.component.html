@@ -1,0 +1,121 @@
+<div class="row datahead">
+<div class="col-6">
+    <h3 class="" style="color: #17a2b8">Registered Facilities</h3>
+</div>
+<div class="col-6">
+    <div style="float:right;height:1px">
+        <mat-form-field appearance="outline">
+        <mat-label> <i matPrefix class="fa fa-search" style="padding-left: 10px"></i> Search</mat-label>   
+        <input matInput   (keyup)="applyFilter($event.target.value)"> 
+      </mat-form-field>
+      <a (click)="logout()"><i matPrefix class="fa fa-sign-out" style="padding-left: 10px"></i> </a>
+      
+    </div>
+    
+</div>
+</div>
+<div *ngIf="role == 'Admin' || role == 'SuperAdmin'">
+     <mat-table class="datatable" [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="facilityName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="facilityType">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+              <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Owner Name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="State">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+            <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  [ngStyle]="{'background-color':getColor(row.businessState)}"> {{row.businessState }}</mat-cell>
+        </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+      </mat-table>
+      <mat-paginator #paginator
+              [length]="test?.data.length"
+              [pageIndex]="0"
+              [pageSize]="25"
+              [pageSizeOptions]="[ 25,50,75, 100]">
+      </mat-paginator>
+</div>
+
+
+
+<div *ngIf="role == 'fieldofficer'">
+    <mat-table class="datatable" [dataSource]="dataSource" matSort>
+         <ng-container matColumnDef="facilityName">
+             <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+             <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="facilityType">
+             <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+             <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="Code">
+             <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+             <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="Owner Name">
+             <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+             <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+         </ng-container>
+
+         <ng-container matColumnDef="State">
+           <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+           <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  [ngStyle]="{'background-color':getColor(row.businessState)}"> {{row.businessState }}</mat-cell>
+       </ng-container>
+
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="openModal(template, row)"></mat-row>
+     </mat-table>
+     <mat-paginator #paginator
+             [length]="test?.data.length"
+             [pageIndex]="0"
+             [pageSize]="25"
+             [pageSizeOptions]="[ 25,50,75, 100]">
+     </mat-paginator>
+</div>
+      <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple"
+          >
+            <p style="font-size: 20px; color: white">Loading...</p>
+          </ngx-spinner>
+
+          <ng-template #template>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Facility Progress</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>State: {{businessState}}</p>
+              <h6>Reasons:</h6>
+              <ul *ngIf= "businessState == 'rejected'" class="list-group">
+                <li class="list-group-item disabled" aria-disabled="true">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+              </ul>
+            </div>
+          </ng-template>

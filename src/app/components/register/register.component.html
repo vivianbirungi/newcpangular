@@ -1,0 +1,455 @@
+
+<app-header></app-header>
+
+<div class="container register">
+                <div class="row">
+                    <div class="col-md-2 register-left" >
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3  class="register-heading">Company Details</h3>
+                      
+                        <p class="register-detail" *ngIf="form1">Please fill in the form with your Contact details</p>  
+                        <p class="register-detail" *ngIf="form2" >Select your facility documents</p>  
+
+                    </div>
+                    <div class="col-md-10 register-right">
+
+                        <form [formGroup]="formGroup1" (submit)="next()">
+                                <div class=""   *ngIf="form1">
+                                        
+                                        <div class="row register-form">
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group-sm" [class.invalid] ="formGroup1.controls.firstName.invalid" >
+                                                    <input type="text" class="form-control" placeholder="First Name *" value="" name="firstName" formControlName="firstName" [(ngModel)]="firstName" />
+                                                
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['firstName'].invalid && formGroup1.controls['firstName'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['firstName'].errors.required">
+                                                        Name is required.
+                                                      </div>
+                                                    </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="email" class="form-control" placeholder="Your Email *" value="" name="email" formControlName="email"  [class.invalid]="formGroup1.controls.email.invalid"/>                                          
+                                               
+                                                    
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['email'].invalid && formGroup1.controls['email'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['email'].errors">
+                                                       valid email is required.
+                                                      </div>
+                                                </div>
+
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="Facility Name *" value="" name="facilityName" formControlName="facilityName"  [class.invalid]="formGroup1.controls.firstName.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['facilityName'].invalid && formGroup1.controls['facilityName'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['facilityName'].errors">
+                                                       Facility Name is required.
+                                                      </div>
+                                                </div>
+                                                <mat-form-field style="width: 100%" appearance= "outline">
+                                                    <select matNativeControl id="mySelectId" name="facilityType" formControlName="facilityType" >
+                                                        <option value="" disabled selected style="color:gray">Please select the Type of Facility  </option>
+                                                        <option value="hospital">Hospital</option>
+                                                        <option value="Pharmacy">Pharmacy</option>
+                                                        <option value="Clinic">Clinic</option>
+                                                        <option value="Drug-Shop">Drug-Shop</option>
+                                                      </select>
+                                                  </mat-form-field>
+                                                  <div *ngIf="formGroup1.controls['facilityType'].invalid && formGroup1.controls['facilityType'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['facilityType'].errors">
+                                                       Facility Type is required.
+                                                      </div>
+                                                </div>
+                                                
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="NIN *" value="" name="nin" formControlName="nin" [class.invalid]="formGroup1.controls.nin.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['nin'].invalid && formGroup1.controls['nin'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['nin'].errors">
+                                                       Region is required.
+                                                      </div>
+                                                </div>
+                                                
+                                                    <mat-form-field style="width: 100%" appearance= "outline">
+                                                        <select matNativeControl id="mySelectId" formControlName="businessForm"  [class.invalid]="formGroup1.controls.businessForm.invalid">
+                                                            <option value="" disabled selected style="color:gray">Please select the Form of Business </option>
+                                                            <option value="limitedcompany">Limited Company Incoporated</option>
+                                                            <option value="sole">Sole Proprietor</option>
+                                                            <option value="ngo">NGO</option>
+                                                            <option value="partnership">Partnership</option>
+                                                            <option value="parastiatal">parastiatal/ Public Sector/ Government Account/ Parastiatal</option>
+                                                          </select>
+                                                      </mat-form-field>
+                                                      <div *ngIf="formGroup1.controls['businessForm'].invalid && formGroup1.controls['businessForm'].touched " class="alert alert-danger">
+                                                            <div *ngIf="formGroup1.controls['businessForm'].errors">
+                                                                    Business Form is required.
+                                                          </div>
+                                                    </div>
+
+                                                    <mat-form-field style="width: 100%" appearance= "outline">
+                                                        <select matNativeControl id="mySelectId" formControlName="region"  [class.invalid]="formGroup1.controls.region.invalid">
+                                                            <option value="" disabled selected style="color:gray">Please select a region </option>
+                                                            <option value="Central">Central</option>
+                                                            <option value="Eastern">Eastern</option>
+                                                            <option value="Northern">Northern</option>
+                                                            <option value="Western">Western</option>
+                                                            <option value="Southern">Southern</option>
+                                                         </select>
+                                                      </mat-form-field>
+                                                      <div *ngIf="formGroup1.controls['region'].invalid && formGroup1.controls['region'].touched " class="alert alert-danger">
+                                                            <div *ngIf="formGroup1.controls['region'].errors">
+                                                                    Region is required.
+                                                          </div>
+                                                    </div>
+                                                    <mat-form-field style="width: 100%" appearance= "outline">
+                                                        <select matNativeControl id="mySelectId" formControlName="country" name= "country"  [class.invalid]="formGroup1.controls.country.invalid">
+                                                            <option value="" disabled selected style="color:gray">Please select your Country </option>
+                                                            <option value="Uganda">Uganda</option>
+                                                            <option value="Kenya">Kenya</option>
+                                                          </select>
+                                                      </mat-form-field>
+                                                      <div *ngIf="formGroup1.controls['country'].invalid && formGroup1.controls['country'].touched " class="alert alert-danger">
+                                                            <div *ngIf="formGroup1.controls['country'].errors">
+                                                                    Country is required.
+                                                          </div>
+                                                    </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="Last Name *" value="" name="lastName" formControlName="lastName"  [class.invalid]="formGroup1.controls.lastName .invalid" />
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['lastName'].invalid && formGroup1.controls['lastName'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['lastName'].errors">
+                                                                Last Name is required.
+                                                      </div>
+                                                </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" name="accountNumber" formControlName="accountNumber"  [class.invalid]="formGroup1.controls.accountNumber.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['accountNumber'].invalid && formGroup1.controls['accountNumber'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['accountNumber'].errors">
+                                                                valid Mtn Number is required.
+                                                      </div>
+                                                </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text"  name="position" class="form-control" placeholder="Your Position *" value="" name="position" formControlName="position"  [class.invalid]="formGroup1.controls.position.invalid"/>
+                                                </div> 
+                                                <div *ngIf="formGroup1.controls['position'].invalid && formGroup1.controls['position'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['position'].errors">
+                                                                Position is required.
+                                                      </div>
+                                                </div> 
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="Division *" value="" name="division" formControlName="division" formControlName="division" [class.invalid]="formGroup1.controls.division.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['division'].invalid && formGroup1.controls['division'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['division'].errors">
+                                                                Division is required.
+                                                      </div>
+                                                </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="Road *" value="" name="road" formControlName="road" [class.invalid]="formGroup1.controls.road.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['road'].invalid && formGroup1.controls['road'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['road'].errors">
+                                                                Road is required.
+                                                      </div>
+                                                </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="District *" value="" name="district" formControlName="district" [class.invalid]="formGroup1.controls.district.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['district'].invalid && formGroup1.controls['district'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['district'].errors">
+                                                                District is required.
+                                                      </div>
+                                                </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="Postal Code *" value="" name="postalcode" formControlName="postalcode" [class.invalid]="formGroup1.controls.postalcode.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['postalcode'].invalid && formGroup1.controls['postalcode'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['postalcode'].errors">
+                                                                Postal Code is required.
+                                                      </div>
+                                                </div>
+                                                <div class="form-group input-group-sm">
+                                                    <input type="text" class="form-control" placeholder="Town *" value="" name="Town" formControlName="town" [class.invalid]="formGroup1.controls.town.invalid"/>
+                                                </div>
+                                                <div *ngIf="formGroup1.controls['town'].invalid && formGroup1.controls['town'].touched " class="alert alert-danger">
+                                                        <div *ngIf="formGroup1.controls['town'].errors">
+                                                                Town is required.
+                                                      </div>
+                                                </div>
+                                                <button type="submit" class="btnRegister"  [disabled]="!formGroup1.valid">Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <div class=""  *ngIf ="form2" >
+                                            
+                                             <div class=" register-form">
+                                                    <h6>Check All the documents you have</h6>
+                                                    
+                                                        <div class="funkyradio-success" *ngIf="businessform ==='limitedcompany'">
+                                                        <div class="funkyradio-md">
+                                                            <input type="checkbox" id="Certificate_of_Incorporation" name ="Certificate_of_Incorporation" (change)="getCheckboxValues($event)"  >
+                                                            <label for="Certificate_of_Incorporation"> Registered & Certified Certificate of Incorporation</label>
+                                                        </div>
+                                                       
+                                                        </div>
+                                                        <!-- <div *ngIf="Certificate_of_Incorporation.invalid" class="alert alert-danger">
+                                                            <div *ngIf="Certificate_of_Incorporation.errors.required">
+                                                            Document is required.
+                                                          </div>
+                                                        </div> -->
+                                                         <div class="funkyradio-success" *ngIf="businessform ==='ngo'">
+                                                                <div class="funkyradio-md">
+                                                                    <input type="checkbox" id="Certificate_of_Registration" name ="Certificate_of_Registration" (change)="getCheckboxValues($event)" >
+                                                                    <label for="Certificate_of_Registration"> Certified copy of Certificate of Registration</label>
+                                                                </div>
+                                                               
+                                                        </div>
+                                                       
+                                                        <div class="funkyradio-success" *ngIf="businessform ==='ngo'">
+                                                                <div class="funkyradio-md">
+                                                                    <input type="checkbox" id="Permit_for_operation" name ="Permit_for_operation" (change)="getCheckboxValues($event)" >
+                                                                    <label for="Permit_for_operation"> Certified copy of permit to operate as an NGO</label>
+                                                                </div>
+                                                               
+                                                        </div>
+                                                         
+                                                    <div class="funkyradio-success" *ngIf="businessform ==='sole' || businessform =='partnership'">
+                                                        <div class="funkyradio-md">
+                                                            <input type="checkbox" id="Business_Name_Registration" name ="Business_Name_Registration" (change)="getCheckboxValues($event)" >
+                                                            <label for="Business_Name_Registration"> Registered & Certified Business Name Registration Certificate</label>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                   
+                                                    <div class="funkyradio-success" *ngIf="businessform == 'sole' || businessform =='partnership'">
+                                                        <div class="funkyradio-md">
+                                                            <input type="checkbox" id="Statement_of_particulars" name ="Statement_of_particulars" (change)="getCheckboxValues($event)" >
+                                                            <label for="Statement_of_particulars"> Registered & Certified Statement of particulars pursuant to registration business</label>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                    
+                                                    <div class="funkyradio-success"  >
+                                                            <div class="funkyradio-md" >
+                                                                <input type="checkbox"  id="Trading-License"  name ="Trading License" (change)="getCheckboxValues($event)">
+                                                                <label for="Trading-License"> Trading License</label>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                         
+                                                        <div class="funkyradio-success"  *ngIf="businessform == 'partnership'">
+                                                                <div class="funkyradio-md" >
+                                                                    <input type="checkbox"  id="Partnership Deed"  name ="Partnership Deed" (change)="getCheckboxValues($event)">
+                                                                    <label for="Partnership Deed"> Certified and Registered copy of partnership Deed <div class="funkyradio-success"  >
+                                                                           
+                                                                            
+                                                                        </div></label>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                           
+                                                            <div class="funkyradio-success"  *ngIf="businessform == 'limitedcompany'">
+                                                            <div class="funkyradio-md">
+                                                            <input type="checkbox" name="Memorandum-and-Articles-of-Association" id="Memorandum-and-Articles-of-Association"  name ="Memorandum and Articles of Association" (change)="getCheckboxValues($event)">
+    
+                                                            <label for="Memorandum-and-Articles-of-Association"> Registered & Certified Memorandum and Articles of Association</label>
+                                                        </div>
+                                                    </div>
+                                                     
+                                                        <div class="funkyradio-success"  *ngIf="businessform == 'limitedcompany' || businessform =='partnership'">
+                                                        <div class="funkyradio-md">
+                                                            <input type="checkbox" name="Resolution" id="Resolution" name ="Board Resolution to OPen Mobile money account Wallets" (change)="getCheckboxValues($event)">
+                                                            <label for="Resolution">Registered & Certified Board Resolution to Open Mobile money account Wallets.</label>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="funkyradio-success"  *ngIf="businessform == 'sole'">
+                                                            <div class="funkyradio-md">
+                                                                <input type="checkbox" name="Application_for_ MM" id="Application_for_ MM" (change)="getCheckboxValues($event)">
+                                                                <label for="Application_for_ MM">Letter Applying for Mobile Money Service</label>
+                                                            </div>
+                                                        </div>
+                                                         
+                                                        <div class="funkyradio-success"  *ngIf="businessform == 'limitedcompany' || businessform == 'sole' || businessform == 'ngo' || businessform =='partnership'">
+                                                        <div class="funkyradio-md">
+                                                            <input type="checkbox" name="tin" id="tin"  name ="Tax Identification Number or Tax Exemption Certificate " (change)="getCheckboxValues($event)">
+                                                            <label for="tin">Tax Identification Number or Tax Exemption Certificate</label>
+                                                        </div>
+                                                        </div> 
+                                                         <div class="funkyradio-success">
+                                                                <div class="funkyradio-md">
+                                                                    <input type="checkbox" name="IDs" id="ids" (change)="getCheckboxValues($event)">
+                                                                    <label for="ids" *ngIf="businessform !== 'limitedcompany'">Identity Documents of Primary and related parties    </label>
+                                                                    <label for='ids' *ngIf="businessform == 'limitedcompany'">Documents of Primary and related parties (Shares >=25% shareholders, At least 2 IDS for directors one of which would have signed on the resolution, Account Signatories (National ID (front and back) for nationals)</label>
+                                                                </div>
+                                                                </div> 
+                                                                <div class="funkyradio-success"  *ngIf="businessform == 'ngo'">
+                                                                        <div class="funkyradio-md">
+                                                                            <input type="checkbox" id="Registered and Certified Constitution"  value="Registered and Certified Constitution" name ="Constitution" (change)="getCheckboxValues($event)" >
+                                                                            <label for="Registered and Certified Constitution">Registered and Certified Constitution/Registered and Certified bye Laws by the NGO Board Secretariat </label>
+                                                                        </div>
+                                                                </div>
+                                                                        <div class=" funkyradio-success"  *ngIf="businessform == 'ngo'">
+                                                                                <div class="funkyradio-md">
+                                                                                    <input type="checkbox" id="5"  value="A Resolution indicating the current Board Member" name ="current Board Member" (change)="getCheckboxValues($event)">
+                                                                                    <label for="5">A Reparastiatalsolution indicating the current Board Members/Executive committee & period of validity in office, Registered and certified by founding body or document Registration by URSB </label>
+                                                                                </div>
+                                                                        </div>
+                                                                                <div class="funkyradio-success"  *ngIf="businessform == 'ngo'">
+                                                                                        <div class="funkyradio-md">
+                                                                                            <input type="checkbox" id="Registered & certified/document registered by URSB"  value="Registered & certified/document registered by URSB" name ="document registered by URSB"   (change)="getCheckboxValues($event)" >
+                                                                                            <label for="Registered & certified/document registered by URSB">Registered & certified/document registered by URSB, Resolution/Open Mobile money account signed by Authorized parties </label>
+                                                                                        </div>   
+                                                                                </div>
+                                                                                <div class="funkyradio-success" *ngIf="businessform == 'parastiatal'">
+                                                                                    <div class="funkyradio-md">
+                                                                                        <input type="checkbox" id="Letter requesting for opening of a mobile account with MTN Uganda"  value="Registered & certified/document registered by URSB" name ="Registered & certified/document registered by URSB"   (change)="getCheckboxValues($event)" >
+                                                                                        <label for="Letter requesting for opening of a mobile account with MTN Uganda">Letter requesting for opening of a mobile account with MTN Uganda </label>
+                                                                                    </div>   
+                                                                               </div>
+                                                                               <div class="funkyradio-success">
+                                                                                <div class="funkyradio-md" *ngIf="businessform == 'limitedcompany'">
+                                                                                    <input type="checkbox"  id="Proof of Particulars of Directors"  name="Proof of Particulars of Directors" value ="Proof of Particulars of Directors" (change)="getCheckboxValues($event)">
+                                                                                    <label for="Proof of Particulars of Directors">Proof of Particulars of Directors  </label>
+                                                                                </div>
+                                                                            </div>
+                                                                                    
+                                                          
+                                                                                    <div *ngIf="DocError"
+                                                                                    class="alert alert-danger">
+                                                                                   <p>All Above Documents should be selected to proceed</p>
+                                                                                </div>                          
+                                  
+                                                    
+                                                    <h6 *ngIf="businessform == 'parastiatal'">Check to select one of these documents</h6>
+
+                                                    <div class="row">
+
+                                                   <div class="col-md-6 funkyradio-success"  *ngIf="businessform == 'parastiatal'">
+                                                            <div class="funkyradio-md">
+                                                                <input type="radio" id="Copy"  value="Copy of the page that bring the government body into force" name ="governmentbody" [(ngModel)]= "governmentbody" >
+                                                                <label for="Copy"> Copy of the page that bring the government body into force or a copy of the website home page of the government entity</label>
+                                                    </div>
+                                                    </div>
+                                                                <div class="col-md-6 funkyradio-success"  *ngIf="businessform == 'parastiatal'">
+                                                                        <div class="funkyradio-md">
+                                                                            <input type="radio" id="Letter of authorization from the Accountant General"  value="Letter of authorization from the Accountant General" name ="governmentbody" [(ngModel)]= "governmentbody" >
+                                                                            <label for="Letter of authorization from the Accountant General"> Letter of authorization from the Accountant General-Ministry of Finance Planning and Economic Development allowing opening of the mobile account </label>
+                                                                        </div>
+                                                                </div>
+                                                    </div>
+                                                    <h6>Check to select one of these documents for Proof of Address</h6>
+            
+                                                    <div class="form-group radio row">
+                                                        <div class="col-md-6 funkyradio-success"  *ngIf="businessform == 'limitedcompany'">
+                                                            <div class="funkyradio-md">
+                                                                <input type="radio" id="copy of company form A9/18" value="copy of company form A9/18" name ="proof_of_address" [(ngModel)]= "proof_of_address" >
+                                                                <label for="copy of company form A9/18">Certified copy of company form A9/18</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 funkyradio-success"  *ngIf="businessform == 'limitedcompany'">
+                                                                <div class="funkyradio-md">
+                                                                    <input type="radio" id="Annual Returns (previous year)"  value="Annual Returns (previous year)" name ="proof_of_address" [(ngModel)]= "proof_of_address" >
+                                                                    <label for="Annual Returns (previous year)">Certified Annual Returns (previous year) </label>
+                                                                </div>
+                                                        </div>
+                                                       
+                                                        
+                
+                                                        <div class="col-md-6 funkyradio-success">
+                                                            <div class="funkyradio-md">
+                                                                <input type="radio" id="Tenancy Agreement, Government/Local Authority bills" value="Tenancy Agreement, Government or Local Authority bills" [(ngModel)]= "proof_of_address" name="proof_of_address" >
+                                                                <label for="Tenancy Agreement, Government/Local Authority bills">Tenancy Agreement, Government/Local Authority bills </label>
+                                                            </div>
+                                                        </div>
+            
+                                                        <div class="col-md-6 funkyradio-success" >
+                                                                <div class="funkyradio-md">
+                                                                    <input type="radio" id="Recent Utility Bill" value="Recent Utility Bill" name ="proof_of_address" [(ngModel)]= "proof_of_address" >
+                                                                    <label for ="Recent Utility Bill">Recent Utility Bill (not older than 3 months)</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 funkyradio-success"   *ngIf="businessform == 'parastiatal'">
+                                                                    <div class="funkyradio-md">
+                                                                        <input type="radio" id="introductory" value="introductory" name ="proof_of_address" [(ngModel)]= "proof_of_address" >
+                                                                        <label for ="introduction">Introduction from existing financial institution</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 funkyradio-success" *ngIf="businessform == 'parastiatal'">
+                                                                        <div class="funkyradio-md">
+                                                                            <input type="radio" id="Bank-Statement" value="introductory" name ="proof_of_address" [(ngModel)]= "proof_of_address" >
+                                                                            <label for ="Bank-Statement">Bank Statement bearing business entity address</label>
+                                                                        </div>
+                                                                    </div>
+                                                                <!-- <div class="col-md-6 funkyradio-success">
+                                                                        <div class="funkyradio-md">
+                                                                            <input type="radio" id="Recent Utility Bill" value="Recent Utility Bill" name ="proof_of_address" [(ngModel)]= "proof_of_address" >
+                                                                            <label for ="Recent Utility Bill">Recent Utility Bill (not older than 3 months)</label>
+                                                                        </div>
+                                                                    </div> -->
+
+
+                                                    </div>
+                                                    <div class="col-md-6 funkyradio-success" *ngIf="businessform == 'parastiatal'">
+                                                        
+                                                    </div>
+                                                  
+                                                   
+                                                    
+                                                   
+                                                    <div class="row">
+                                                        <!-- <div class="col-md-6">
+                                                                                            
+                                                           <p>Attach your Licence Image</p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                                                            
+                                                            <input type="file" class="uploadbtn"  (change)="onFileChanged($event)"/>
+                                                         
+                                                          
+                                                        </div> -->
+                                                        <input
+                                                        style="display: none"
+                                                        type="file" (change)="onFileChanged($event)"
+                                                        #fileInput>
+                                                        <button class="btn btn-outline-secondary sm" (click)="fileInput.click()"><img src="../../../assets/upload2.png" height="30px" width="30px"/> Attach License</button>
+                                                        <span style="margin-left:20px">{{filename}}</span>
+                                                    </div> 
+                                                                                            
+                                                    <div class="row">
+                                                        
+                                                            <div class="col-md-6">
+                                                    
+                                                                    <input type="submit" class="btnRegister"  value="Back" (click)="goback()"/>
+                                                                </div>
+                                                        <div class="col-md-6">
+                                                    
+                                                            <input type="submit" class="btnRegister"  value="Register" (click)=" CheckDoc()"/>
+                                                        </div>
+                                                        
+                                                      </div>
+                                                
+                                              
+                                            </div> 
+                                        </div>
+                        
+                     
+                         
+                    </div>
+                </div>
+
+            </div>
+
+
+            <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple"
+          >
+            <p style="font-size: 20px; color: white">Loading...</p>
+          </ngx-spinner>

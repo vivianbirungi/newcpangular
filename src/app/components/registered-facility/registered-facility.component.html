@@ -1,0 +1,58 @@
+<!-- <div class="container">
+<h3>Registered Facilities</h3>
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active" *ngFor="let facility of Facilities">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{facility.facilityName}}</h5>
+        <small>3 days left</small>
+      </div>
+      <p class="mb-1">{{facility.firstName}} {{facility.lastName}}</p>
+      <small>{{facility.location.road}} {{facility.location.town}} {{facility.location.district}} {{facility.location.country}}</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">List group item heading</h5>
+        <small class="text-muted">3 days ago</small>
+      </div>
+      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      <small class="text-muted">Donec id elit non mi porta.</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">List group item heading</h5>
+        <small class="text-muted">3 days ago</small>
+      </div>
+      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      <small class="text-muted">Donec id elit non mi porta.</small>
+    </a>
+  </div>
+</div> -->
+
+mat-elevation-z8
+
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
+
+  <ng-container matColumnDef="seqNo">
+      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+      <mat-cell *matCellDef="let lesson">{{lesson.seqNo}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell class="description-cell"
+                *matCellDef="let lesson">{{lesson.description}}</mat-cell>
+
+  </ng-container>
+
+  <ng-container matColumnDef="duration">
+      <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
+      <mat-cell class="duration-cell"
+                *matCellDef="let lesson">{{lesson.duration}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"  (click)="onRowClicked(row)"></mat-row>
+
+</mat-table>

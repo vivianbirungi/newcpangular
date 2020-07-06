@@ -1,0 +1,117 @@
+
+    
+    <header id="header">
+        <nav id="main-menu" class="navbar fixed-top navbar-expand-lg " role="banner" style="padding-right:  20px; padding-left:  20px; overflow: hidden;  background: transparent;">
+        <div class="clinicPesa-background"></div>
+        <div class="container">
+        <div class="navbar-header" >
+            <button style="color: #17a2b8" class="navbar-toggler navbar-toggler-right custom-toggler"  data-toggle="collapse" type="button" 
+            data-toggle="collapse" data-target="#collapsibleNavbar" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+            viewBox="0 0 30 30" role="img" focusable="false">
+            <title>Menu</title><path stroke="currentColor" stroke-linecap="round" 
+            stroke-miterlimit="10" stroke-width="1" d="M4 7h22M4 15h22M4 23h22">
+          </path>
+        </svg>
+        <span class="sr-only">Toggle navigation</span>
+
+      </button>
+
+   
+        <a class="navbar-brand" href="index.html" style="padding-top: -5%; padding-bottom: -5%;">
+            <img src="../../assets/logo.png" width="130" height="70" class="d-inline-block logo" alt="">
+      
+        </a>
+        </div>
+        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto " style="margin-right:80px">
+             <li class="nav-item">
+               <a class="nav-link active" href="#whyus">Why Us</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" routerLink="/register" >Sign Up</a>
+             </li>
+             <li class="nav-item">
+              <a class="nav-link" (click)="openModal(template)">Track Progress</a>
+            </li>
+             <li class="nav-item">
+               <a class="nav-link" href="#contactus">Contact Us</a>
+             </li>
+             <li class="nav-item">
+              <a class="nav-link" (click)="openModal(loginform)">Login</a>
+            </li>
+            </ul>
+        </div>  
+        </div>
+        
+        </nav>
+        
+        </header>
+        <button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+        <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        type="ball-scale-multiple"
+      >
+        <p style="font-size: 20px; color: white">Loading...</p>
+      </ngx-spinner>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Check Progress</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form >
+      <div class="input-group">
+
+      <input type="text" class="form-control" placeholder="Enter Tracking code" [(ngModel)]="trackingCode" name="trackingCode">
+      </div>
+      <br />
+      <button type="submit" value="sub" name="sub" class="btn btn-primary" (click)="facilityProggress()"><i class="fa fa-share"></i> Track Progress</button>
+</form>
+  </div>
+</ng-template>
+
+<ng-template #loginform>
+  <div class="modal-header">
+    <h6 class="modal-title pull-left">ADMIN LOGIN</h6>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+         <h5><i class="fa fa-lock" aria-hidden="true"></i> Login</h5>
+           
+            </div><br /><br />
+             
+            <form >
+                      <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                    </div>
+                    <input type="text" name="username" class="form-control" placeholder="username" [(ngModel)]="username" />
+                  </div><br />
+             
+                      <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-key icon"></i></span>
+                    </div>
+                      <input type="Password" name="password" class="form-control" placeholder="password" [(ngModel)]="password"/>
+                  </div><br />
+                <div class="checkbox">
+                  <!-- <label><input type="checkbox" value=""/> Remember me</label> -->
+                </div><br />
+                  <button  type="button" class="btn btn-success" (click)="login()" ><span class="glyphicon glyphicon-off"></span> Login</button>
+                </form>
+           
+                   <br /><br />
+           
+     
+      </div>
+  </div>
+</ng-template>
