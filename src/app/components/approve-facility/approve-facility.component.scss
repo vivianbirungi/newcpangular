@@ -1,15 +1,16 @@
 .body{
     .main{
+        width:98%;
         .btn{
                 margin-left: 50px;
                 margin-top: 60px;
         }
         margin-top: 60px;
         .left-side{
-         height: 100vh;
          .card{
             margin-top: 60px;
             margin-left: 50px;
+            box-shadow: 0 7px 13px rgba(0, 0, 0, 0.5);
 
          }
         }
@@ -19,8 +20,52 @@
                 margin-left: 200px;
                 margin-right: 50px;
                 margin-top: 60px;
+                box-shadow: 0 7px 13px rgba(0, 0, 0, 0.5);
 
             }
         }
     }
+    .btn-cp{
+        border-radius: 0 250px 0 250px;
+        color: #ffffff;
+        margin:auto;
+        margin-top:20px;
+        background: #00bcd4;
+        height:30px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .btn-cp-light{
+        background: transparent;
+        border:1px solid #00bcd4;
+        border-radius: 0 250px 0 250px;
+        justify-self: right;
+
+
+    }
+    .superAdmin{
+       
+        margin-left: 150px;
+       
+    }
+}
+.documentRow {
+    margin-bottom: 30px;
+}
+@media only screen and (max-width: 767px){
+    .right-side{
+       
+        .card{
+           
+            margin-right: 0 !important;
+            margin-left:20px !important;
+            margin-top:30px !important;
+        }
+    }
+    .superAdmin{
+       
+        margin-left: 0 !important;
+       
+    }
+
 }

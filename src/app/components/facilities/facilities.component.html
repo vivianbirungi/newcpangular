@@ -2,8 +2,29 @@
 
 <section class="body">
     <div class="row main">
-        <div class="col-2 left-side">
-          <div class="profile">
+        <div class="col-2 left-side">  
+          <div class="profile"> 
+            <div class="backbtn">
+                <button type="button" class="btn btn-cp" data-toggle="modal" data-target="#exampleModalCenter" >Back</button>
+            </div>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                     This action will log you out
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="logout()">Continue</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>   
             <div class="profilepic"></div>
             <div class="details text-center">
                 <span><b>Amanyire Betty</b></span><br/>
@@ -16,78 +37,19 @@
               <h5 class="text-center text-divider"><span>Field Officers</span></h5>
 
               <ul class="list-group">
-                    <li class="list-group-item">
+                    <li class="list-group-item" *ngFor='let officer of availableOfficers'>
                         <div class="media">
-                            <img src="..." class="mr-3" alt="...">
+                            <img src="../../../assets/pp.jpg" class="mr-3" alt="..." width="50px" height="50px">
                             <div class="media-body">
-                                <h6 class="mt-0">Media heading</h6>
-                                <span class="faint">Makindye</span><br/>
+                                <h6 class="mt-0">{{officer.firstName}} &nbsp;  {{officer.lastName}}</h6>
+                                <span class="faint">{{officer.Division}}</span><br/>
 
                                 <span class="faint">10 Facilities</span>
                                 
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item">
-                            <div class="media">
-                                <img src="..." class="mr-3" alt="...">
-                                <div class="media-body">
-                                    <h6 class="mt-0">Media heading</h6>
-                                <span class="faint">Makindye</span><br/>
-
-                                     <span class="faint">10 Facilities</span>
-                                    
-                                </div>
-                            </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="media">
-                            <img src="..." class="mr-3" alt="...">
-                            <div class="media-body">
-                                <h6 class="mt-0">Media heading</h6>
-                                <span class="faint">Makindye</span><br/>
-
-                                <span class="faint">10 Facilities</span>
-                                
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="media">
-                            <img src="..." class="mr-3" alt="...">
-                            <div class="media-body">
-                                <h6 class="mt-0">Media heading</h6>
-                                <span class="faint">Makindye</span><br/>
-
-                                <span class="faint">10 Facilities</span>
-                                
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="media">
-                            <img src="..." class="mr-3" alt="...">
-                            <div class="media-body">
-                                <h6 class="mt-0">Media heading</h6>
-                                <span class="faint">Makindye</span><br/>
-
-                                <span class="faint">10 Facilities</span>
-
-                                
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="media">
-                            <img src="..." class="mr-3" alt="...">
-                            <div class="media-body">
-                                <h6 class="mt-0">Media heading</h6>
-                                <span class="faint">Makindye</span><br/>
-
-                                <span class="faint">10 Facilities</span>
-                            </div>
-                        </div>
-                    </li>
+            
              </ul>
           </div>
         </div>
@@ -98,70 +60,244 @@
                             <div class="card text-center">
                                     <div class="card-body">
                                       <h5 class="card-title">Facility Request</h5>
-                                      <span class="card-number">30</span><br/>
-                                      <a href="#" class="card-link">View Details</a>
+                                      <span class="card-number">{{facilityRequest.length}}</span><br/>
+                                      <a class="card-link" (click)="view('request')">View Details</a>
                                     </div>
                             </div>
                      </div>
                      <div class="col-3">
                             <div class="card text-center">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">Facility Request</h5>
-                                    <span class="card-number">30</span><br/>
-                                    <a href="#" class="card-link">View Details</a>
+                                    <h5 class="card-title">Await Review</h5>
+                                    <span class="card-number">{{awaitReview.length}}</span><br/>
+                                    <a  class="card-link" (click)="view('awaitReviews')">View Details</a>
                                 </div>
                             </div>
                      </div>
                      <div class="col-3">
                             <div class="card text-center">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">Facility Request</h5>
-                                    <span class="card-number">30</span><br/>
-                                    <a href="#" class="card-link">View Details</a>
+                                    <h5 class="card-title">Under Review</h5>
+                                    <span class="card-number">{{underReview.length}}</span><br/>
+                                    <a class="card-link" (click)="view('underReviews')">View Details</a>
                                 </div>
                             </div>
                      </div>
                      <div class="col-3">
                             <div class="card text-center">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">Facility Request</h5>
-                                    <span class="card-number">30</span><br/>
-                                    <a href="#" class="card-link">View Details</a>
+                                    <h5 class="card-title">Approved</h5>
+                                    <span class="card-number">{{approved.length}}</span><br/>
+                                    <a  class="card-link" (click)="view('approvals')">View Details</a>
                                 </div>
                             </div>
                      </div>
                  </div>
-                 <div class="table">
+                 <div class="table" *ngIf="request">
                  <h3>Facility Requests</h3>
-
-                    <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
-
-                        <ng-container matColumnDef="seqNo">
-                            <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-                            <mat-cell *matCellDef="let lesson">{{lesson.seqNo}}</mat-cell>
-                        </ng-container>
-                      
-                        <ng-container matColumnDef="description">
-                            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-                            <mat-cell class="description-cell"
-                                      *matCellDef="let lesson">{{lesson.description}}</mat-cell>
-                      
-                        </ng-container>
-                      
-                        <ng-container matColumnDef="duration">
-                            <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
-                            <mat-cell class="duration-cell"
-                                      *matCellDef="let lesson">{{lesson.duration}}</mat-cell>
-                        </ng-container>
-                      
-                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                      
-                        <mat-row *matRowDef="let row; columns: displayedColumns"  (click)="onRowClicked(row)"></mat-row>
-                      
-                      </mat-table>
+                 <mat-table class="datatable" [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="facilityName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+                    </ng-container>
+          
+                    <ng-container matColumnDef="facilityType">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+                    </ng-container>
+          
+                    <ng-container matColumnDef="Code">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+                        <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+                    </ng-container>
+          
+                    <ng-container matColumnDef="Owner Name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+                    </ng-container>
+          
+                    <ng-container matColumnDef="State">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+                      <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > 
+                       <button >Received</button>
+                    </mat-cell>
+                  </ng-container>
+          
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+                </mat-table>
+                <mat-paginator #paginators
+                        [length]="facilityRequest.length"
+                        [pageIndex]="0"
+                        [pageSize]="5"
+                        [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
+                </mat-paginator>
+                   
                  </div>
+                 <div class="table" *ngIf="awaitReviews">
+                    <h3>Await Review</h3>
+   
+                    <mat-table class="datatable" [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="facilityName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="facilityType">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="Code">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+                            <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="Owner Name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="State">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+                          <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button>Review</button></mat-cell>
+                      </ng-container>
+              
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="review(row)"></mat-row>
+                    </mat-table>
+                    <mat-paginator #paginators
+                            [length]="awaitReview.length"
+                            [pageIndex]="0"
+                            [pageSize]="5"
+                            [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
+                    </mat-paginator>
+                       
+                    </div>
+                    <div class="table" *ngIf="underReviews">
+                        <h3>Under Review</h3>
+       
+                        <mat-table class="datatable" [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="facilityName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+                            </ng-container>
+                  
+                            <ng-container matColumnDef="facilityType">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+                            </ng-container>
+                  
+                            <ng-container matColumnDef="Code">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+                                <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+                            </ng-container>
+                  
+                            <ng-container matColumnDef="Owner Name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+                            </ng-container>
+                  
+                            <ng-container matColumnDef="State">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+                              <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > {{row.businessState }}</mat-cell>
+                          </ng-container>
+                  
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="reviewDocs(row)"></mat-row>
+                        </mat-table>
+                        <mat-paginator #paginators
+                                [length]="underReview.length"
+                                [pageIndex]="0"
+                                [pageSize]="5"
+                                [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
+                        </mat-paginator>
+                           
+                        </div>
+                        <div class="table" *ngIf="approvals">
+                            <h3>Approved</h3>
+           
+                            <mat-table class="datatable" [dataSource]="dataSource" matSort>
+                                <ng-container matColumnDef="facilityName">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+                                </ng-container>
+                      
+                                <ng-container matColumnDef="facilityType">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+                                </ng-container>
+                      
+                                <ng-container matColumnDef="Code">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+                                </ng-container>
+                      
+                                <ng-container matColumnDef="Owner Name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+                                </ng-container>
+                      
+                                <ng-container matColumnDef="State">
+                                  <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+                                  <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > {{row.businessState }}</mat-cell>
+                              </ng-container>
+                      
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+                            </mat-table>
+                            <mat-paginator #paginators
+                                    [length]="approved.length"
+                                    [pageIndex]="0"
+                                    [pageSize]="5"
+                                    [pageSizeOptions]="[ 5, 10,15,20, 25, 50, 75, 100]">
+                            </mat-paginator>
+                               
+                            </div>
+                            <div class="table" *ngIf="rejects">
+                                <h3>Rejected</h3>
+               
+                                <mat-table class="datatable" [dataSource]="dataSource" matSort>
+                                    <ng-container matColumnDef="facilityName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.facilityName}} </mat-cell>
+                                    </ng-container>
+                          
+                                    <ng-container matColumnDef="facilityType">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.facilityType}} </mat-cell>
+                                    </ng-container>
+                          
+                                    <ng-container matColumnDef="Code">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
+                                        <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
+                                    </ng-container>
+                          
+                                    <ng-container matColumnDef="Owner Name">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
+                                        <mat-cell *matCellDef="let row"> {{row.firstName }} {{row.lastName }} </mat-cell>
+                                    </ng-container>
+                          
+                                    <ng-container matColumnDef="State">
+                                      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+                                      <mat-cell *matCellDef="let row" style="text-align: center; padding-left: 50px"  > {{row.businessState }}</mat-cell>
+                                  </ng-container>
+                          
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+                                </mat-table>
+                                <mat-paginator #paginators
+                                        [length]="Rejected.length"
+                                        [pageIndex]="0"
+                                        [pageSize]="5"
+                                        [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
+                                </mat-paginator>
+                                   
+                                </div>
              </div>
         </div>
+       
+
     </div>
 
 </section>

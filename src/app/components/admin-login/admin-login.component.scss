@@ -1,12 +1,17 @@
 .body{
+  
     .banner{
         background: url(../../../assets/banner.png) center center no-repeat #6DB3F2;
-        height: 80vh;
+        height: 100vh;
         margin:0;
         // margin-top: 50px;
         width:100%;
         background-size: cover!important;
         position: relative;
+        .backbtn{
+          padding-top:90px;
+          padding-left:30px;
+        }
 }
 
 .banner::before{

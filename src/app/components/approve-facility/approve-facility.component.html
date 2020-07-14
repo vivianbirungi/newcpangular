@@ -1,110 +1,79 @@
 <app-header></app-header>
 <section class="body">
-    <div>
         <div class="row main" >  
-            <div class="col-2 left-side"
-            >
-<div>
-        <button type="button" class="btn btn-light">Light</button>
-
-</div>
-
+          <div class=" col-md-2 left-side">
+        <div>
+          <button type="button" class="btn btn-cp" data-toggle="modal" data-target="#exampleModalCenter" >Back</button>
+        </div> 
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        ...
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+        </div>
+        </div>
 <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Masaka Hospital</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Masaka Town</h6>
-          <p class="card-text">Tel: 0786878971</p>
+          <h5 class="card-title">{{businessdata.facilityName}} &nbsp; {{businessdata.facilityType}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{location.district}} &nbsp; {{location.town}}</h6>
+          <p class="card-text">Tel: {{businessdata.phone}} &nbsp;  0786878971</p>
         </div>
       </div>
             </div>
-            <div class="col-10 right-side">
-
-                <div>
+            <div class="col-md-10 right-side">
                         <div class="card" >
                                 <div class="card-header">
-                                  Featured
+                                  <b>Documents Validation</b>
                                 </div>
                                 <div class="card-body">
                                         <ul class="list-unstyled">
-                                                <li class="">
-                                                  <div class="row">
-                                                   <div class="col"><h5 class="mt-0 mb-1">Document3</h5></div>
+                                                <li class="" *ngFor="let document of businessdocuments">
+                                                  <div class="row documentRow">
+                                                   <div class="col"><p class="mt-0 mb-1">{{document.name}}</p></div>
                                                    <div class="col">
-                                                        <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                                                <label class="form-check-label" for="exampleRadios1">
-                                                                  Default radio
-                                                                </label>
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="inlineCheckbox1" [(ngModel)]="document.docState "  name="{{document.name}}" type="radio" value="VALID">
+                                                                <label class="form-check-label" for="inlineCheckbox1">Valid</label>
                                                         </div>
-                                                        <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                                                <label class="form-check-label" for="exampleRadios2">
-                                                                  Second default radio
-                                                                </label>
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input"  id="inlineCheckbox2"  [(ngModel)]="document.docState "  name="{{document.name}}" type="radio" value="INVALID">
+                                                                <label class="form-check-label" for="inlineCheckbox2">Invalid</label>
                                                         </div>
-                                                        <div class="form-group">
-                                                                <label for="exampleFormControlTextarea1">Reason</label>
-                                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                        <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="inlineCheckbox3" [(ngModel)]="document.docState "  name="{{document.name}}" type="radio" value="Missing">
+                                                                <label class="form-check-label" for="inlineCheckbox3">Missing</label>
+                                                        </div>
+                                                        <div class="form-group" *ngIf="document.docState === 'INVALID'">
+                                                                <label for="reason">If No why is it rejected</label>
+                                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="document.reason" name="reason"></textarea>
+                                                                <small id="emailHelp" class="form-text text-muted">It will be forwared to the user</small>
                                                         </div>
                                                              
                                                    </div> 
                                                   </div>
                                                 </li>
-                                                <li class="">
-                                                        <div class="row">
-                                                                <div class="col"><h5 class="mt-0 mb-1">Document3</h5></div>
-                                                                <div class="col">
-                                                                     <div class="form-check">
-                                                                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                                                             <label class="form-check-label" for="exampleRadios1">
-                                                                               Default radio
-                                                                             </label>
-                                                                     </div>
-                                                                     <div class="form-check">
-                                                                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                                                             <label class="form-check-label" for="exampleRadios2">
-                                                                               Second default radio
-                                                                             </label>
-                                                                     </div>
-                                                                     <div class="form-group">
-                                                                             <label for="exampleFormControlTextarea1">Reason</label>
-                                                                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                                                     </div>
-                                                                          
-                                                                </div> 
-                                                               </div>
-                                                </li>
-                                                <li class="">
-                                                        <div class="row">
-                                                                <div class="col-6"><h5 class="mt-0 mb-1">Document3</h5></div>
-                                                                <div class="col">
-                                                                     <div class="form-check">
-                                                                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                                                             <label class="form-check-label" for="exampleRadios1">
-                                                                               Default radio
-                                                                             </label>
-                                                                     </div>
-                                                                     <div class="form-check">
-                                                                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                                                             <label class="form-check-label" for="exampleRadios2">
-                                                                               Second default radio
-                                                                             </label>
-                                                                     </div>
-                                                                     <div class="form-group">
-                                                                             <label for="exampleFormControlTextarea1">Reason</label>
-                                                                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                                                     </div>
-                                                                          
-                                                                </div> 
-                                                               </div>
-                                                </li>
                                               </ul>
-                                  <a href="#" class="btn btn-primary">Preview</a>
+                                  <button  class="btn btn-cp" (click)="onSubmit()">Save</button>
                                 </div>
                               </div>
-                </div>
+                <div class=" superAdmin row" *ngIf="role == 'Admin' || role == 'SuperAdmin'">
+              <div class="col-xs-6 col-md-6"><button type="button" class="btn btn-cp btn-sm">Approve</button></div> 
+                <div class="col-xs-6 col-md-6" style="float:right"><button type="button" class="btn btn-cp-light btn-sm">Reject</button></div>
+               </div> 
                 
-                </div>
-        </div>
+                </div> 
+        
     </div>
 </section>

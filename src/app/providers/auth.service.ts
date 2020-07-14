@@ -60,4 +60,9 @@ toFormData<T>(formValue: T) {
 
     return formData;
 }
+getFieldOfficers(){
+  return this.http
+  .get(this.api_url +'v1/getFieldOfficers');
+
+}
 }

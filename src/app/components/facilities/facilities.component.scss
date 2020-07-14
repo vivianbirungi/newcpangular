@@ -63,10 +63,14 @@
     border-radius: 0 250px 0 250px;
     color: #ffffff;
     margin:auto;
+    background: #00bcd4;
     margin-top:20px;
     height:30px;
     padding-left: 20px;
     padding-right: 20px;
+}
+.backbtn{
+    margin-bottom:20px;
 }
 .faint{
     color:#cccc;
@@ -74,4 +78,7 @@
 .text-divider{margin: 2em 0; line-height: 0; text-align: center;}
 .text-divider span{background-color: #f5f5f5; padding: 0.3em;}
 .text-divider:before{ content: " "; display: block; border-top: 1px solid #e3e3e3; border-bottom: 1px solid #f7f7f7; margin-left: 5px}
+}
+.card-link{
+    cursor: pointer;
 }

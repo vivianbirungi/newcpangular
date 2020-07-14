@@ -40,4 +40,8 @@ export class TrackProgressService {
     return this.http
     .post(this.api_url  +  '/validateDocuments/'+regcode, documents, this.httpOptions);
   }
+  updateStatus(regcode, businessState){
+    return this.http
+    .post(this.api_url + '/updateStatus/'+regcode, businessState , this.httpOptions)
+  }
 }
