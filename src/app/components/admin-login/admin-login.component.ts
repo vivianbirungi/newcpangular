@@ -30,6 +30,8 @@ export class AdminLoginComponent implements OnInit {
       if (data.status){
         console.log(data);
         localStorage.setItem("role", data.message)
+        localStorage.setItem("usertype", data.message)
+
         this.AdminRole = data.message;
         this.router.navigate(["/facilities"])
       }

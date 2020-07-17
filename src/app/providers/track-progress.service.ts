@@ -44,4 +44,8 @@ export class TrackProgressService {
     return this.http
     .post(this.api_url + '/updateStatus/'+regcode, businessState , this.httpOptions)
   }
+  attachFieldOfficer(data){
+    return this.http
+    .post(this.api_url + '/attachFieldOfficer', data, this.httpOptions)
+  }
 }

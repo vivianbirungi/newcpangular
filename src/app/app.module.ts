@@ -20,8 +20,8 @@ import { RegisteredFacilityComponent } from './components/registered-facility/re
 import { SingleFacilityComponent } from './components/single-facility/single-facility.component';
 import { MatPaginatorModule, MatProgressSpinnerModule, 
   MatSortModule, MatTableModule, MatSnackBarModule , MatFormFieldModule, MatDatepickerModule,
-  MatNativeDateModule } from "@angular/material";
-  
+  MatNativeDateModule, MatTooltipModule } from "@angular/material";
+  import { TooltipModule } from 'ngx-bootstrap/tooltip';
   import {MatSelectModule} from '@angular/material/select';
 import { DataTableComponent } from './data-table/data-table.component';
 import { DaysPipe } from './pipes/days.pipe';
@@ -30,6 +30,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { FacilitiesComponent } from './components/facilities/facilities.component';
 import { ApproveFacilityComponent } from './components/approve-facility/approve-facility.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [
@@ -65,13 +66,16 @@ import { ApproveFacilityComponent } from './components/approve-facility/approve-
     MatNativeDateModule,
     MatProgressSpinnerModule,
     FormsModule,
+    AccordionModule.forRoot(),
     ReactiveFormsModule,
     MatSelectModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    MatTooltipModule,
     ModalModule.forRoot(),
     Ng4LoadingSpinnerModule.forRoot(),
     NgxSpinnerModule,
+    TooltipModule,
     MatSnackBarModule
     
   

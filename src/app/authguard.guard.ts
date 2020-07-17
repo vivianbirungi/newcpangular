@@ -15,7 +15,7 @@ export class AuthguardGuard implements CanActivate {
   //   return true;
   // }
   canActivate(): boolean {
-    if (localStorage.getItem(this.KEY) == "Admin" ) {
+    if (localStorage.getItem(this.KEY) == "Admin" || "superAdmin" ) {
          return true;
         } 
     else {

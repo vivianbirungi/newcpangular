@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TrackProgressService } from 'src/app/providers/track-progress.service';
 import { BackendService } from 'src/app/providers/backend.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import {MatPaginator} from '@angular/material/paginator';
 import { Router, NavigationExtras } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AuthService } from 'src/app/providers/auth.service';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-facilities',
@@ -13,10 +15,15 @@ import { MatTableDataSource, MatSnackBar } from '@angular/material';
   styleUrls: ['./facilities.component.scss']
 })
 export class FacilitiesComponent implements OnInit {
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  oneAtATime: boolean = true;
+  modalRef: BsModalRef;
   dataSource = new MatTableDataSource()
    displayedColumns = ['facilityName','facilityType', 'Code', 'Owner Name', 'State'];
   test;
   facilityRequest = [];
+  currentInfo;
+  facilitiesLacking=[];
   request = true;
   approvals= false;
   awaitReviews = false;
@@ -28,13 +35,26 @@ export class FacilitiesComponent implements OnInit {
   rejected =[];
   fieldOfficers ;
   availableOfficers;
-  constructor( private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { }
+  constructor( private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
+
+    
+  }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
     this.getFacilities();
     this.getFieldOfficers();
   //  this.dataSource.data = this.facilityRequest
 
+  }
+  
+  openModal(template: TemplateRef<any>, row, state) {
+    this.modalRef = this.modalService.show(template);
+    this.currentInfo = {
+      row : row,
+      state : state
+    }
+   
   }
   view(tablename){
     switch(tablename){
@@ -84,6 +104,18 @@ export class FacilitiesComponent implements OnInit {
     }
     console.log("what")
   }
+  changeState(){
+
+    if(this.currentInfo.state == 'request'){
+      this.onRowClicked(this.currentInfo.row);
+    }
+    else if(this.currentInfo.state  =='received'){
+     this.review(this.currentInfo.row);
+    }
+   
+    console.log(this.currentInfo);
+    
+  }
   getFacilities(){
     this._dataService.fetchFacilities().subscribe((data)=>{
       this.test = data;
@@ -100,6 +132,7 @@ export class FacilitiesComponent implements OnInit {
           this.facilityRequest.push(item)
           this.dataSource.data = this.facilityRequest;
           console.log(this.facilityRequest)
+         
 
           break;
        }
@@ -131,7 +164,11 @@ export class FacilitiesComponent implements OnInit {
           }
       })
       // console.log(this.test.data)
-      // console.log(this.test.data.length)
+      this.facilityRequest.map(data =>{
+        if(data.fieldOfficerID === ""){
+          this.facilitiesLacking.push(data)
+        }
+      })
     })
     
 
@@ -163,17 +200,18 @@ export class FacilitiesComponent implements OnInit {
     this.router.navigate(['/approveFacility'], navigationExtras)
   }
   onRowClicked(row) {
-    
+     console.log(row);
       let index: number = this.facilityRequest.findIndex(d => d === row);
-      console.log(index)
+      console.log('here', index)
       console.log(this.facilityRequest.findIndex(d => d === row));
       row.businessState = 'received'
       this.awaitReview.push(row)
       console.log(this.awaitReview)
       this.facilityRequest.splice(index,1)
       this.dataSource = new MatTableDataSource<Element>(this.facilityRequest);
-      let regcode = (row.nin).toString;
-      let businessState = 'await';
+      let regcode = (row.nin);
+      let businessState = {businessState:'await'};
+      console.log(regcode);
       this.updateStatus(regcode, businessState);
   }
   getFieldOfficers(){
@@ -205,8 +243,15 @@ export class FacilitiesComponent implements OnInit {
     this.router.navigate(['/data']);
   }
   logout(){
+    // clearing all data in the localstorage
     localStorage.clear
     this.router.navigate(['/']);
+  }
+  attachFieldOfficer(id, nin){ 
+     let data = {
+       fieldOfficerId: id,
+       regcode : nin
+     }
   }
 
 }
