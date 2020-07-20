@@ -120,7 +120,7 @@
                     <ng-container matColumnDef="State">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
                       <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px" (click)="openModal(template, row, 'request')"  > 
-                       <button >Received</button>
+                       <button class="btn-cp-outline">Received</button>
                     </mat-cell>
                   </ng-container>
           
@@ -161,7 +161,7 @@
               
                         <ng-container matColumnDef="State">
                           <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
-                          <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button>Review</button></mat-cell>
+                          <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button class="btn-cp-outline">Review</button></mat-cell>
                       </ng-container>
               
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -177,27 +177,27 @@
                     </div>
                     <div class="table" *ngIf="underReviews">
                         <h3>Under Review</h3>
-                        <table mat-table [dataSource]="dataSource">
+                        <!-- <table mat-table [dataSource]="dataSource">
 
-                            <!-- Position Column -->
+                           Position Column 
                             <ng-container matColumnDef="facilityName">
-                              <th mat-header-cell *matHeaderCellDef> Facility Name/th>
+                              <th mat-header-cell *matHeaderCellDef> Facility Name </th>
                               <td mat-cell *matCellDef="let element"> {{element?.facilityName}} </td>
                             </ng-container>
                         
-                            <!-- Name Column -->
+                          Name Column 
                             <ng-container matColumnDef="facilityType">
                               <th mat-header-cell *matHeaderCellDef>Type </th>
                               <td mat-cell *matCellDef="let element"> {{element?.facilityType}} </td>
                             </ng-container>
                         
-                            <!-- Weight Column -->
+                          Weight Column 
                             <ng-container matColumnDef="Code">
                               <th mat-header-cell *matHeaderCellDef> NIN </th>
                               <td mat-cell *matCellDef="let element"> {{element?.nin }} </td>
                             </ng-container>
                         
-                            <!-- Symbol Column -->
+                          Symbol Column 
                             <ng-container matColumnDef="Owner Name">
                               <th mat-header-cell *matHeaderCellDef> Owner Name </th>
                               <td mat-cell *matCellDef="let element"> {{element?.firstName }} {{element?.lastName }}</td>
@@ -211,8 +211,8 @@
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="reviewDocs(row)"></tr>
                            
                           </table>
-                          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-                        <!-- <mat-table class="datatable" [dataSource]="dataSource" matSort>
+                          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+                        <mat-table class="datatable" [dataSource]="dataSource" matSort>
                             <ng-container matColumnDef="facilityName">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
@@ -235,18 +235,18 @@
                   
                             <ng-container matColumnDef="State">
                               <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-                              <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > {{row?.businessState }}</mat-cell>
+                              <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button class="btn-cp-outline">{{row?.businessState }}</button></mat-cell>
                           </ng-container>
                   
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="reviewDocs(row)"></mat-row>
-                        </mat-table> -->
-                        <!-- <mat-paginator #paginators
+                        </mat-table> 
+                         <mat-paginator #paginators
                                 [length]="underReview.length"
                                 [pageIndex]="0"
                                 [pageSize]="5"
                                 [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
-                        </mat-paginator> -->
+                        </mat-paginator>
                            
                         </div>
                         <div class="table" *ngIf="approvals">
@@ -275,7 +275,7 @@
                       
                                 <ng-container matColumnDef="State">
                                   <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-                                  <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > {{row.businessState }}</mat-cell>
+                                  <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button class="btn-cp-outline">Create Account</button></mat-cell>
                               </ng-container>
                       
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
