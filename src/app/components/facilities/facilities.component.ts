@@ -29,6 +29,7 @@ export class FacilitiesComponent implements OnInit {
   awaitReviews = false;
   underReviews = false;
   rejects = false;
+  facilityAttached;
   awaitReview = [];
   underReview =[];
   approved =[];
@@ -99,12 +100,14 @@ export class FacilitiesComponent implements OnInit {
         this.underReviews = false;
         this.rejects = false;
         break;
-      }
+      }              
       
     }
     console.log("what")
   }
   changeState(){
+    // this.modalRef.hide;
+    // this.modalRef = this.modalService.show('template');
 
     if(this.currentInfo.state == 'request'){
       this.onRowClicked(this.currentInfo.row);
@@ -224,8 +227,11 @@ export class FacilitiesComponent implements OnInit {
     });
 
   }
-  updateStatus(regcode, businessState){
-    this._dataService.updateStatus(regcode, businessState).subscribe(data => {
+  updateStatus(regcode, state){
+    let datastate ={
+            businessState : state
+    }
+    this._dataService.updateStatus(regcode, datastate).subscribe(data => {
       if(data){
         // send a toast status updated
         this.openSnackBar("", "close");
@@ -247,11 +253,17 @@ export class FacilitiesComponent implements OnInit {
     localStorage.clear
     this.router.navigate(['/']);
   }
-  attachFieldOfficer(id, nin){ 
+  attachFieldOfficer(id){ 
      let data = {
-       fieldOfficerId: id,
-       regcode : nin
+       fieldOfficerID: id,
+       regcode : this.facilityAttached
      }
+     this.tracker.attachFieldOfficer(data).subscribe((data:any) =>{
+           console.log(data)
+    });
+    // console.log( data)
+
   }
+
 
 }
