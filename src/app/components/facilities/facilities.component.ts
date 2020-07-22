@@ -19,16 +19,18 @@ export class FacilitiesComponent implements OnInit {
   oneAtATime: boolean = true;
   modalRef: BsModalRef;
   dataSource = new MatTableDataSource()
-   displayedColumns = ['facilityName','facilityType', 'Code', 'Owner Name', 'State'];
+   displayedColumns = ['facilityName','facilityType', 'Code', 'Location', 'contact','State'];
   test;
   facilityRequest = [];
   currentInfo;
+  IsmodelShow= true;
   facilitiesLacking=[];
   request = true;
   approvals= false;
   awaitReviews = false;
   underReviews = false;
   rejects = false;
+  officerFacilities=[];
   facilityAttached;
   awaitReview = [];
   underReview =[];
@@ -37,16 +39,11 @@ export class FacilitiesComponent implements OnInit {
   fieldOfficers ;
   availableOfficers;
   constructor( private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
-
-    
   }
-
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.getFacilities();
     this.getFieldOfficers();
-  //  this.dataSource.data = this.facilityRequest
-
   }
   
   openModal(template: TemplateRef<any>, row, state) {
@@ -71,8 +68,6 @@ export class FacilitiesComponent implements OnInit {
       }
       case "awaitReviews":{
         this.dataSource.data = this.awaitReview
-        console.log(this.dataSource)
-
         this.request = false;
         this.approvals= false;
         this.awaitReviews = true;
@@ -92,51 +87,34 @@ export class FacilitiesComponent implements OnInit {
       }
       case "approvals":{
         this.dataSource.data = this.approved
-        console.log(this.dataSource)
-   
         this.request = false;
         this.approvals= true;
         this.awaitReviews = false;
         this.underReviews = false;
         this.rejects = false;
         break;
-      }              
-      
+      }               
     }
-    console.log("what")
   }
-  changeState(){
-    // this.modalRef.hide;
-    // this.modalRef = this.modalService.show('template');
-
+  changeState(template: TemplateRef<any>){  
+    this.modalRef.hide()
     if(this.currentInfo.state == 'request'){
       this.onRowClicked(this.currentInfo.row);
     }
     else if(this.currentInfo.state  =='received'){
      this.review(this.currentInfo.row);
-    }
-   
+    }   
     console.log(this.currentInfo);
-    
+ 
   }
   getFacilities(){
     this._dataService.fetchFacilities().subscribe((data)=>{
       this.test = data;
       this.test.data.map((item)=>{
-        // console.log(item.businessState)
-        // add a switch case;
-      //  if(item.businessState === ""){
-      //   //  this.getColor("nothing")
-      //    console.log("nothing")
-      //  }REQUEST, AWAIT, SUBMITTED, REJECTED, APPROVED, REVIEW,
       switch ((item.businessState)) {
         case "request": {
-          console.log("Excellent");
           this.facilityRequest.push(item)
           this.dataSource.data = this.facilityRequest;
-          console.log(this.facilityRequest)
-         
-
           break;
        }
        
@@ -166,7 +144,6 @@ export class FacilitiesComponent implements OnInit {
           }
           }
       })
-      // console.log(this.test.data)
       this.facilityRequest.map(data =>{
         if(data.fieldOfficerID === ""){
           this.facilitiesLacking.push(data)
@@ -189,7 +166,7 @@ export class FacilitiesComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Element>(this.awaitReview);
     let regcode = row.nin;
     console.log(regcode);
-      let businessState = 'review';
+      let businessState = {businessState:'review'};
       this.updateStatus(regcode, businessState);
 
   }
@@ -213,29 +190,25 @@ export class FacilitiesComponent implements OnInit {
       this.facilityRequest.splice(index,1)
       this.dataSource = new MatTableDataSource<Element>(this.facilityRequest);
       let regcode = (row.nin);
-      let businessState = {businessState:'await'};
+      let businessState = {businessState:'received'};
       console.log(regcode);
       this.updateStatus(regcode, businessState);
   }
   getFieldOfficers(){
     this.auth.getFieldOfficers().subscribe(data=>{
-      this.fieldOfficers = data
-      // console.log(this.fieldOfficers);
+      this.fieldOfficers = data;
       if(this.fieldOfficers.status){
         this.availableOfficers = this.fieldOfficers.data;
       }
     });
-
   }
-  updateStatus(regcode, state){
-    let datastate ={
-            businessState : state
-    }
-    this._dataService.updateStatus(regcode, datastate).subscribe(data => {
-      if(data){
-        // send a toast status updated
-        this.openSnackBar("", "close");
-        
+  updateStatus(regcode, state){ 
+    this._dataService.updateStatus(regcode, state).subscribe((data:any) => {
+      if(data.status){
+        this.openSnackBar(data.message, "close");   
+      }
+      else{
+        this.openSnackBar("Network Error", "close");
       }
     })
 
@@ -249,21 +222,40 @@ export class FacilitiesComponent implements OnInit {
     this.router.navigate(['/data']);
   }
   logout(){
-    // clearing all data in the localstorage
     localStorage.clear
     this.router.navigate(['/']);
   }
   attachFieldOfficer(id){ 
+    this.load()
      let data = {
        fieldOfficerID: id,
        regcode : this.facilityAttached
      }
      this.tracker.attachFieldOfficer(data).subscribe((data:any) =>{
-           console.log(data)
+          if(data.status){
+            this.openSnackBar(data.message, 'close')
+            this.officerFacilities.length++;
+          }
+         else{
+          this.openSnackBar('Connection Error', 'close')
+         }
     });
-    // console.log( data)
 
   }
+  getFacilityCount(id:string){  
+    this.officerFacilities = []
+    this.test.data.map(item=>{
+      if(item.fieldOfficerID === id){
+      this.officerFacilities.push(item)
+      console.log(this.officerFacilities)
+      }
+    })
+  }
 
-
+  load(){
+    this.spinner.show();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 5000);
+  }
 }

@@ -3,32 +3,14 @@
         <div class="row main" >  
           <div class=" col-md-2 left-side">
         <div>
-          <button type="button" class="btn btn-cp" data-toggle="modal" data-target="#exampleModalCenter" >Back</button>
+          <button type="button" class="btn btn-cp" (click)="goback()" >Back</button>
         </div> 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        ...
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-        </div>
-        </div>
+       
 <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">{{businessdata.facilityName}} &nbsp; {{businessdata.facilityType}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{location.district}} &nbsp; {{location.town}}</h6>
-          <p class="card-text">Tel: {{businessdata.phone}} &nbsp;  0786878971</p>
+          <h6 class="card-subtitle mb-2 text-muted">Location : {{location.district}} &nbsp; {{location.town}}</h6>
+          <p class="card-text text-muted">Tel: {{businessdata.phone}} &nbsp;  0786878971</p>
         </div>
       </div>
             </div>
@@ -68,7 +50,7 @@
                                   <button  class="btn btn-cp" (click)="onSubmit()">Save</button>
                                 </div>
                               </div>
-                <div class=" superAdmin row" *ngIf="role == 'Admin' || role == 'SuperAdmin'">
+                <div class=" superAdmin row" *ngIf=" role == 'SuperAdmin'">
               <div class="col-xs-6 col-md-6"><button type="button" class="btn btn-cp btn-sm">Approve</button></div> 
                 <div class="col-xs-6 col-md-6" style="float:right"><button type="button" class="btn btn-cp-light btn-sm">Reject</button></div>
                </div> 

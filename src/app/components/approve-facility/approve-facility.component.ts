@@ -101,4 +101,8 @@ export class ApproveFacilityComponent implements OnInit {
   logout(){
     
   }
+  approveFacility(){
+    // create the facility Account
+  }
+
 }
