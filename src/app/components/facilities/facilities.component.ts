@@ -7,6 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { Router, NavigationExtras } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AuthService } from 'src/app/providers/auth.service';
+import {FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { MatTableDataSource, MatSnackBar} from '@angular/material';
 
 @Component({
@@ -18,6 +19,7 @@ export class FacilitiesComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   oneAtATime: boolean = true;
   modalRef: BsModalRef;
+  fieldOfficerData : FormGroup;
   dataSource = new MatTableDataSource()
    displayedColumns = ['facilityName','facilityType', 'Code', 'Location', 'contact','State'];
   test;
@@ -38,11 +40,22 @@ export class FacilitiesComponent implements OnInit {
   rejected =[];
   fieldOfficers ;
   availableOfficers;
-  constructor( private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
+  Admin;
+  constructor(private builder: FormBuilder, private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
+    this.fieldOfficerData = this.builder.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.required,  Validators.pattern(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)]],
+      phone: ['', Validators.required],
+      division: ['', Validators.required],
+      role:['', Validators.required],
+      fieldOfficerID: ['', Validators.required]
+    });
   }
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.getFacilities();
+    this.Admin = JSON.parse(localStorage.getItem("Admin"))
     this.getFieldOfficers();
   }
   
@@ -53,6 +66,10 @@ export class FacilitiesComponent implements OnInit {
       state : state
     }
    
+  }
+  openModalField(template){
+    console.log("fieldofficer");
+    this.modalRef = this.modalService.show(template);
   }
   view(tablename){
     switch(tablename){
@@ -250,6 +267,27 @@ export class FacilitiesComponent implements OnInit {
       console.log(this.officerFacilities)
       }
     })
+  }
+  removeFieldOfficer(id){
+    this.auth.removeField(id).subscribe((data:any) =>{
+      if(data.status){
+        this.getFieldOfficers();
+        this.openSnackBar(data.message, 'close');
+      }
+      else{
+        this.openSnackBar(data.message, 'close');
+      }
+    })
+  }
+  addFieldOfficer(){
+      let FieldOfficer   = this.fieldOfficerData.value
+    console.log(FieldOfficer);
+    this.auth.addFieldOfficer(FieldOfficer).subscribe((data:any) =>{
+      if(data.status){
+
+      }
+    });
+
   }
 
   load(){

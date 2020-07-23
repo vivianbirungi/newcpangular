@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/providers/auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material';
 
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
 export class AdminLoginComponent implements OnInit {
   email
   password;
-  AdminRole;
+  Admin;
   constructor(private auth:AuthService, private router : Router,  private spinner: NgxSpinnerService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -29,21 +29,25 @@ export class AdminLoginComponent implements OnInit {
     this.auth.login(userCredentials).subscribe((data: any)=>{
       if (data.status){
         console.log(data);
-        localStorage.setItem("role", data.message)
-        localStorage.setItem("usertype", data.message)
-
-        this.AdminRole = data.message;
+        this.Admin = data.data;
+        let localData = this.Admin;
+        localData.password  = "";
+        localStorage.setItem("Admin", JSON.stringify(localData))
+        localStorage.setItem("role", this.Admin.role)
+        localStorage.setItem("usertype", this.Admin.role)   
         this.router.navigate(["/facilities"])
+
       }
-      else {
+      else if(!data.status ){
+        console.log(data.reason)
         // this.spinner.hide()
-        this.openSnackBar(data.message.message, "clear")
-        this.openSnackBar("Network", "clear")
+        this.openSnackBar("Wrong Password or Email", "clear")
+        // this.openSnackBar("Network", "clear")
       }
       if(!data){
         // this.spinner.hide()
-        this.openSnackBar("CONNECTION Error", "clear")
-        this.openSnackBar("Network", "clear")
+        this.openSnackBar("CONNECTION ERROR", "clear")
+        // this.openSnackBar("Network", "clear")
       }
     });
   }

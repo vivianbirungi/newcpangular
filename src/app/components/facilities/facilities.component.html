@@ -6,23 +6,30 @@
           <div class="profile"> 
             <div class="profilepic"></div>
             <div class="details text-center">
-                <span><b>Amanyire Betty</b></span><br/>
-                <span class="faint">Admin</span><br/>
-                <span class="faint">amanyire@cp.com</span><br/>
-                <button type="button" class="btn btn-info btn-cp">Edit</button>
+                <span><b>{{Admin.fullname}}</b></span><br/>
+                <span class="faint">{{Admin.role}}</span><br/>
+                <span class="faint">{{Admin.email}}</span><br/>
             </div>
           </div>
           <div class="fieldOfficers">
-              <h5 class="text-center text-divider"><span>Field Officers</span></h5>
+             
+              <h5 class="text-center text-divider">
+             <span>Field Officers</span> <button class="btn-clear"  data-placement="top" title="add facility" (click)="openModalField(fieldofficer)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
+
+              </h5>
               <accordion [closeOthers]="oneAtATime" >
                     <accordion-group *ngFor='let officer of availableOfficers; let i = index' (click)="getFacilityCount(officer.fieldOfficerID)" heading= '{{officer?.firstName}} &nbsp;  {{officer?.lastName}}'>
                             <div class="media">
                                     <img src="../../../assets/pp.jpg" class="mr-3" alt="..." width="50px" height="50px">
+
                                     <div class="media-body">
+                                        <button type="button" style="float:right" class="btn  btn-outline-info">Remove</button><br/>
                                         <h6 class="mt-0"> ID : {{officer.fieldOfficerID}}</h6>
                                         <span class="faint"> <b>Division</b> : {{officer?.Division}}</span><br/>
+                                        <span class="faint"> <b>Phone</b> : {{officer?.phone}}</span><br/>
                                         <span class="faint">{{officerFacilities?.length}} Facilities</span><br/>
                                         <button class="btn-clear"  data-placement="top" title="add facility" data-toggle="collapse" data-target="#demo"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
+
                                     </div>
                                 </div>
                                 <div id="demo" class="collapse">
@@ -327,5 +334,80 @@
     </div>
     </div>
    </ng-template>
+
+<ng-template #fieldofficer>
+
+
+<div class="container">
+<div class="card bg-light">
+<article class="card-body mx-auto" style="max-width: 400px;">
+	<h4 class="card-title mt-3 text-center">Create A Field Officer Account</h4>
+	<form [formGroup]="fieldOfficerData" (submit)="addFieldOfficer()">
+	<div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+        <input name="firstname" class="form-control" placeholder="First name" type="text" formControlName="firstname" [class.invalid] ="fieldOfficerData.controls.firstname.invalid" >
+        <input name="lastname" class="form-control" placeholder="Surname" type="text"  formControlName="lastname" [class.invalid] ="fieldOfficerData.controls.lastname.invalid" >        
+    </div> 
+    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.email.invalid">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+		 </div>
+        <input name="email" class="form-control" placeholder="Email address" type="email"  formControlName="email" >
+    </div>
+    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.phone.invalid">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+		
+    	<input name="phone" class="form-control" placeholder="Phone number" type="text"  formControlName="phone" >
+    </div> 
+    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.fieldOfficerID.invalid">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            </div>
+            
+            <input name="fieldOfficerID" class="form-control" placeholder="Field Officer ID" type="text"  formControlName="fieldOfficerID" >
+        </div>
+    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.division.invalid">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+		</div>
+		<select class="form-control"  name="division" formControlName="division" >
+			<option selected=""> Select Division</option>
+			<option value="Nakawa">Nakawa</option>
+			<option value="Makindye">Makindye</option>
+            <option value="Central">Central</option>
+			<option value="Lubaga">Lubaga</option>
+			<option value="Kawempe">Kawempe</option>
+            
+		</select>
+	</div> 
+    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.role.invalid">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+		</div>
+        <select class="form-control" name="role"  formControlName="role" >
+                <option selected=""> Select Field Officer's role</option>
+                <option value="leader">Division Leader</option>
+                <option value="fieldOfficer">Field Officer</option>
+        </select>
+    </div>
+                                     
+    <div class="form-group">
+        <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
+        <button type="submit" [disabled]="!fieldOfficerData.valid" class="btn btn-block btn-outline-info">Add Field Officer</button><br/>
+
+    </div>      
+                                                                  
+</form>
+</article>
+</div>
+
+</div> 
+</ng-template>
+<!--container end.//-->
+
     </div>
 </section>

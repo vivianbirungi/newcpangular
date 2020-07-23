@@ -22,22 +22,9 @@ export class AuthService {
      })
     
    };
-  //  this.headers = new HttpHeaders();
-  //  this.headers.append(
-  //    'Content-Type',
-  //    'application/x-www-form-urlencoded; charset=UTF-8'
-  //  );
-  //  this.headers.append('Accept', 'application/json');
-  
-
-  //   this.httpOptions = {
-  //   headers: this.headers }
   
  }
  
-   
-
-
    register(facility){
     return this.http
     .post(this.api_url  +  'v1/account/pre_registration', facility, );
@@ -48,7 +35,15 @@ export class AuthService {
     return this.http
     .get(this.api_url + 'v1/login/' + userCredentials.email +'/' + userCredentials.password)
   }
+  removeField(id){
+    return this.http
+    .get(this.api_url + 'v1/removeFieldOfficer/' + id )
+  }
 
+  addFieldOfficer(data){
+    return this.http
+    .post(this.api_url + 'v1/account/addFieldOfficer' ,data ,)
+  }
 
 toFormData<T>(formValue: T) {
     const formData = new FormData();
