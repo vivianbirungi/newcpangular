@@ -22,7 +22,7 @@ export class AdminLoginComponent implements OnInit {
   login(){
     this.load()
     let userCredentials = {
-      username: this.email,
+      email: this.email,
       password : this.password
     }
 

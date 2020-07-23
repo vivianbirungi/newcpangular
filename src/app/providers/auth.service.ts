@@ -46,7 +46,7 @@ export class AuthService {
 
   login(userCredentials){
     return this.http
-    .get(this.api_url + 'v1/login/' + userCredentials.username +'/' + userCredentials.password)
+    .get(this.api_url + 'v1/login/' + userCredentials.email +'/' + userCredentials.password)
   }
 
 
