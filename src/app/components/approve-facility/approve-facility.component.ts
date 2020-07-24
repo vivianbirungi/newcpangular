@@ -74,12 +74,12 @@ export class ApproveFacilityComponent implements OnInit {
    let documents = {
     facilityDocuments: this.businessdocuments,
     businessState: this.businessState
-  }
+   }
 
     console.log(documents)
     this.tracker.validDocuments(documents, this.businessdata.nin).subscribe((data :any) =>{
       if(data.status){
-        this.router.navigate(['/data']);
+        this.router.navigate(['/facilities']);
             
       }
       else{
@@ -96,7 +96,7 @@ export class ApproveFacilityComponent implements OnInit {
     });
   }
   goback(){
-    this.router.navigate(['/data']);
+    this.router.navigate(['/facilities']);
   }
   logout(){
     

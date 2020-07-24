@@ -72,6 +72,27 @@ export class FacilitiesComponent implements OnInit {
     console.log("fieldofficer");
     this.modalRef = this.modalService.show(template);
   }
+  applyFilter(filterValue: string, section) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  
+    if(section == 'request'){
+        this.dataSource.data = this.facilityRequest
+      this.dataSource.filter = filterValue;
+    }
+    else  if(section == 'awaitReviews'){
+      this.dataSource.data = this.awaitReview
+      this.dataSource.filter = filterValue;
+    }
+    else  if(section == 'underReviews'){
+      this.dataSource.data = this.underReview
+      this.dataSource.filter = filterValue;
+    }
+    else  if(section == 'approvals'){
+      this.dataSource.data = this.approved
+      this.dataSource.filter = filterValue;
+    }
+  }
   view(tablename){
     switch(tablename){
       case "request":{

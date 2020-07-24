@@ -130,6 +130,14 @@
     padding-right: 20px;
     }
 
+    ::ng-deep.mat-form-field-infix {
+        padding: 0.5em 0; 
+         border-top: 0 !important; 
+    }
+    ::ng-deep.mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 8px !important;
+    }
+
 .faint{
     color:rgba(107, 106, 106, 0.8);
 }
@@ -185,4 +193,7 @@
     left: -5px;
     width: 100%;
     z-index: -1029;
+}
+::ng-deep.mat-form-field-wrapper {
+     padding-bottom: 0; 
 }
