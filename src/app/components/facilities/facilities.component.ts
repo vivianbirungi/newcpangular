@@ -175,7 +175,7 @@ export class FacilitiesComponent implements OnInit {
           console.log(this.approved)
           break;
           }
-          case "review": {
+          case "review": case "reviewed" : case "pending": {
             console.log("REVIEW");
             this.underReview.push(item)
           console.log(this.underReview)

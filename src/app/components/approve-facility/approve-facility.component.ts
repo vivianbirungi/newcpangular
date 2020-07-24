@@ -54,15 +54,13 @@ export class ApproveFacilityComponent implements OnInit {
         x.reason = "missing"
       }
     });
-
-    
     console.log(this.businessdocuments)
    if (this.role == 'Admin'){
     if(this.businessdocuments.some((x: { reason: string; }) => x.reason != "")){
-      this.businessState = 'review';
+      this.businessState = 'pending';
     }
     else{
-      this.businessState ='pending'
+      this.businessState ='reviewed'
     }
    }
    else if(this.role =='superAdmin'){
@@ -99,7 +97,8 @@ export class ApproveFacilityComponent implements OnInit {
     this.router.navigate(['/facilities']);
   }
   logout(){
-    
+    localStorage.clear();
+    this.router.navigate(['/facilities']);
   }
   approveFacility(){
     // create the facility Account
