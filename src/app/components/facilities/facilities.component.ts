@@ -41,6 +41,7 @@ export class FacilitiesComponent implements OnInit {
   fieldOfficers ;
   availableOfficers;
   Admin;
+  searchText;
   constructor(private builder: FormBuilder, private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
     this.fieldOfficerData = this.builder.group({
       firstname: ['', Validators.required],
@@ -280,11 +281,19 @@ export class FacilitiesComponent implements OnInit {
     })
   }
   addFieldOfficer(){
-      let FieldOfficer   = this.fieldOfficerData.value
-    console.log(FieldOfficer);
-    this.auth.addFieldOfficer(FieldOfficer).subscribe((data:any) =>{
+      var FieldOfficer = new FormData()
+      let Data = this.fieldOfficerData.value;
+      for ( var key in Data ) {
+           FieldOfficer.append(key, Data[key]); 
+      }
+      this.auth.addFieldOfficer(FieldOfficer).subscribe((data:any) =>{
       if(data.status){
-
+        this.modalRef.hide()
+        this.fieldOfficerData.reset()
+        this.openSnackBar("Field Officer Added", 'close');
+      }
+      else{
+        this.openSnackBar("Failed to add Officer", 'close');
       }
     });
 

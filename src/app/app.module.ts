@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BackendService } from './providers/backend.service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -66,6 +67,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     MatNativeDateModule,
     MatProgressSpinnerModule,
     FormsModule,
+    Ng2SearchPipeModule,
     AccordionModule.forRoot(),
     ReactiveFormsModule,
     MatSelectModule,
