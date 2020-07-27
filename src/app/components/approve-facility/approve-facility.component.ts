@@ -70,7 +70,7 @@ export class ApproveFacilityComponent implements OnInit {
     console.log(f);
   
     this.businessdocuments.map((x:any) => {
-
+     console.log("here")
       if(x.docState == 'VALID'){
         x.reason = ""
       }
@@ -79,19 +79,11 @@ export class ApproveFacilityComponent implements OnInit {
       }
     });
     console.log(this.businessdocuments)
-   if (this.role == 'Admin'){
-    if(this.businessdocuments.some((x: { reason: string; }) => x.reason != "")){
-      this.businessState = 'pending';
-    }
-    else{
-      this.businessState ='reviewed'
-    }
-   }
-   else if(this.role =='superAdmin'){
-     console.log(this.businessState)
-      
-   }
+    console.log(this.role)
+    this.setBusinessState();
+
    
+     console.log(this.businessState)
    
    let documents = {
     facilityDocuments: this.businessdocuments,
@@ -111,6 +103,14 @@ export class ApproveFacilityComponent implements OnInit {
       });
    
     
+  }
+  setBusinessState(){
+    if(this.businessdocuments.some((x: { reason: string; }) => x.reason != "")){
+      this.businessState = 'pending';
+    }
+    else{
+      this.businessState ='reviewed'
+    }
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
