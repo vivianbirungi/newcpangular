@@ -68,13 +68,14 @@
                 <div class="navcard card">
                         <nav class="navbar navbar-light bg-light">
                                 <a class="navbar-brand"></a>
-                                
-                                  <button class="btn btn-outline my-2 my-sm-0" type="submit" (click)="goback()">Logout</button>
+                               
+                                  <button class="btn btn-outline "  (click)="logout()">Logout</button>
                               
                 </nav>
                </div>
              <div class="mainbody">
                     
+             
 
                  <div class="row tablerow">
                      <div class="col-3">
@@ -124,18 +125,10 @@
                                     </div>
                                    
                                    <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'request')">
-              
                                   </div>
-                                </div>
+                        </div>
                             
-                        <!-- <div style="float:right">
-                                <mat-form-field appearance="outline">
-                                <mat-label> <i matPrefix class="fa fa-search" style="padding-left: 10px"></i> Search</mat-label>   
-                                <input matInput   (keyup)="applyFilter($event.target.value , 'request')"> 
-                              </mat-form-field>
-                              <a (click)="logout()"><i matPrefix class="fa fa-sign-out" style="padding-left: 10px"></i> </a>
-                              
-                            </div> -->
+                      
                  <h3>Facility Requests</h3>
                 
                  <mat-table class="datatable" [dataSource]="dataSource" matSort>
@@ -181,14 +174,18 @@
                    
                  </div>
                  <div class="table" *ngIf="awaitReviews">
-                        <div style="float:right">
-                                <mat-form-field appearance="outline">
-                                <mat-label> <i matPrefix class="fa fa-search" style="padding-left: 10px"></i> Search</mat-label>   
-                                <input matInput   (keyup)="applyFilter($event.target.value , 'awaitReviews')"> 
-                              </mat-form-field>
-                              <a (click)="logout()"><i matPrefix class="fa fa-sign-out" style="padding-left: 10px"></i> </a>
-                              
+                    <div class="my-1" style='float:right'>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text"> <span class="material-icons">
+                                      search
+                                      </span></div>
                             </div>
+                           
+                           <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'awaitReviews')">
+      
+                        </div>
+                    </div>
                     <h3>Await Review</h3>
    
                     <mat-table class="datatable" [dataSource]="dataSource" matSort>
@@ -232,14 +229,18 @@
                        
                     </div>
                     <div class="table" *ngIf="underReviews">
-                            <div style="float:right">
-                                    <mat-form-field appearance="outline">
-                                    <mat-label> <i matPrefix class="fa fa-search" style="padding-left: 10px"></i> Search</mat-label>   
-                                    <input matInput   (keyup)="applyFilter($event.target.value , 'underReviews')"> 
-                                  </mat-form-field>
-                                  <a (click)="logout()"><i matPrefix class="fa fa-sign-out" style="padding-left: 10px"></i> </a>
-                                  
+                        <div class="my-1" style='float:right'>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text"> <span class="material-icons">
+                                          search
+                                          </span></div>
+                                </div>
+                               
+                               <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'underReviews')">
+          
                             </div>
+                        </div>
                         <h3>Under Review</h3>
                            <mat-table class="datatable" [dataSource]="dataSource" matSort>
                             <ng-container matColumnDef="facilityName">
@@ -282,17 +283,21 @@
                            
                         </div>
                         <div class="table" *ngIf="approvals">
-                                <div style="float:right">
-                                        <mat-form-field appearance="outline">
-                                        <mat-label> <i matPrefix class="fa fa-search" style="padding-left: 10px"></i> Search</mat-label>   
-                                        <input matInput   (keyup)="applyFilter($event.target.value , 'approvals')"> 
-                                      </mat-form-field>
-                                      <a (click)="logout()"><i matPrefix class="fa fa-sign-out" style="padding-left: 10px"></i> </a>
-                                      
+                            <div class="my-1" style='float:right'>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text"> <span class="material-icons">
+                                              search
+                                              </span></div>
+                                    </div>
+                                   
+                                   <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'approvals')">
+              
                                 </div>
+                            </div>
                             <h3>Approved</h3>
            
-                            <mat-table class="datatable" [dataSource]="dataSource" matSort style='margin-top:10px;'>
+                            <mat-table class="datatable" [dataSource]="dataSource" matSort >
                                 <ng-container matColumnDef="facilityName">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
                                     <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
@@ -333,6 +338,18 @@
                                
                             </div>
                             <div class="table" *ngIf="rejects">
+                                <div class="my-1" style='float:right'>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text"> <span class="material-icons">
+                                                  search
+                                                  </span></div>
+                                        </div>
+                                       
+                                       <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'rejects')">
+                  
+                                    </div>
+                                </div>
                                 <h3>Rejected</h3>
                
                                 <mat-table class="datatable" [dataSource]="dataSource" matSort>

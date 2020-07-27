@@ -4,7 +4,7 @@
         <nav id="main-menu" class="navbar fixed-top navbar-expand-lg " role="banner" style="padding-right:  20px; padding-left:  20px; overflow: hidden;  background: transparent;">
         <div class="clinicPesa-background"></div>
         <div class="container">
-        <div class="navbar-header" >
+        <div class="navbar-header" id='stickyMenu'  [ngClass]="{'sticky': sticky === true}">
             <button style="color: #17a2b8" class="navbar-toggler navbar-toggler-right custom-toggler"  data-toggle="collapse" type="button" 
             data-toggle="collapse" data-target="#collapsibleNavbar" >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 

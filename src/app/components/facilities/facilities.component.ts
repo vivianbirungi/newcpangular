@@ -258,10 +258,12 @@ export class FacilitiesComponent implements OnInit {
     });
   }
   goback(){
-    this.router.navigate(['/data']);
+    console.log("vivam")
+    // this.router.navigate(['/data']);
   }
   logout(){
-    localStorage.clear
+    console.log("vivian")
+    localStorage.clear();
     this.router.navigate(['/']);
   }
   attachFieldOfficer(id){ 

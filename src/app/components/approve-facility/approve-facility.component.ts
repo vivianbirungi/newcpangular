@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { TrackProgressService } from 'src/app/providers/track-progress.service';
@@ -17,6 +17,23 @@ export class ApproveFacilityComponent implements OnInit {
   documents;
   location;
   businessState: string;
+  @ViewChild('stickyMenu',{static: false}) stickyMenu: ElementRef;
+
+  sticky: boolean = false;
+  elementPosition: any;
+  @HostListener('window:scroll', ['$event'])
+  handleScroll(){
+    const windowScroll = window.pageYOffset;
+    if(windowScroll >= this.elementPosition){
+      this.sticky = true;
+      
+    } else {
+      this.sticky = false;
+      
+    }
+   
+  }
+  
   constructor( private _snackBar: MatSnackBar, private router: Router, public tracker: TrackProgressService) { 
 
     if (this.router.getCurrentNavigation().extras.state) {
@@ -38,9 +55,16 @@ export class ApproveFacilityComponent implements OnInit {
 
   }
   }
-
+  ngAfterViewInit(){
+    this.elementPosition = this.stickyMenu.nativeElement.offsetTop;
+    // console.log(this.stickyMenu.nativeElement)
+  }
   ngOnInit() {
     this.role = localStorage.getItem('role');
+  }
+  // for window scroll events
+  getYPosition(e: Event): number {
+    return (e.target as Element).scrollTop;
   }
   onSubmit(f: NgForm){
     console.log(f);
@@ -103,5 +127,6 @@ export class ApproveFacilityComponent implements OnInit {
   approveFacility(){
     // create the facility Account
   }
+
 
 }

@@ -1,11 +1,13 @@
-<app-header></app-header>
-<section class="body">
+<app-header  ></app-header>
+<!-- [ngClass]="{'sticky': sticky===true}" -->
+<section class="body" #stickyMenu >
+  <div class="sticky"  [ngStyle]="{'display':sticky === true ? 'block' : 'none' }"></div>
+
         <div class="row main" >  
           <div class=" col-md-2 left-side">
         <div>
           <button type="button" class="btn btn-cp" (click)="goback()" >Back</button>
         </div> 
-       
 <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">{{businessdata.facilityName}} &nbsp; {{businessdata.facilityType}}</h5>
