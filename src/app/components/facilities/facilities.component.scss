@@ -9,7 +9,6 @@
         .left-side{
            overflow-y: scroll;
            height:100%;
-           width: 30%;
            
        
         ::ng-deep .btn-link{
@@ -205,4 +204,29 @@
 }
 .datatable{
   margin-top: 30px;
+}
+.toggle{
+    display: none !important;
+}
+.close-button{
+    text-align:right;
+    width:100%;
+    display: none !important;
+}
+.rowtable{
+    display:none !important;
+}
+@media only screen and (max-width: 767px){
+    .toggle{
+        display: block !important;
+    }
+    .rowtable{
+        display:none !important;
+    }
+    .close-button{
+        display: block !important;
+    }
+    .stateCards{
+        margin-bottom: 20px;
+    }
 }

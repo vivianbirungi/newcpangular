@@ -9,7 +9,6 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AuthService } from 'src/app/providers/auth.service';
 import {FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { MatTableDataSource, MatSnackBar} from '@angular/material';
-
 @Component({
   selector: 'app-facilities',
   templateUrl: './facilities.component.html',

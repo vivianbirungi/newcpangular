@@ -1,9 +1,16 @@
 
 <section class="body">
-        
+    <div class="toggle"><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class=""><i class="fa fa-bars" aria-hidden="true"></i></span>
+    </button>  </div>
     <div class="row main">
-        <div class="col-3 left-side">  
-          <div class="profile"> 
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 left-side "  id="navbarSupportedContent"> 
+           <div  >
+           <div class="close-button"> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <div><span class=""><i class="fa fa-times" aria-hidden="true"></i></span></div> 
+            </button>
+            </div>
+         <div class="profile"> 
             <div class="profilepic">
                 <img src="../../../assets/pp.jpg" height="100px width= 100px"/>
             </div>
@@ -66,7 +73,8 @@
              
           </div>
         </div>
-        <div class="col-9 right-side">
+        </div>
+        <div class="col-md-9 col-sm-12 right-side">
                 <div class="navcard card">
                         <nav class="navbar navbar-light bg-light">
                                 <a class="navbar-brand"></a>
@@ -80,7 +88,7 @@
              
 
                  <div class="row tablerow">
-                     <div class="col-3">
+                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
                             <div class="card text-center">
                                     <div class="card-body">
                                       <h5 class="card-title">Facility Request</h5>
@@ -89,7 +97,7 @@
                                     </div>
                             </div>
                      </div>
-                     <div class="col-3">
+                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
                             <div class="card text-center">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">Await Review</h5>
@@ -98,7 +106,7 @@
                                 </div>
                             </div>
                      </div>
-                     <div class="col-3">
+                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
                             <div class="card text-center">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">Under Review</h5>
@@ -107,7 +115,7 @@
                                 </div>
                             </div>
                      </div>
-                     <div class="col-3">
+                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
                             <div class="card text-center">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">Approved</h5>
@@ -139,7 +147,7 @@
                         <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
                     </ng-container>
           
-                    <ng-container matColumnDef="facilityType">
+                    <ng-container matColumnDef="facilityType" class="rowtable">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row?.facilityType}} </mat-cell>
                     </ng-container>
