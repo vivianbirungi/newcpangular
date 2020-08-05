@@ -20,7 +20,28 @@
                 <span class="faint">{{Admin.email}}</span><br/>
             </div>
           </div>
-          <div class="fieldOfficers">
+          <div class="" *ngIf="userRole == 'superAdmin'">
+            <h5 class="text-center text-divider">
+                <span>Admin </span> <button class="btn-clear"  data-placement="top" title="add ADmin" (click)="openModalField(admin)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
+            </h5>
+
+            <div class="Adminlayout">
+                <div class="media">
+                    <img src="../../../assets/cpicon.png" class="mr-3" height="50px" width="50px" alt="...">
+                    <div class="media-body">
+                     Vivian <br/> Birungi
+                    </div>
+                  </div>
+                  <div class="adminInfo">
+                      <p><b>Email:</b> &nbsp; Vivian@cp.com</p> 
+                      <p><b>Phone:</b> &nbsp; +256788124523</p> 
+                      <p><b>Address:</b> &nbsp; plot 9 Seyaa kagugube</p> 
+                      <p><b>Resposibilities:</b> &nbsp; Review Documents</p> 
+                      <button style="float:right" class="btn btn-outline "  (click)="removeAdmin(6)">Remove</button>
+                  </div>
+            </div>
+            </div>
+          <div class="fieldOfficers" *ngIf="userRole !== 'superAdmin'">
              
               <h5 class="text-center text-divider">
              <span>Field Officers</span> <button class="btn-clear"  data-placement="top" title="add facility" (click)="openModalField(fieldofficer)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
@@ -282,7 +303,7 @@
                           </ng-container>
                   
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                            <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="reviewDocs(row)"></mat-row>
+                            <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="reviewDocs(row, state)"></mat-row>
                         </mat-table> 
                          <mat-paginator #paginators
                                 [length]="underReview.length"
@@ -493,6 +514,65 @@
 
 </div> 
 </ng-template>
+<ng-template #admin>
+
+
+    <div class="container">
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Create Admin  Account</h4>
+        <form [formGroup]="adminForm" (submit)="addAdmin()">
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input name="firstname" class="form-control" placeholder="First name" type="text" formControlName="firstname" [class.invalid] ="adminForm.controls.firstname.invalid" >
+            <input name="lastname" class="form-control" placeholder="Surname" type="text"  formControlName="lastname" [class.invalid] ="adminForm.controls.lastname.invalid" >        
+        </div> 
+        <div class="form-group input-group" [class.invalid] ="admin.controls.email.invalid">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+             </div>
+            <input name="email" class="form-control" placeholder="Email address" type="email"  formControlName="email" >
+        </div>
+        <div class="form-group input-group" [class.invalid] ="adminForm.controls.phone.invalid">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            </div>
+            
+            <input name="phone" class="form-control" placeholder="Phone number" type="text"  formControlName="phone" >
+        </div> 
+        <div class="form-group input-group" [class.invalid] ="admin.controls.fieldOfficerID.invalid">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                
+                <input name="adminID" class="form-control" placeholder="Admin ID" type="text"  formControlName="adminID" >
+            </div>
+       
+        <div class="form-group input-group" [class.invalid] ="adminForm.controls.role.invalid">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <select class="form-control" name="role"  formControlName="role" >
+                    <option selected=""> Select Account role</option>
+                    <option value="leader">Admin</option>
+                    <option value="fieldOfficer">Manager</option>
+            </select>
+        </div>
+                                         
+        <div class="form-group">
+            <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
+            <button type="submit" [disabled]="!adminForm.valid" class="btn btn-block btn-outline-info">Add Field Officer</button><br/>
+    
+        </div>      
+                                                                      
+    </form>
+    </article>
+    </div>
+    
+    </div> 
+    </ng-template>
 <!--container end.//-->
 
     </div>

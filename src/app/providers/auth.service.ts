@@ -39,6 +39,14 @@ export class AuthService {
     return this.http
     .get(this.api_url + 'v1/removeFieldOfficer/' + id )
   }
+  removeAdmin(id){
+    return this.http
+    .get(this.api_url + 'v1/removeAdmin/' + id )
+  }
+  addAdmin(data){
+    return this.http
+    .post(this.api_url + 'v1/account/addadmin' ,data ,)
+  }
 
   addFieldOfficer(data){
     return this.http
