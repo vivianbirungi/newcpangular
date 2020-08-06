@@ -222,6 +222,11 @@
 .adminInfo{
     padding-top: 20px;
 }
+.floatingbtn{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
 @media only screen and (max-width: 767px){
     .toggle{
         display: block !important;

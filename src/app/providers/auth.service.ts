@@ -45,7 +45,7 @@ export class AuthService {
   }
   addAdmin(data){
     return this.http
-    .post(this.api_url + 'v1/account/addadmin' ,data ,)
+    .post(this.api_url + 'v1/account/addAdmin' ,data ,)
   }
 
   addFieldOfficer(data){
@@ -68,4 +68,9 @@ getFieldOfficers(){
   .get(this.api_url +'v1/getFieldOfficers');
 
 }
+getAdmin(role){
+  return this.http
+  .get(this.api_url + 'v1/queryAdmin/' + role)
+}
+
 }

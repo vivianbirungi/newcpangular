@@ -31,6 +31,7 @@ export class FacilitiesComponent implements OnInit {
   awaitReviews = false;
   underReviews = false;
   rejects = false;
+  noAdmin = false;
   officerFacilities=[];
   facilityAttached;
   awaitReview = [];
@@ -42,7 +43,9 @@ export class FacilitiesComponent implements OnInit {
   Admin;
   searchText;
   userRole;
-  adminForm
+  adminForm;
+  admindata;
+  errormessage;
   constructor(private builder: FormBuilder, private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
     this.fieldOfficerData = this.builder.group({
       firstname: ['', Validators.required],
@@ -58,12 +61,13 @@ export class FacilitiesComponent implements OnInit {
       lastname: ['', Validators.required],
       email: ['', [Validators.required,  Validators.pattern(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)]],
       phone: ['', Validators.required],
-      adminID: ['', Validators.required]
+      adminId: ['', Validators.required]
     })
   }
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.getFacilities();
+    this.getAdmins("Admin")
     this.userRole = localStorage.getItem("role");
     console.log(this.userRole)
     this.Admin = JSON.parse(localStorage.getItem("Admin"))
@@ -238,7 +242,8 @@ export class FacilitiesComponent implements OnInit {
 
   }
   reviewDocs(row, state){
-    if(this.userRole == 'superAdmin' && state == 'review'){
+    console.log(state)
+    if(this.userRole == 'superAdmin' && row.businessState == 'review'){
       return null;
     }
     else{
@@ -335,14 +340,31 @@ export class FacilitiesComponent implements OnInit {
       }
     })
   }
-  getAdmins(){
+  getAdmins(role){
+     this.auth.getAdmin(role).subscribe((data:any)=>{
+       if(data.status){
+         this.admindata = data.data
+           if(this.admindata.adminId == null){
+             this.noAdmin = true;
+           }
+           else {
+            this.noAdmin = true;
 
+           }
+       }
+       else if(!data.status){
+        this.noAdmin = true;
+         this.errormessage = data.message
+       }
+     }) 
   }
-  removeAdmin(id){
-    console.log(id)
+  removeAdmin(){
+    let id = this.admindata.adminId
+    this.noAdmin = true;
+    console.log(this.admindata);
     this.auth.removeAdmin(id).subscribe((data:any) =>{
       if(data.status){
-        this.getAdmins();
+        console.log(data.message)
         this.openSnackBar(data.message, 'close');
       }
       else{
@@ -371,6 +393,8 @@ export class FacilitiesComponent implements OnInit {
 addAdmin(){
     var admin = new FormData()
     let Data = this.adminForm.value;
+    let fullname = this.adminForm.value.firstname + " " + this.adminForm.value.lastname
+    admin.append('fullname', fullname)
     if(this.userRole == 'superAdmin'){
       admin.append('role', 'admin')
     }
@@ -384,10 +408,11 @@ addAdmin(){
     if(data.status){
       this.modalRef.hide()
       this.adminForm.reset()
-      this.openSnackBar("Field Officer Added", 'close');
+      this.getAdmins("admin")
+      this.openSnackBar("Admin Added", 'close');
     }
     else{
-      this.openSnackBar("Failed to add Officer", 'close');
+      this.openSnackBar("Failed to add Admin", 'close');
     }
   });
 

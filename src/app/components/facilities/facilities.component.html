@@ -15,29 +15,31 @@
                 <img src="../../../assets/pp.jpg" height="100px width= 100px"/>
             </div>
             <div class="details text-center">
-                <span><b>{{Admin.fullname}}</b></span><br/>
-                <span class="faint">{{Admin.role}}</span><br/>
-                <span class="faint">{{Admin.email}}</span><br/>
+                <span><b>{{Admin?.fullname}}</b></span><br/>
+                <span class="faint">{{Admin?.role}}</span><br/>
+                <span class="faint">{{Admin?.email}}</span><br/>
             </div>
           </div>
           <div class="" *ngIf="userRole == 'superAdmin'">
             <h5 class="text-center text-divider">
                 <span>Admin </span> <button class="btn-clear"  data-placement="top" title="add ADmin" (click)="openModalField(admin)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
             </h5>
-
-            <div class="Adminlayout">
-                <div class="media">
+            <div *ngIf="noAdmin">
+                <h6 class="text-center">NO Admins add One</h6>
+            </div>
+            <div class="Adminlayout" *ngIf="!noAdmin">
+                
+                <div class="media" >
                     <img src="../../../assets/cpicon.png" class="mr-3" height="50px" width="50px" alt="...">
                     <div class="media-body">
-                     Vivian <br/> Birungi
+                     {{admindata?.fullname}}
                     </div>
                   </div>
                   <div class="adminInfo">
-                      <p><b>Email:</b> &nbsp; Vivian@cp.com</p> 
-                      <p><b>Phone:</b> &nbsp; +256788124523</p> 
-                      <p><b>Address:</b> &nbsp; plot 9 Seyaa kagugube</p> 
+                      <p><b>Email:</b> &nbsp; {{admindata?.email}}</p> 
+                      <p><b>Phone:</b> &nbsp; {{admindata?.phone}}</p> 
                       <p><b>Resposibilities:</b> &nbsp; Review Documents</p> 
-                      <button style="float:right" class="btn btn-outline "  (click)="removeAdmin(6)">Remove</button>
+                      <button style="float:right" class="btn btn-outline "  (click)="removeAdmin()">Remove</button>
                   </div>
             </div>
             </div>
@@ -186,8 +188,8 @@
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Contact </mat-header-cell>
                         <mat-cell *matCellDef="let row"> {{row?.phone }} {{row?.email}} </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="State">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+                    <ng-container    matColumnDef="State">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header >Action</mat-header-cell>
                       <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue;" (click)="openModal(template, row, 'request')"  > 
                        <button class="btn-cp-outline">Received</button>
                     </mat-cell>
@@ -366,7 +368,8 @@
                                     [pageSize]="5"
                                     [pageSizeOptions]="[ 5, 10,15,20, 25, 50, 75, 100]">
                             </mat-paginator>
-                               
+                            <button class="btn btn-outline floatingbtn"  (click)="logout()">Add Facility</button>
+                                
                             </div>
                             <div class="table" *ngIf="rejects">
                                 <div class="my-1" style='float:right'>
@@ -521,7 +524,45 @@
     <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 400px;">
         <h4 class="card-title mt-3 text-center">Create Admin  Account</h4>
-        <form [formGroup]="adminForm" (submit)="addAdmin()">
+        <!-- <form [formGroup]="adminForm" (submit)="addAdmin()"> -->
+        <!-- <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+             </div>
+            <input name="firstname" class="form-control" placeholder="First name" type="text" formControlName="firstname" [class.invalid] ="adminForm.controls.firstname.invalid" >
+            <input name="lastname"  [class.invalid] ="adminForm.controls.lastname.invalid" class="form-control" placeholder="Surname" type="text"  formControlName="lastname" >        
+        </div> 
+        <div class="form-group input-group" [class.invalid] ="admin.controls.email.invalid">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+             </div>
+            <input name="email" class="form-control" placeholder="Email address" type="email"  formControlName="email" >
+        </div> -->
+        <!-- <div class="form-group input-group" [class.invalid] ="adminForm.controls.phone.invalid">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            </div>
+            
+            <input name="phone" class="form-control" placeholder="Phone number" type="text"  formControlName="phone" >
+        </div> 
+        <div class="form-group input-group" [class.invalid] ="admin.controls.adminId.invalid">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                
+                <input name="adminID" class="form-control" placeholder="Admin ID" type="text"  formControlName="adminId" >
+            </div>
+       
+        
+                                         
+        <div class="form-group">
+          
+            <button type="submit" [disabled]="!adminForm.valid" class="btn btn-block btn-outline-info">Create Account</button><br/>
+    
+        </div>      
+                                                                      
+    </form> -->
+    <form [formGroup]="adminForm" (submit)="addAdmin()">
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -529,7 +570,7 @@
             <input name="firstname" class="form-control" placeholder="First name" type="text" formControlName="firstname" [class.invalid] ="adminForm.controls.firstname.invalid" >
             <input name="lastname" class="form-control" placeholder="Surname" type="text"  formControlName="lastname" [class.invalid] ="adminForm.controls.lastname.invalid" >        
         </div> 
-        <div class="form-group input-group" [class.invalid] ="admin.controls.email.invalid">
+        <div class="form-group input-group" [class.invalid] ="adminForm.controls.email.invalid">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
              </div>
@@ -542,28 +583,19 @@
             
             <input name="phone" class="form-control" placeholder="Phone number" type="text"  formControlName="phone" >
         </div> 
-        <div class="form-group input-group" [class.invalid] ="admin.controls.fieldOfficerID.invalid">
+        <div class="form-group input-group" [class.invalid] ="adminForm.controls.adminId.invalid">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
                 
-                <input name="adminID" class="form-control" placeholder="Admin ID" type="text"  formControlName="adminID" >
+                <input name="adminId" class="form-control" placeholder="Admin ID" type="text"  formControlName="adminId" >
             </div>
        
-        <div class="form-group input-group" [class.invalid] ="adminForm.controls.role.invalid">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-            </div>
-            <select class="form-control" name="role"  formControlName="role" >
-                    <option selected=""> Select Account role</option>
-                    <option value="leader">Admin</option>
-                    <option value="fieldOfficer">Manager</option>
-            </select>
-        </div>
+       
                                          
         <div class="form-group">
             <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
-            <button type="submit" [disabled]="!adminForm.valid" class="btn btn-block btn-outline-info">Add Field Officer</button><br/>
+            <button type="submit" [disabled]="!adminForm.valid" class="btn btn-block btn-outline-info">Add Admin</button><br/>
     
         </div>      
                                                                       
