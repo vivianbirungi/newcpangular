@@ -348,7 +348,7 @@ export class FacilitiesComponent implements OnInit {
              this.noAdmin = true;
            }
            else {
-            this.noAdmin = true;
+            this.noAdmin = false
 
            }
        }
