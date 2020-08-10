@@ -46,6 +46,7 @@ export class FacilitiesComponent implements OnInit {
   adminForm;
   admindata;
   errormessage;
+  junior
   constructor(private builder: FormBuilder, private auth: AuthService, private _snackBar: MatSnackBar, private router: Router,private _dataService: TrackProgressService,   private modalService: BsModalService, private spinner: NgxSpinnerService, private tracker: TrackProgressService, private myService: BackendService) { 
     this.fieldOfficerData = this.builder.group({
       firstname: ['', Validators.required],
@@ -67,8 +68,9 @@ export class FacilitiesComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.getFacilities();
-    this.getAdmins("Admin")
     this.userRole = localStorage.getItem("role");
+    this.junior = localStorage.getItem("junior")
+    this.getAdmins(this.junior)
     console.log(this.userRole)
     this.Admin = JSON.parse(localStorage.getItem("Admin"))
     this.getFieldOfficers();
@@ -395,12 +397,7 @@ addAdmin(){
     let Data = this.adminForm.value;
     let fullname = this.adminForm.value.firstname + " " + this.adminForm.value.lastname
     admin.append('fullname', fullname)
-    if(this.userRole == 'superAdmin'){
-      admin.append('role', 'admin')
-    }
-    else{
-      admin.append('role', 'manager')
-    }
+    admin.append('role', this.junior)
     for ( var key in Data ) {
          admin.append(key, Data[key]); 
     }

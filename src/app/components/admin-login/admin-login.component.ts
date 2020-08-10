@@ -34,7 +34,15 @@ export class AdminLoginComponent implements OnInit {
         localData.password  = "";
         localStorage.setItem("Admin", JSON.stringify(localData))
         localStorage.setItem("role", this.Admin.role)
-        localStorage.setItem("usertype", this.Admin.role)   
+        localStorage.setItem("usertype", this.Admin.role)
+        if(this.Admin.role === 'superAdmin'){
+        localStorage.setItem("junior", 'Admin')
+          
+        }else if(this.Admin.role === 'Admin'){
+          localStorage.setItem("junior", 'Manager')
+            
+        }
+
         this.router.navigate(["/facilities"])
 
       }

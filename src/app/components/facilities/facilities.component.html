@@ -20,7 +20,7 @@
                 <span class="faint">{{Admin?.email}}</span><br/>
             </div>
           </div>
-          <div class="" *ngIf="userRole == 'superAdmin'">
+          <div class="" *ngIf="userRole != 'Manager'">
             <h5 class="text-center text-divider">
                 <span>Admin </span> <button class="btn-clear"  data-placement="top" title="add ADmin" (click)="openModalField(admin)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
             </h5>
@@ -43,7 +43,7 @@
                   </div>
             </div>
             </div>
-          <div class="fieldOfficers" *ngIf="userRole !== 'superAdmin'">
+          <div class="fieldOfficers" *ngIf="userRole == 'Manager'">
              
               <h5 class="text-center text-divider">
              <span>Field Officers</span> <button class="btn-clear"  data-placement="top" title="add facility" (click)="openModalField(fieldofficer)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
