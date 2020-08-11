@@ -48,4 +48,8 @@ export class TrackProgressService {
     return this.http
     .post(this.api_url + '/attachFieldOfficer/'+ data.regcode, data, this.httpOptions)
   }
+  sendNotification(notificationdata, x){
+    return this.http
+    .post(this.api_url + 'notifyOfficer' + x, notificationdata, this.httpOptions)
+  }
 }

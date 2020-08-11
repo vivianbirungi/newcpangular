@@ -16,6 +16,7 @@ export class ApproveFacilityComponent implements OnInit {
   businessdocuments;
   documents;
   location;
+  invalidDocuments = []
   businessState: string;
   @ViewChild('stickyMenu',{static: false}) stickyMenu: ElementRef;
 
@@ -76,14 +77,18 @@ export class ApproveFacilityComponent implements OnInit {
       }
       else if (x.docState == 'MISSING') {
         x.reason = "missing"
+        this.invalidDocuments.push(x)
+      }
+      else if (x.docState == 'INVALID'){
+        this.invalidDocuments.push(x)
       }
     });
     console.log(this.businessdocuments)
     console.log(this.role)
     this.setBusinessState();
+    console.log(this.businessState)
+    console.log(this.invalidDocuments)
 
-   
-     console.log(this.businessState)
    
    let documents = {
     facilityDocuments: this.businessdocuments,
@@ -93,8 +98,7 @@ export class ApproveFacilityComponent implements OnInit {
     console.log(documents)
     this.tracker.validDocuments(documents, this.businessdata.nin).subscribe((data :any) =>{
       if(data.status){
-        this.router.navigate(['/facilities']);
-            
+        this.router.navigate(['/facilities']);       
       }
       else{
       this.openSnackBar(data.message, "close");
@@ -107,10 +111,18 @@ export class ApproveFacilityComponent implements OnInit {
   setBusinessState(){
     if(this.businessdocuments.some((x: { reason: string; }) => x.reason != "")){
       this.businessState = 'pending';
+      // this.notifyFieldOfficer(id , x, trackingCode)
     }
     else{
       this.businessState ='reviewed'
     }
+  }
+  notifyFieldOfficer(fieldOfficerid , x, trackingCode){
+        let notificationdata = [{documents: x},
+                  {trackinCode:trackingCode}]
+        this.tracker.sendNotification(notificationdata, x).subscribe((data :any) =>{
+
+        });
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
