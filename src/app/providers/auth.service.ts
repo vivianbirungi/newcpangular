@@ -72,5 +72,8 @@ getAdmin(role){
   return this.http
   .get(this.api_url + 'v1/queryAdmin/' + role)
 }
-
+transferDivision(transfer){
+  return this.http
+  .post(this.api_url +'v1/account/transferFieldOfficer ', transfer)
+}
 }

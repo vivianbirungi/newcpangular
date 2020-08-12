@@ -39,7 +39,7 @@
                       <p><b>Email:</b> &nbsp; {{admindata?.email}}</p> 
                       <p><b>Phone:</b> &nbsp; {{admindata?.phone}}</p> 
                       <p><b>Resposibilities:</b> &nbsp; Review Documents</p> 
-                      <button style="float:right" class="btn btn-outline "  (click)="removeAdmin()">Remove</button>
+                      <button style="float:right" class="btn btn-outline  btn-sm"  (click)="removeAdmin()">Remove</button>
                   </div>
             </div>
             </div>
@@ -62,28 +62,29 @@
                     </div>
                   </div>
               
-              <accordion [closeOthers]="oneAtATime" >
-                    <accordion-group *ngFor='let officer of availableOfficers | filter:searchText ; let i = index ' (click)="getFacilityCount(officer.fieldOfficerID)" heading= '{{officer?.firstName}} &nbsp;  {{officer?.lastName}}'>
+              <accordion [closeOthers]="oneAtATime">
+                    <accordion-group *ngFor='let officer of availableOfficers | filter:searchText ; let i = index ' (click)="getFacilityCount(officer.fieldOfficerID); queryFacilities(officer.Division)" heading= '{{officer?.firstName}} &nbsp;  {{officer?.lastName}}'>
                             <div class="media">
-                                    <img src="../../../assets/pp.jpg" class="mr-3" alt="..." width="50px" height="50px">
+                                    <img src="../../../assets/pp.jpg" class="mr-3" alt="..." width="30px" height="30px">
 
                                     <div class="media-body">
-                                        <button type="button" style="float:right" class="btn  btn-outline-info">Remove</button><br/>
+                                        <button style="float:right" *ngIf="officer.transfer == ''" class="btn btn-outline  btn-sm"  (click)="transferFieldofficer(officer.fieldOfficerID, division)">Transfer</button>
                                         <h6 class="mt-0"> ID : {{officer.fieldOfficerID}}</h6>
-                                        <span class="faint"> <b>Division</b> : {{officer?.Division}}</span><br/>
+                                        <span class="faint"> <b>Division</b> : {{officer?.Division}} , {{officer?.transfer}}</span><br/>
                                         <span class="faint"> <b>Phone</b> : {{officer?.phone}}</span><br/>
-                                        <span class="faint">{{officerFacilities?.length}} Facilities</span><br/>
-                                        <button class="btn-clear"  data-placement="top" title="add facility" data-toggle="collapse" data-target="#demo"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
+                                        <span class="faint"  data-toggle="tooltip" data-html="true" title="<ul *ngFor='let facility of officerFacilities '><li>{{facility?.facilityName}}</li></ul>">{{officerFacilities?.length}} Facilities</span><br/>
+                                        <button class="btn-clear"  data-placement="top" title="add facility" data-toggle="collapse" data-target="#demo" ><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
+                                        <button type="button" style="float:right" class="btn  btn-outline-info btn-sm">Remove</button><br/>
 
                                     </div>
                                 </div>
                                 <div id="demo" class="collapse">
                                     <form>       
                                         <div class="attachField">
-                                       
-                                            <select class="custom-select" id="validationCustom04" required name="facilityAttached" [(ngModel)]="facilityAttached">
+                                           
+                                            <select class="custom-select" id="validationCustom04" required name="facilityAttached" [(ngModel)]="facilityAttached" >
                                                 <option selected disabled value="">Choose....</option>
-                                                <option *ngFor="let fac of facilitiesLacking" value="{{fac.nin}}" >{{fac?.nin}} &nbsp;{{fac?.facilityName}}</option>
+                                                <option *ngFor="let fac of queryFacilityData" value="{{fac.nin}}" >{{fac?.nin}} &nbsp;{{fac?.facilityName}}</option>
                                             </select>
                                             <div class="invalid-feedback">  </div>
                                         </div>   
@@ -251,7 +252,7 @@
                       </ng-container>
               
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="review(row)"></mat-row>
+                        <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="openModal(template, row, 'await')"></mat-row>
                     </mat-table>
                     <mat-paginator 
                             [length]="awaitReview.length"
@@ -413,7 +414,7 @@
                                   </ng-container>
                           
                                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                    <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+                                    <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="createAcount(row)"></mat-row>
                                 </mat-table>
                                 <mat-paginator #paginators
                                         [length]="Rejected.length"
@@ -444,7 +445,34 @@
     </div>
     </div>
    </ng-template>
-
+   <ng-template #division >
+    <div class="modal-header">
+    <h4 class="modal-title pull-left">Transfer Field officer </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <div>
+  
+    <div class="btn-inline" aria-label="Basic example">
+        <select class="form-control"  name="transferDivision" [(ngModel)]="transferDivision" >
+			<option selected=""> Select Division</option>
+			<option value="Nakawa">Nakawa</option>
+			<option value="Makindye">Makindye</option>
+            <option value="Central">Central</option>
+			<option value="Lubaga">Rubaga</option>
+			<option value="Kawempe">Kawempe</option>
+            
+        </select>
+       
+    </div>
+    <div  style="justify-content: center; align-items: center; display: flex; width: 90%">
+        <Button class=" btn btn-cp-outline btn-sm "  (click)="saveTransfer(); modalRef.hide()">Transfer</Button>
+    </div>
+    </div>
+    </div>
+   </ng-template>
 <ng-template #fieldofficer>
 
 

@@ -38,11 +38,17 @@ export class FacilitiesComponent implements OnInit {
   underReview =[];
   approved =[];
   rejected =[];
+   transfer ={
+    id: "",
+    division: ""
+  }
   fieldOfficers ;
   availableOfficers;
+  queryFacilityData=[]
   Admin;
   searchText;
   userRole;
+  transferDivision;
   adminForm;
   admindata;
   errormessage;
@@ -78,29 +84,51 @@ export class FacilitiesComponent implements OnInit {
   
   openModal(template: TemplateRef<any>, row, state) {
     console.log(state);
-    if(state == 'request' ){
-      if( this.userRole == 'superAdmin' || 'Admin'){
+    console.log(this.userRole)
+    if(state === 'request' ){
+
+      if( this.userRole === 'superAdmin' || this.userRole === 'Admin'){
+      console.log('here')
+
       return null;
-    }}
-    if(state =='await'){
-      if( this.userRole == 'superAdmin'){
-        return null;
-
-      }
-    }
-    if(state =='review'){
-      if( this.userRole == 'superAdmin'){
-        return null;
-
-      }
     }
     else{
-    this.modalRef = this.modalService.show(template);
-    this.currentInfo = {
-      row : row,
-      state : state
+      console.log('here')
+
+      this.modalRef = this.modalService.show(template);
+      this.currentInfo = {
+        row : row,
+        state : state
+      }
     }
   }
+    else if(state =='await'){
+      if( this.userRole === 'superAdmin' || this.userRole === 'Manager'){
+        console.log("am here")
+        return null;
+      }
+      else{
+        this.modalRef = this.modalService.show(template);
+        this.currentInfo = {
+          row : row,
+          state : state
+        }
+      }
+    }
+    else if(state =='review'){
+      if( this.userRole !== 'Admin'){
+        return null;
+
+      }
+      else{
+        this.modalRef = this.modalService.show(template);
+        this.currentInfo = {
+          row : row,
+          state : state
+        }
+      }
+    }
+    
   }
   openModalField(template){
     console.log("fieldofficer");
@@ -226,10 +254,21 @@ export class FacilitiesComponent implements OnInit {
     
 
   }
+  queryFacilities(division){
+    this.queryFacilityData = []
+
+    console.log(division)
+    this.facilitiesLacking.map((data)=>{
+      // console.log("first",data)
+      if(division.toUpperCase() == (data.location2.division).toUpperCase()){
+            this.queryFacilityData.push(data)
+      }
+    })
+  }
   review(row){
     // modal to check if its yes or not sure(mistake)
     let index: number = this.awaitReview.findIndex(d => d === row);
-    console.log(index)
+    console.log(row)
 
     console.log(this.awaitReview.findIndex(d => d === row));
     row.businessState = 'received'
@@ -245,7 +284,8 @@ export class FacilitiesComponent implements OnInit {
   }
   reviewDocs(row, state){
     console.log(state)
-    if(this.userRole == 'superAdmin' && row.businessState == 'review'){
+   
+    if(this.userRole === 'Manager' || (this.userRole == 'superAdmin' && row.businessState == 'review')){
       return null;
     }
     else{
@@ -272,9 +312,18 @@ export class FacilitiesComponent implements OnInit {
       console.log(regcode);
       this.updateStatus(regcode, businessState);
   }
+  createAcount(state){
+      if(this.userRole !== 'superAdmin'){
+        return null
+      }
+      else{
+        console.log("created user")
+      }
+  }
   getFieldOfficers(){
     this.auth.getFieldOfficers().subscribe(data=>{
       this.fieldOfficers = data;
+      console.log(this.fieldOfficers)
       if(this.fieldOfficers.status){
         this.availableOfficers = this.fieldOfficers.data;
       }
@@ -289,7 +338,28 @@ export class FacilitiesComponent implements OnInit {
         this.openSnackBar("Network Error", "close");
       }
     })
+   
+  }
+  transferFieldofficer(fieldOfficerID, template){
+   
+      console.log()
+      this.modalRef = this.modalService.show(template);
+     this.transfer.id = fieldOfficerID;
+      
+  }
+  saveTransfer(){
+    console.log(this.transferDivision)
+    this.transfer.division = this.transferDivision
+    console.log(this.transfer)
+    this.auth.transferDivision(this.transfer).subscribe((data:any)=>{
+      if(data.status){
+        this.openSnackBar(data.message, "clear")
+      }
+      else{
+        this.openSnackBar("Network Error", "clear")
 
+      }
+    })
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -324,10 +394,11 @@ export class FacilitiesComponent implements OnInit {
   }
   getFacilityCount(id:string){  
     this.officerFacilities = []
+
     this.test.data.map(item=>{
       if(item.fieldOfficerID === id){
       this.officerFacilities.push(item)
-      console.log(this.officerFacilities)
+
       }
     })
   }
