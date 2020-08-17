@@ -12,8 +12,9 @@ import { AuthguardGuard} from './authguard.guard'
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { FacilitiesComponent } from './components/facilities/facilities.component';
 import { ApproveFacilityComponent } from './components/approve-facility/approve-facility.component';
+import { FieldOfficerComponent } from './components/field-officer/field-officer.component';
 const routes: Routes = [{path: 'welcome', component: WelcomeComponent}, {path:'register', component: RegisterComponent}, {path: 'login', component: LandingPageComponent},{path: '', component: AdminLoginComponent},{path: 'facilities', component: FacilitiesComponent, canActivate: [AuthguardGuard]},{path :'approveFacility', component:ApproveFacilityComponent},
-{path: 'tracker', component: TrackerComponent}, {path: 'regfacilities', component: RegisteredFacilityComponent}, {path: 'singlefacility', component: SingleFacilityComponent, canActivate: [AuthguardGuard]}, 
+{path: 'tracker', component: TrackerComponent}, {path: 'fieldOfficer', component : FieldOfficerComponent}, {path: 'regfacilities', component: RegisteredFacilityComponent}, {path: 'singlefacility', component: SingleFacilityComponent, canActivate: [AuthguardGuard]}, 
 {path: 'data', component : DataTableComponent,  canActivate: [AuthguardGuard] }];
 
 @NgModule({

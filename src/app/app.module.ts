@@ -20,10 +20,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { RegisteredFacilityComponent } from './components/registered-facility/registered-facility.component';
 import { SingleFacilityComponent } from './components/single-facility/single-facility.component';
 import { MatPaginatorModule, MatProgressSpinnerModule, 
-  MatSortModule, MatTableModule, MatSnackBarModule , MatFormFieldModule, MatDatepickerModule,
+  MatSortModule, MatTableModule, MatSnackBarModule , MatIconModule, MatFormFieldModule,MatListModule, MatDatepickerModule,
   MatNativeDateModule, MatTooltipModule } from "@angular/material";
   import { TooltipModule } from 'ngx-bootstrap/tooltip';
   import {MatSelectModule} from '@angular/material/select';
+
 import { DataTableComponent } from './data-table/data-table.component';
 import { DaysPipe } from './pipes/days.pipe';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
@@ -32,6 +33,7 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { FacilitiesComponent } from './components/facilities/facilities.component';
 import { ApproveFacilityComponent } from './components/approve-facility/approve-facility.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { FieldOfficerComponent } from './components/field-officer/field-officer.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     AdminLoginComponent,
     FacilitiesComponent,
     ApproveFacilityComponent,
+    FieldOfficerComponent,
   
  
    
@@ -61,10 +64,12 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
+    MatIconModule,
     MatSortModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatListModule,
     MatProgressSpinnerModule,
     FormsModule,
     Ng2SearchPipeModule,

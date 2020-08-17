@@ -52,4 +52,12 @@ export class TrackProgressService {
     return this.http
     .post(this.api_url + 'notifyOfficer' + x, notificationdata, this.httpOptions)
   }
+  getFieldOfficerFacilities(id){
+    return this.http
+    .get(this.api_url + '/fetchofficerfacilities' +id)
+  }
+  getNotification(id){
+    return this.http
+    .get(this.api_url +'' + id)
+  }
 }
