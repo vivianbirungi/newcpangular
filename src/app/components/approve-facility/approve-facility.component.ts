@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, ComponentFactoryResolver } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { TrackProgressService } from 'src/app/providers/track-progress.service';
@@ -95,14 +95,15 @@ export class ApproveFacilityComponent implements OnInit {
     businessState: this.businessState
    }
 
-    console.log(documents)
+    // console.log(documents)
     this.tracker.validDocuments(documents, this.businessdata.nin).subscribe((data :any) =>{
       if(data.status){
-        this.router.navigate(['/facilities']);       
+        // this.router.navigate(['/facilities']); 
+        this.notifyFieldOfficer(documents)      
       }
       else{
       this.openSnackBar(data.message, "close");
-      this.goback();
+      // this.goback();
       }
       });
    
@@ -117,12 +118,25 @@ export class ApproveFacilityComponent implements OnInit {
       this.businessState ='reviewed'
     }
   }
-  notifyFieldOfficer(fieldOfficerid , x, trackingCode){
-        let notificationdata = [{documents: x},
-                  {trackinCode:trackingCode}]
-        this.tracker.sendNotification(notificationdata, x).subscribe((data :any) =>{
+  notifyFieldOfficer(document){
+    console.log(document)
+    if(document.businessState == 'pending'){
+      console.log(this.businessdata)
+      let notificationdata = [{documents:this.invalidDocuments},
+        {trackinCode:this.businessdata.nin}]
+   this.tracker.sendNotification(notificationdata, this.businessdata.fieldOfficerID).subscribe((data :any) =>{
 
-        });
+});
+    }
+    else{
+      console.log("not again")
+      let notificationdata = [{documents:document.facilityDocuments},
+        {trackinCode:this.businessdata.nin}]
+   this.tracker.sendNotification(notificationdata, this.businessdata.fieldOfficerID).subscribe((data :any) =>{
+
+});
+    }
+       
   }
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {

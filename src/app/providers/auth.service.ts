@@ -30,6 +30,10 @@ export class AuthService {
     .post(this.api_url  +  'v1/account/pre_registration', facility, );
   }
   
+  getUser(id){
+    return this.http
+    .get(this.api_url + 'v1/getFieldOfficer/' + id);
+  }
 
   login(userCredentials){
     return this.http

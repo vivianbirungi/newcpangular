@@ -5,11 +5,11 @@
             <div class="media-body" style="flex:4">
               <div class="row">
                   <div class="col-md-8">
-                    <h5 class="mt-0">Catherine Wassen</h5>
-                    <small style="color:#ccc">Makindye Division </small><br/>
-                    <span>cathy@cp.com</span><br/>
-                    <span>+256788136613</span><br/>
-                    <span>20205cp</span><br/>
+                    <h5 class="mt-0">{{FieldOfficer?.firstName}} &nbsp; {{FieldOfficer?.lastName}}</h5>
+                    <small style="color:#ccc">{{FieldOfficer?.Division}} Division </small><br/>
+                    <span>{{FieldOfficer?.email}}</span><br/>
+                    <span>{{FieldOfficer?.phone}}</span><br/>
+                    <span>{{FieldOfficer?.fieldOfficerID}}</span><br/>
                     <div class="row" style="width:100%">
                      
                         <div class="col-md-12"><nav>
@@ -25,11 +25,11 @@
                 <div class="col-md-4 " >
                    <div class="card1">
                     <div class="" style="padding: 5px">
-                        <b>134 Facilities</b>
+                        <b>{{allFacilities?.length}} Facilities</b>
                         
                     </div> 
                    <div class="" style="padding: 5px">
-                        <b>134 Closed</b>
+                        <b>{{closedFacilities?.length}} Closed</b>
                     </div>
                    </div> 
                 </div>
@@ -59,24 +59,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Kilgore</td>
-                        <td>Trout</td>
-                        <td>kilgore</td>
+                    <tr *ngFor= "let facility of myFacilities; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{facility?.facilityName}}</td>
+                        <td>{{facility?.location2.town}} &nbsp; {{facility?.location2.road}}</td>
+                        <td>{{facility?.email}}</td>
+                        <td>{{facility?.businessState}}</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Bob</td>
+                        <td>Bob</td>
                         <td>Loblaw</td>
                         <td>boblahblah</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Holden</td>
-                        <td>Caulfield</td>
-                        <td>penceyreject</td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>
@@ -96,11 +93,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Kilgore</td>
-                        <td>Trout</td>
-                        <td>kilgore</td>
+                    <tr *ngFor= "let facility of closedFacilities; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{facility.facilityName}}</td>
+                        <td>{{facility.location2.town}} &nbsp; {{facility.location2.road}}</td>
+                        <td>{{facility.email}}</td>
+                        <td>{{facility.businessState}}</td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -108,12 +106,7 @@
                         <td>Loblaw</td>
                         <td>boblahblah</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Holden</td>
-                        <td>Caulfield</td>
-                        <td>penceyreject</td>
-                    </tr>
+                  
                 </tbody>
             </table>
         </div>
@@ -134,23 +127,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr >
-                        <td>1</td>
-                        <td>Kilgore</td>
-                        <td>Trout</td>
-                        <td>kilgore</td>
+                    <tr *ngFor= "let facility of closedFacilities let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{facility.facilityName}}</td>
+                        <td>{{facility.location2.town}} &nbsp; {{facility.location2.road}}</td>
+                        <td>{{facility.email}}</td>
+                        <td>{{facility.businessState}}</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Bob</td>
                         <td>Loblaw</td>
                         <td>boblahblah</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Holden</td>
-                        <td>Caulfield</td>
-                        <td>penceyreject</td>
                     </tr>
                 </tbody>
             </table>
