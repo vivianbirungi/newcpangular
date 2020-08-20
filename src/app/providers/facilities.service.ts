@@ -1,14 +1,19 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Course} from "../model/course";
 import {map} from "rxjs/operators";
+import {tap} from 'rxjs/operators';
 import {Lesson} from "../model/lesson";
 @Injectable({
   providedIn: 'root'
 })
 export class FacilitiesService {
+private _refreshNeeded$ = new Subject<void>();
 
+get refreshNeeded$() {
+      return this._refreshNeeded$;
+    }
   constructor(private http:HttpClient) { }
   findCourseById(courseId: number): Observable<Course> {
     return this.http.get<Course>(`/api/courses/${courseId}`);

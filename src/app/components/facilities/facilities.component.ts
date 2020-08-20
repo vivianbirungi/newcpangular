@@ -4,7 +4,7 @@ import { BackendService } from 'src/app/providers/backend.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import {MatPaginator} from '@angular/material/paginator';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, NavigationEnd } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AuthService } from 'src/app/providers/auth.service';
 import {FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
@@ -22,6 +22,7 @@ export class FacilitiesComponent implements OnInit {
   dataSource = new MatTableDataSource()
    displayedColumns = ['facilityName','facilityType', 'Code', 'Location', 'contact','State'];
   test;
+  mySubscription: any;
   facilityRequest = [];
   currentInfo;
   IsmodelShow= true;
@@ -70,6 +71,17 @@ export class FacilitiesComponent implements OnInit {
       phone: ['', Validators.required],
       adminId: ['', Validators.required]
     })
+    if (this.router.getCurrentNavigation().extras.state) {
+      
+  //     this.request = false;
+  // this.approvals= false;
+  // this.awaitReviews = false;
+  // this.underReviews = true;
+  // this.rejects = false;
+  this.view('underReviews')
+
+    }
+
   }
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -80,6 +92,9 @@ export class FacilitiesComponent implements OnInit {
     console.log(this.userRole)
     this.Admin = JSON.parse(localStorage.getItem("Admin"))
     this.getFieldOfficers();
+    this.auth.refreshNeeded$.subscribe(()=>{
+       this.getFieldOfficers()
+    })
   }
   
   openModal(template: TemplateRef<any>, row, state) {
@@ -178,7 +193,7 @@ export class FacilitiesComponent implements OnInit {
       }
       case "underReviews":{
         this.dataSource.data = this.underReview
-        console.log(this.dataSource)
+        console.log("am here", this.underReview )
         this.request = false;
         this.approvals= false;
         this.awaitReviews = false;
@@ -199,10 +214,11 @@ export class FacilitiesComponent implements OnInit {
   }
   changeState(template: TemplateRef<any>){  
     this.modalRef.hide()
+    console.log(this.currentInfo.state)
     if(this.currentInfo.state == 'request'){
       this.onRowClicked(this.currentInfo.row);
     }
-    else if(this.currentInfo.state  =='received'){
+    else if(this.currentInfo.state  =='await'){
      this.review(this.currentInfo.row);
     }   
     console.log(this.currentInfo);
@@ -269,7 +285,6 @@ export class FacilitiesComponent implements OnInit {
     // modal to check if its yes or not sure(mistake)
     let index: number = this.awaitReview.findIndex(d => d === row);
     console.log(row)
-
     console.log(this.awaitReview.findIndex(d => d === row));
     row.businessState = 'received'
     this.underReview.push(row)
@@ -325,7 +340,7 @@ export class FacilitiesComponent implements OnInit {
       this.fieldOfficers = data;
       console.log(this.fieldOfficers)
       if(this.fieldOfficers.status){
-        this.availableOfficers = this.fieldOfficers.data;
+        this.availableOfficers = (this.fieldOfficers.data).reverse();
       }
     });
   }
@@ -455,6 +470,13 @@ export class FacilitiesComponent implements OnInit {
       if(data.status){
         this.modalRef.hide()
         this.fieldOfficerData.reset()
+       
+this.mySubscription = this.router.events.subscribe((event) => {
+  if (event instanceof NavigationEnd) {
+    // Trick the Router into believing it's last link wasn't previously loaded
+    this.router.navigated = false;
+  }
+});
         this.openSnackBar("Field Officer Added", 'close');
       }
       else{

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders,   } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-
+import { map, tap } from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,11 @@ export class AuthService {
   api_url
   httpOptions
   headers
+  private _refreshNeeded$ = new Subject<void>();
+
+get refreshNeeded$() {
+      return this._refreshNeeded$;
+    }
   constructor(private http: HttpClient) {
 
     this.api_url = "http://localhost:9000/";
@@ -55,6 +60,11 @@ export class AuthService {
   addFieldOfficer(data){
     return this.http
     .post(this.api_url + 'v1/account/addFieldOfficer' ,data ,)
+    .pipe(
+      tap(() =>  {
+        this._refreshNeeded$.next();
+      })
+    );
   }
 
 toFormData<T>(formValue: T) {

@@ -148,18 +148,12 @@
       <div class="card" style="width: 105%">
         <h6>Notification</h6>
 
-        <mat-list>
+        <mat-list *ngFor="let notification of notifications">
             <div mat-subheader>Folders</div>
             <mat-list-item >
               <mat-icon mat-list-icon>folder</mat-icon>
               <div mat-line>one</div>
               <div mat-line> 12/03/2020 </div>
-            </mat-list-item>
-            
-            <mat-list-item >
-              <mat-icon mat-list-icon>note</mat-icon>
-              <div mat-line>two</div>
-              <div mat-line>23/08/2020 </div>
             </mat-list-item>
           </mat-list>
       </div>

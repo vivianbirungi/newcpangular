@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef, ComponentFactoryResolver } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { TrackProgressService } from 'src/app/providers/track-progress.service';
 import { NgForm } from '@angular/forms';
 
@@ -123,7 +123,7 @@ export class ApproveFacilityComponent implements OnInit {
     if(document.businessState == 'pending'){
       console.log(this.businessdata)
       let notificationdata = [{documents:this.invalidDocuments},
-        {trackinCode:this.businessdata.nin}]
+        {trackingCode:this.businessdata.nin}]
    this.tracker.sendNotification(notificationdata, this.businessdata.fieldOfficerID).subscribe((data :any) =>{
 
 });
@@ -144,7 +144,12 @@ export class ApproveFacilityComponent implements OnInit {
     });
   }
   goback(){
-    this.router.navigate(['/facilities']);
+    let navigationExtras: NavigationExtras = {
+      state: {
+      status : "underReview"
+      }
+    };
+    this.router.navigate(['/facilities'], navigationExtras);
   }
   logout(){
     localStorage.clear();

@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders,   } from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators'
+import {Observable, Subject} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class TrackProgressService {
   api_url
   httpOptions
+  private _refreshNeeded$ = new Subject<void>();
+
+get refreshNeeded$() {
+      return this._refreshNeeded$;
+    }
   constructor(private http: HttpClient) {
 
     this.api_url = "http://localhost:9000/v1";
