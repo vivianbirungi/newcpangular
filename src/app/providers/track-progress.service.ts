@@ -41,6 +41,11 @@ get refreshNeeded$() {
   fetchFacilities(){
     return this.http
     .get(this.api_url + '/getregfacilities')
+    .pipe(
+      tap(() =>  {
+        this._refreshNeeded$.next();
+      })
+    );
   }
   validDocuments(documents){
     return this.http

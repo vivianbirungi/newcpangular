@@ -1,575 +1,1071 @@
-
 <section class="body">
-    <div class="toggle"><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class=""><i class="fa fa-bars" aria-hidden="true"></i></span>
-    </button>  </div>
-    <div class="row main">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 left-side "  id="navbarSupportedContent"> 
-           <div  >
-           <div class="close-button"> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <div><span class=""><i class="fa fa-times" aria-hidden="true"></i></span></div> 
+  <div class="toggle">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class=""><i class="fa fa-bars" aria-hidden="true"></i></span>
+    </button>
+  </div>
+  <div class="row main">
+    <div
+      class="col-xs-12 col-sm-12 col-md-3 col-lg-3 left-side"
+      id="navbarSupportedContent"
+    >
+      <div>
+        <div class="close-button">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <div>
+              <span class=""
+                ><i class="fa fa-times" aria-hidden="true"></i
+              ></span>
+            </div>
+          </button>
+        </div>
+        <div class="profile">
+          <div class="profilepic">
+            <img src="../../../assets/pp.jpg" height="100px width= 100px" />
+          </div>
+          <div class="details text-center">
+            <span
+              ><b>{{ Admin?.fullname }}</b></span
+            ><br />
+            <span class="faint">{{ Admin?.role }}</span
+            ><br />
+            <span class="faint">{{ Admin?.email }}</span
+            ><br />
+          </div>
+        </div>
+        <div class="" *ngIf="userRole != 'Manager'">
+          <h5 class="text-center text-divider">
+            <span>Admin </span>
+            <button
+              class="btn-clear"
+              data-placement="top"
+              title="add ADmin"
+              (click)="openModalField(admin)"
+            >
+              <i class="fa fa-plus-circle" style="font-size: 20px;"></i>
             </button>
-            </div>
-         <div class="profile"> 
-            <div class="profilepic">
-                <img src="../../../assets/pp.jpg" height="100px width= 100px"/>
-            </div>
-            <div class="details text-center">
-                <span><b>{{Admin?.fullname}}</b></span><br/>
-                <span class="faint">{{Admin?.role}}</span><br/>
-                <span class="faint">{{Admin?.email}}</span><br/>
-            </div>
+          </h5>
+          <div *ngIf="noAdmin">
+            <h6 class="text-center">NO Admins add One</h6>
           </div>
-          <div class="" *ngIf="userRole != 'Manager'">
-            <h5 class="text-center text-divider">
-                <span>Admin </span> <button class="btn-clear"  data-placement="top" title="add ADmin" (click)="openModalField(admin)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
-            </h5>
-            <div *ngIf="noAdmin">
-                <h6 class="text-center">NO Admins add One</h6>
+          <div class="Adminlayout" *ngIf="!noAdmin">
+            <div class="media">
+              <img
+                src="../../../assets/cpicon.png"
+                class="mr-3"
+                height="50px"
+                width="50px"
+                alt="..."
+              />
+              <div class="media-body">
+                {{ admindata?.fullname }}
+              </div>
             </div>
-            <div class="Adminlayout" *ngIf="!noAdmin">
-                
-                <div class="media" >
-                    <img src="../../../assets/cpicon.png" class="mr-3" height="50px" width="50px" alt="...">
-                    <div class="media-body">
-                     {{admindata?.fullname}}
+            <div class="adminInfo">
+              <p><b>Email:</b> &nbsp; {{ admindata?.email }}</p>
+              <p><b>Phone:</b> &nbsp; {{ admindata?.phone }}</p>
+              <p><b>Resposibilities:</b> &nbsp; Review Documents</p>
+              <button
+                style="float: right;"
+                class="btn btn-outline btn-sm"
+                (click)="openModalField(remove)"
+              >
+                Remove
+              </button>
+            </div>
+            <ng-template #remove class="container-fluid">
+                <div class="modal-header">
+                  <h4 class="modal-title">Are you sure???</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to remove this Account?</p>
+                  <div class="row">
+                    <div class="col-6">
+                      <button
+                        class="btn btn-success btn-md"
+                        (click)="removeAdmin()"
+                      >
+                        Yes
+                      </button>
+                    </div>
+                    <div class="col-6">
+                      <button
+                        class="btn btn-danger btn-md"
+                        (click)="modalRef.hide()"
+                      >
+                        No
+                      </button>
                     </div>
                   </div>
-                  <div class="adminInfo">
-                      <p><b>Email:</b> &nbsp; {{admindata?.email}}</p> 
-                      <p><b>Phone:</b> &nbsp; {{admindata?.phone}}</p> 
-                      <p><b>Resposibilities:</b> &nbsp; Review Documents</p> 
-                      <button style="float:right" class="btn btn-outline  btn-sm"  (click)="openModalField(remove)">Remove</button>
+                </div>
+              </ng-template>
+          </div>
+        </div>
+        <div class="fieldOfficers" *ngIf="userRole == 'Manager'">
+          <h5 class="text-center text-divider">
+            <span>Field Officers</span>
+            <button
+              class="btn-clear"
+              data-placement="top"
+              title="add facility"
+              (click)="openModalField(fieldofficer)"
+            >
+              <i class="fa fa-plus-circle" style="font-size: 20px;"></i>
+            </button>
+          </h5>
+          <div class="my-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="material-icons">
+                    person_search
+                  </span>
+                </div>
+              </div>
+
+              <input
+                class="form-control"
+                type="text"
+                name="search"
+                [(ngModel)]="searchText"
+                autocomplete="off"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+
+          <accordion [closeOthers]="oneAtATime">
+            <accordion-group
+              *ngFor="
+                let officer of availableOfficers | filter: searchText;
+                let i = index
+              "
+              (click)="
+                getFacilityCount(officer.fieldOfficerID);
+                queryFacilities(officer)
+              "
+              heading="{{ officer?.firstName }} &nbsp;  {{ officer?.lastName }}"
+            >
+              <div class="media">
+                <img
+                  src="../../../assets/pp.jpg"
+                  class="mr-3"
+                  alt="..."
+                  width="30px"
+                  height="30px"
+                />
+
+                <div class="media-body">
+                  <button
+                    style="float: right;"
+                    *ngIf="officer.transfer == ''"
+                    class="btn btn-outline btn-sm"
+                    (click)="
+                      transferFieldofficer(officer.fieldOfficerID, division)
+                    "
+                  >
+                    Transfer
+                  </button>
+                  <h6 class="mt-0">ID : {{ officer.fieldOfficerID }}</h6>
+                  <span class="faint">
+                    <b>Division</b> : {{ officer?.Division }} ,
+                    {{ officer?.transfer }}</span
+                  ><br />
+                  <span class="faint"> <b>Phone</b> : {{ officer?.phone }}</span
+                  ><br />
+                  <span
+                    class="faint"
+                    data-toggle="tooltip"
+                    data-html="true"
+                    title="<ul *ngFor='let facility of officerFacilities '><li>{{
+                      facility?.facilityName
+                    }}</li></ul>"
+                    >{{ officerFacilities?.length }} Facilities</span
+                  ><br />
+                  <button
+                    class="btn-clear"
+                    data-placement="top"
+                    title="add facility"
+                    data-toggle="collapse"
+                    data-target="#demo"
+                  >
+                    <i class="fa fa-plus-circle" style="font-size: 20px;"></i>
+                  </button>
+                  <button
+                    type="button"
+                    style="float: right;"
+                    class="btn btn-outline-info btn-sm"
+                    (click)="openModalField(remove, officer.fieldOfficerID)"
+                  >
+                    Remove</button
+                  ><br />
+                </div>
+              </div>
+              <div id="demo" class="collapse">
+                <form>
+                  <div class="attachField">
+                    <select
+                      class="custom-select"
+                      id="validationCustom04"
+                      required
+                      name="facilityAttached"
+                      [(ngModel)]="facilityAttached"
+                    >
+                      <option selected disabled value="">Choose....</option>
+                      <option
+                        *ngFor="let fac of queryFacilityData"
+                        value="{{ fac.nin }}"
+                        >{{ fac?.facilityName }} &nbsp;
+                        {{ fac?.location2.town }}</option
+                      >
+                    </select>
+                    <div class="invalid-feedback"></div>
                   </div>
-                  <ng-template #remove class="container-fluid">
+                  <button
+                    class="btn-cp"
+                    (click)="
+                      attachFieldOfficer(officer.fieldOfficerID);
+                      facilityAttached = []
+                    "
+                  >
+                    Attach
+                  </button>
+                </form>
+                <ng-template #remove class="container-fluid">
                     <div class="modal-header">
-                        <h4 class="modal-title">Are you sure???</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p>Are you sure you want to remove this Account?</p>
-                        <div class="row">
-                                <div class="col-6">
-                                    <button class="btn btn-success btn-md" (click)="removeAdmin()">Yes</button>
-                                </div>
-                                <div  class="col-6"><button class="btn btn-danger btn-md"(click)="modalRef.hide()">No</button></div>
-                            
+                      <h4 class="modal-title">Are you sure???</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to remove this Account?</p>
+                      <div class="row">
+                        <div class="col-6">
+                          <button
+                            class="btn btn-success btn-md"
+                            (click)="removeAdmin(officer.fieldOfficerID)"
+                          >
+                            Yes
+                          </button>
+                        </div>
+                        <div class="col-6">
+                          <button
+                            class="btn btn-danger btn-md"
+                            (click)="modalRef.hide()"
+                          >
+                            No
+                          </button>
                         </div>
                       </div>
-                   </ng-template>
-            </div>
-            </div>
-          <div class="fieldOfficers" *ngIf="userRole == 'Manager'">
-             
-              <h5 class="text-center text-divider">
-             <span>Field Officers</span> <button class="btn-clear"  data-placement="top" title="add facility" (click)="openModalField(fieldofficer)"><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
-
-              </h5>
-              <div class=" my-1">
-                  <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text"> <span class="material-icons">
-                                person_search
-                                </span></div>
-                      </div>
-                     
-                     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
-
                     </div>
-                  </div>
-              
-              <accordion [closeOthers]="oneAtATime">
-                    <accordion-group *ngFor='let officer of availableOfficers | filter:searchText ; let i = index ' (click)="getFacilityCount(officer.fieldOfficerID); queryFacilities(officer.Division)" heading= '{{officer?.firstName}} &nbsp;  {{officer?.lastName}}'>
-                            <div class="media">
-                                    <img src="../../../assets/pp.jpg" class="mr-3" alt="..." width="30px" height="30px">
+                  </ng-template>
+                 
+            
+              </div>
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-12 right-side">
+      <div class="navcard card">
+        <nav class="navbar navbar-light bg-light">
+          <a class="navbar-brand"></a>
 
-                                    <div class="media-body">
-                                        <button style="float:right" *ngIf="officer.transfer == ''" class="btn btn-outline  btn-sm"  (click)="transferFieldofficer(officer.fieldOfficerID, division)">Transfer</button>
-                                        <h6 class="mt-0"> ID : {{officer.fieldOfficerID}}</h6>
-                                        <span class="faint"> <b>Division</b> : {{officer?.Division}} , {{officer?.transfer}}</span><br/>
-                                        <span class="faint"> <b>Phone</b> : {{officer?.phone}}</span><br/>
-                                        <span class="faint"  data-toggle="tooltip" data-html="true" title="<ul *ngFor='let facility of officerFacilities '><li>{{facility?.facilityName}}</li></ul>">{{officerFacilities?.length}} Facilities</span><br/>
-                                        <button class="btn-clear"  data-placement="top" title="add facility" data-toggle="collapse" data-target="#demo" ><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
-                                        <button type="button" style="float:right" class="btn  btn-outline-info btn-sm" (click)="removeFieldOfficer(officer.fieldOfficerID)">Remove</button><br/>
-
-                                    </div>
-                                </div>
-                                <div id="demo" class="collapse">
-                                    <form>       
-                                        <div class="attachField">
-                                           
-                                            <select class="custom-select" id="validationCustom04" required name="facilityAttached" [(ngModel)]="facilityAttached" >
-                                                <option selected disabled value="">Choose....</option>
-                                                <option *ngFor="let fac of queryFacilityData" value="{{fac.nin}}" >{{fac?.facilityName}} &nbsp; {{fac?.location2.town}}</option>
-                                            </select>
-                                            <div class="invalid-feedback">  </div>
-                                        </div>   
-                                        <button class="btn-cp" (click)="attachFieldOfficer(officer.fieldOfficerID); facilityAttached=[]">Attach</button>
-                                    </form>
-                                </div>
-                    </accordion-group>
-                   
-                  </accordion>
-             
+          <button class="btn btn-outline" (click)="logout()">Logout</button>
+        </nav>
+      </div>
+      <div class="mainbody">
+        <div class="row tablerow">
+          <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">Facility Request</h5>
+                <span class="card-number">{{ facilityRequest?.length }}</span
+                ><br />
+                <a class="card-link" (click)="view('request')">View Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
+            <div class="card text-center">
+              <div class="card-body text-center">
+                <h5 class="card-title">Await Review</h5>
+                <span class="card-number">{{ awaitReview?.length }}</span
+                ><br />
+                <a class="card-link" (click)="view('awaitReviews')"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
+            <div class="card text-center">
+              <div class="card-body text-center">
+                <h5 class="card-title">Under Review</h5>
+                <span class="card-number">{{ underReview?.length }}</span
+                ><br />
+                <a class="card-link" (click)="view('underReviews')"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
+            <div class="card text-center">
+              <div class="card-body text-center">
+                <h5 class="card-title">Approved</h5>
+                <span class="card-number">{{ approved?.length }}</span
+                ><br />
+                <a class="card-link" (click)="view('approvals')"
+                  >View Details</a
+                >
+              </div>
+            </div>
           </div>
         </div>
-        </div>
-        <div class="col-md-9 col-sm-12 right-side">
-                <div class="navcard card">
-                        <nav class="navbar navbar-light bg-light">
-                                <a class="navbar-brand"></a>
-                               
-                                  <button class="btn btn-outline "  (click)="logout()">Logout</button>
-                              
-                </nav>
-               </div>
-             <div class="mainbody">
-                    
-             
+        <div class="table" *ngIf="request">
+          <div class="my-1" style="float: right;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="material-icons">
+                    search
+                  </span>
+                </div>
+              </div>
 
-                 <div class="row tablerow">
-                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
-                            <div class="card text-center">
-                                    <div class="card-body">
-                                      <h5 class="card-title">Facility Request</h5>
-                                      <span class="card-number">{{facilityRequest?.length}}</span><br/>
-                                      <a class="card-link" (click)="view('request')">View Details</a>
-                                    </div>
-                            </div>
-                     </div>
-                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
-                            <div class="card text-center">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Await Review</h5>
-                                    <span class="card-number">{{awaitReview?.length}}</span><br/>
-                                    <a  class="card-link" (click)="view('awaitReviews')">View Details</a>
-                                </div>
-                            </div>
-                     </div>
-                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
-                            <div class="card text-center">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Under Review</h5>
-                                    <span class="card-number">{{underReview?.length}}</span><br/>
-                                    <a class="card-link" (click)="view('underReviews')">View Details</a>
-                                </div>
-                            </div>
-                     </div>
-                     <div class="col-sm-12 col-md-3 col-lg-3 stateCards">
-                            <div class="card text-center">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Approved</h5>
-                                    <span class="card-number">{{approved?.length}}</span><br/>
-                                    <a  class="card-link" (click)="view('approvals')">View Details</a>
-                                </div>
-                            </div>
-                     </div>
-                 </div>
-                 <div class="table" *ngIf="request">
-                        <div class="my-1" style='float:right'>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text"> <span class="material-icons">
-                                              search
-                                              </span></div>
-                                    </div>
-                                   
-                                   <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'request')">
-                                  </div>
-                        </div>
-                            
-                      
-                 <h3>Facility Requests</h3>
-                
-                 <mat-table class="datatable" [dataSource]="dataSource" matSort>
-                    <ng-container matColumnDef="facilityName">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
-                    </ng-container>
-          
-                    <ng-container matColumnDef="facilityType" class="rowtable">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row?.facilityType}} </mat-cell>
-                    </ng-container>
-          
-                    <ng-container matColumnDef="Code">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
-                        <mat-cell *matCellDef="let row" class="mycolor2"> {{row?.nin }} </mat-cell>
-                    </ng-container>
-          
-                    <ng-container matColumnDef="Location">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{row?.location2.town }} - {{row?.location2.division }} </mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="contact">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Contact </mat-header-cell>
-                        <mat-cell *matCellDef="let row"> {{row?.phone }} {{row?.email}} </mat-cell>
-                    </ng-container>
-                    <ng-container    matColumnDef="State">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header >Action</mat-header-cell>
-                      <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue;" (click)="openModal(template, row, 'request')"  > 
-                       <button class="btn-cp-outline">Received</button>
-                    </mat-cell>
-                  </ng-container>
-          
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
-                </mat-table>
-                <mat-paginator #paginators
-                        [length]="facilityRequest.length"
-                        [pageIndex]="0"
-                        [pageSize]="5"
-                        [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
-                </mat-paginator>
-                   
-                 </div>
-                 <div class="table" *ngIf="awaitReviews">
-                    <div class="my-1" style='float:right'>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text"> <span class="material-icons">
-                                      search
-                                      </span></div>
-                            </div>
-                           
-                           <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'awaitReviews')">
-      
-                        </div>
-                    </div>
-                    <h3>Await Review</h3>
-   
-                    <mat-table class="datatable" [dataSource]="dataSource" matSort>
-                        <ng-container matColumnDef="facilityName">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
-                        </ng-container>
-              
-                        <ng-container matColumnDef="facilityType">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row?.facilityType}} </mat-cell>
-                        </ng-container>
-              
-                        <ng-container matColumnDef="Code">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
-                            <mat-cell *matCellDef="let row" class="mycolor2"> {{row?.nin }} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="Location">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row?.location2.town }} - {{row?.location2.division }} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="contact">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Contact</mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row?.phone }} {{row?.email }} </mat-cell>
-                        </ng-container>
-              
-                        <ng-container matColumnDef="State">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
-                          <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue"  > <button class="btn-cp-outline">Review</button></mat-cell>
-                      </ng-container>
-              
-                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="openModal(template, row, 'await')"></mat-row>
-                    </mat-table>
-                    <mat-paginator 
-                            [length]="awaitReview.length"
-                            [pageIndex]="0"
-                            [pageSize]="5"
-                            [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
-                    </mat-paginator>
-                       
-                    </div>
-                    <div class="table" *ngIf="underReviews">
-                        <div class="my-1" style='float:right'>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text"> <span class="material-icons">
-                                          search
-                                          </span></div>
-                                </div>
-                               
-                               <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'underReviews')">
-          
-                            </div>
-                        </div>
-                        <h3>Under Review</h3>
-                           <mat-table class="datatable" [dataSource]="dataSource" matSort>
-                            <ng-container matColumnDef="facilityName">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
-                            </ng-container>
-                  
-                            <ng-container matColumnDef="facilityType">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row?.facilityType}} </mat-cell>
-                            </ng-container>
-                  
-                            <ng-container matColumnDef="Code">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
-                                <mat-cell *matCellDef="let row" class="mycolor2"> {{row?.nin }} </mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="Location">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row?.location2.town }} - {{row?.location2.division }} </mat-cell>
-                            </ng-container>
-                            <ng-container matColumnDef="contact">
-                                <mat-header-cell *matHeaderCellDef mat-sort-header>Contact</mat-header-cell>
-                                <mat-cell *matCellDef="let row"> {{row?.phone }} {{row?.email }} </mat-cell>
-                            </ng-container>
-                  
-                            <ng-container matColumnDef="State">
-                              <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-                              <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button class="btn-cp-outline">{{row?.businessState }}</button></mat-cell>
-                          </ng-container>
-                  
-                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                            <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="reviewDocs(row, state)"></mat-row>
-                        </mat-table> 
-                         <mat-paginator #paginators
-                                [length]="underReview.length"
-                                [pageIndex]="0"
-                                [pageSize]="5"
-                                [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
-                        </mat-paginator>
-                           
-                        </div>
-                        <div class="table" *ngIf="approvals">
-                            <div class="my-1" style='float:right'>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <div class="input-group-text"> <span class="material-icons">
-                                              search
-                                              </span></div>
-                                    </div>
-                                   
-                                   <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'approvals')">
-              
-                                </div>
-                            </div>
-                            <h3>Approved</h3>
-           
-                            <mat-table class="datatable" [dataSource]="dataSource" matSort >
-                                <ng-container matColumnDef="facilityName">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
-                                </ng-container>
-                      
-                                <ng-container matColumnDef="facilityType">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> {{row?.facilityType}} </mat-cell>
-                                </ng-container>
-                      
-                                <ng-container matColumnDef="Code">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
-                                    <mat-cell *matCellDef="let row" class="mycolor2"> {{row?.nin }} </mat-cell>
-                                </ng-container>
-                                <ng-container matColumnDef="Location">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> {{row?.location2.town }} - {{row?.location2.division }} </mat-cell>
-                                </ng-container>
-                                <ng-container matColumnDef="contact">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Contact</mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> {{row?.phone}} {{row?.email}} </mat-cell>
-                                </ng-container>
-                      
-                                <ng-container matColumnDef="State">
-                                  <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-                                  <mat-cell *matCellDef="let row" style="text-align: center; color:aliceblue; padding-left: 50px"  > <button class="btn-cp-outline">Create Account</button></mat-cell>
-                              </ng-container>
-                      
-                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
-                            </mat-table>
-                            <mat-paginator #paginators
-                                    [length]="approved.length"
-                                    [pageIndex]="0"
-                                    [pageSize]="5"
-                                    [pageSizeOptions]="[ 5, 10,15,20, 25, 50, 75, 100]">
-                            </mat-paginator>
-                            <button class="btn btn-outline floatingbtn"  (click)="logout()">Add Facility</button>
-                                
-                            </div>
-                            <div class="table" *ngIf="rejects">
-                                <div class="my-1" style='float:right'>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                          <div class="input-group-text"> <span class="material-icons">
-                                                  search
-                                                  </span></div>
-                                        </div>
-                                       
-                                       <input class="form-control" type="text" name="search"  autocomplete="off" placeholder="Search"  (keyup)="applyFilter($event.target.value , 'rejects')">
-                  
-                                    </div>
-                                </div>
-                                <h3>Rejected</h3>
-               
-                                <mat-table class="datatable" [dataSource]="dataSource" matSort>
-                                    <ng-container matColumnDef="facilityName">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Facility</mat-header-cell>
-                                        <mat-cell *matCellDef="let row"> {{row?.facilityName}} </mat-cell>
-                                    </ng-container>
-                          
-                                    <ng-container matColumnDef="facilityType">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-                                        <mat-cell *matCellDef="let row"> {{row?.facilityType}} </mat-cell>
-                                    </ng-container>
-                          
-                                    <ng-container matColumnDef="Code">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Code #</mat-header-cell>
-                                        <mat-cell *matCellDef="let row" class="mycolor2"> {{row.nin }} </mat-cell>
-                                    </ng-container>
-                          
-                                    <ng-container matColumnDef="Owner Name">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Owner's Name</mat-header-cell>
-                                        <mat-cell *matCellDef="let row"> {{row?.firstName }} {{row?.lastName }} </mat-cell>
-                                    </ng-container>
-                          
-                                    <ng-container matColumnDef="State">
-                                      <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-                                      <mat-cell *matCellDef="let row" style="text-align: center; padding-left: 50px"  > {{row?.businessState }}</mat-cell>
-                                  </ng-container>
-                          
-                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                                    <mat-row class="rows" *matRowDef="let row; columns: displayedColumns;" (click)="createAcount(row)"></mat-row>
-                                </mat-table>
-                                <mat-paginator #paginators
-                                        [length]="Rejected.length"
-                                        [pageIndex]="0"
-                                        [pageSize]="5"
-                                        [pageSizeOptions]="[ 5, 15, 25, 50, 75, 100]">
-                                </mat-paginator>
-                                   
-                                </div>
-             </div>
-        </div>
-       
-<ng-template #template >
-    <div class="modal-header">
-    <h4 class="modal-title pull-left">Lets know how you are progressing</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body">
-    <div>
-    <p>Are you sure you are moving the state?</p>
-
-    <div class="btn-inline" aria-label="Basic example">
-    <button style="background: #00bcd4; border-radius: 0 150px 0 150px; padding: 0 10px 0 10px" (click)="changeState(template)">Continue</button>
-    <button  type="button" (click)="modalRef.hide()" style="border: 1px solid #00bcd4; background: white; border-radius: 0 150px 0 150px; padding: 0 10px 0 10px">Cancel</button>
-    </div>
-    </div>
-    </div>
-   </ng-template>
-
-   <ng-template #division >
-    <div class="modal-header">
-    <h4 class="modal-title pull-left">Transfer Field officer </h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body">
-    <div>
-  
-    <div class="btn-inline" aria-label="Basic example">
-        <select class="form-control"  name="transferDivision" [(ngModel)]="transferDivision" >
-			<option selected=""> Select Division</option>
-			<option value="Nakawa">Nakawa</option>
-			<option value="Makindye">Makindye</option>
-            <option value="Central">Central</option>
-			<option value="Lubaga">Rubaga</option>
-			<option value="Kawempe">Kawempe</option>
-            
-        </select>
-       
-    </div>
-    <div  style="justify-content: center; align-items: center; display: flex; width: 90%">
-        <Button class=" btn btn-cp-outline btn-sm "  (click)="saveTransfer(); modalRef.hide()">Transfer</Button>
-    </div>
-    </div>
-    </div>
-   </ng-template>
-<ng-template #fieldofficer>
-
-
-<div class="container">
-<div class="card bg-light">
-<article class="card-body mx-auto" style="max-width: 400px;">
-	<h4 class="card-title mt-3 text-center">Create A Field Officer Account</h4>
-	<form [formGroup]="fieldOfficerData" (submit)="addFieldOfficer()">
-	<div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		 </div>
-        <input name="firstname" class="form-control" placeholder="First name" type="text" formControlName="firstname" [class.invalid] ="fieldOfficerData.controls.firstname.invalid" >
-        <input name="lastname" class="form-control" placeholder="Surname" type="text"  formControlName="lastname" [class.invalid] ="fieldOfficerData.controls.lastname.invalid" >        
-    </div> 
-    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.email.invalid">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-		 </div>
-        <input name="email" class="form-control" placeholder="Email address" type="email"  formControlName="email" >
-    </div>
-    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.phone.invalid">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-		</div>
-		
-    	<input name="phone" class="form-control" placeholder="Phone number" type="text"  formControlName="phone" >
-    </div> 
-    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.fieldOfficerID.invalid">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+              <input
+                class="form-control"
+                type="text"
+                name="search"
+                autocomplete="off"
+                placeholder="Search"
+                (keyup)="applyFilter($event.target.value, 'request')"
+              />
             </div>
-            
-            <input name="fieldOfficerID" class="form-control" placeholder="Field Officer ID" type="text"  formControlName="fieldOfficerID" >
+          </div>
+
+          <h3>Facility Requests</h3>
+
+          <mat-table class="datatable" [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="facilityName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Facility</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityName }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="facilityType" class="rowtable">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Type</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityType }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fieldOfficer">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Field Officer #</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row" class="mycolor2">
+                {{ row?.fieldOfficerID }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Location">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Location</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row"
+                >{{ row?.location2.town }} - {{ row?.location2.division }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="contact">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Contact
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row?.phone }} {{ row?.email }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="State">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Action</mat-header-cell
+              >
+              <mat-cell
+                *matCellDef="let row"
+                style="text-align: center; color: aliceblue;"
+                (click)="openModal(template, row, 'request')"
+              >
+                <button class="btn-cp-outline">Received</button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="requestColumns"
+            ></mat-header-row>
+            <mat-row
+              class="rows"
+              *matRowDef="let row; columns: requestColumns"
+            ></mat-row>
+          </mat-table>
+          <mat-paginator
+            #paginators
+            [length]="facilityRequest.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 15, 25, 50, 75, 100]"
+          >
+          </mat-paginator>
         </div>
-    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.division.invalid">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-		</div>
-		<select class="form-control"  name="division" formControlName="division" >
-			<option selected=""> Select Division</option>
-			<option value="Nakawa">Nakawa</option>
-			<option value="Makindye">Makindye</option>
-            <option value="Central">Central</option>
-			<option value="Lubaga">Lubaga</option>
-			<option value="Kawempe">Kawempe</option>
-            
-		</select>
-	</div> 
-    <div class="form-group input-group" [class.invalid] ="fieldOfficerData.controls.role.invalid">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <select class="form-control" name="role"  formControlName="role" >
-                <option selected=""> Select Field Officer's role</option>
-                <option value="leader">Division Leader</option>
-                <option value="fieldOfficer">Field Officer</option>
-        </select>
+        <div class="table" *ngIf="awaitReviews">
+          <div class="my-1" style="float: right;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="material-icons">
+                    search
+                  </span>
+                </div>
+              </div>
+
+              <input
+                class="form-control"
+                type="text"
+                name="search"
+                autocomplete="off"
+                placeholder="Search"
+                (keyup)="applyFilter($event.target.value, 'awaitReviews')"
+              />
+            </div>
+          </div>
+          <h3>Await Review</h3>
+
+          <mat-table class="datatable" [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="facilityName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Facility</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityName }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="facilityType">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Type</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityType }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Code #</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row" class="mycolor2">
+                {{ row?.nin }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Location">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Location</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.location2.town }} - {{ row?.location2.division }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="contact">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Contact</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.phone }} {{ row?.email }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="State">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Action</mat-header-cell
+              >
+              <mat-cell
+                *matCellDef="let row"
+                style="text-align: center; color: aliceblue;"
+              >
+                <button class="btn-cp-outline">Review</button></mat-cell
+              >
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row
+              class="rows"
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="openModal(template, row, 'await')"
+            ></mat-row>
+          </mat-table>
+          <mat-paginator
+            [length]="awaitReview.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 15, 25, 50, 75, 100]"
+          >
+          </mat-paginator>
+        </div>
+        <div class="table" *ngIf="underReviews">
+          <div class="my-1" style="float: right;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="material-icons">
+                    search
+                  </span>
+                </div>
+              </div>
+
+              <input
+                class="form-control"
+                type="text"
+                name="search"
+                autocomplete="off"
+                placeholder="Search"
+                (keyup)="applyFilter($event.target.value, 'underReviews')"
+              />
+            </div>
+          </div>
+          <h3>Under Review</h3>
+          <mat-table class="datatable" [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="facilityName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Facility</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityName }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="facilityType">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Type</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityType }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Code #</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row" class="mycolor2">
+                {{ row?.nin }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Location">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Location</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.location2.town }} - {{ row?.location2.division }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="contact">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Contact</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.phone }} {{ row?.email }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="State">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >State</mat-header-cell
+              >
+              <mat-cell
+                *matCellDef="let row"
+                style="
+                  text-align: center;
+                  color: aliceblue;
+                  padding-left: 50px;
+                "
+              >
+                <button class="btn-cp-outline">
+                  {{ row?.businessState }}
+                </button></mat-cell
+              >
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row
+              class="rows"
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="reviewDocs(row, state)"
+            ></mat-row>
+          </mat-table>
+          <mat-paginator
+            #paginators
+            [length]="underReview.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 15, 25, 50, 75, 100]"
+          >
+          </mat-paginator>
+        </div>
+        <div class="table" *ngIf="approvals">
+          <div class="my-1" style="float: right;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="material-icons">
+                    search
+                  </span>
+                </div>
+              </div>
+
+              <input
+                class="form-control"
+                type="text"
+                name="search"
+                autocomplete="off"
+                placeholder="Search"
+                (keyup)="applyFilter($event.target.value, 'approvals')"
+              />
+            </div>
+          </div>
+          <h3>Approved</h3>
+
+          <mat-table class="datatable" [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="facilityName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Facility</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityName }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="facilityType">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Type</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityType }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Code #</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row" class="mycolor2">
+                {{ row?.nin }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Location">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Location</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.location2.town }} - {{ row?.location2.division }}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="contact">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Contact</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.phone }} {{ row?.email }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="State">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >State</mat-header-cell
+              >
+              <mat-cell
+                *matCellDef="let row"
+                style="
+                  text-align: center;
+                  color: aliceblue;
+                  padding-left: 50px;
+                "
+              >
+                <button class="btn-cp-outline">Create Account</button></mat-cell
+              >
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row
+              class="rows"
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="onRowClicked(row)"
+            ></mat-row>
+          </mat-table>
+          <mat-paginator
+            #paginators
+            [length]="approved.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 15, 20, 25, 50, 75, 100]"
+          >
+          </mat-paginator>
+          <button class="btn btn-outline floatingbtn" (click)="logout()">
+            Add Facility
+          </button>
+        </div>
+        <div class="table" *ngIf="rejects">
+          <div class="my-1" style="float: right;">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span class="material-icons">
+                    search
+                  </span>
+                </div>
+              </div>
+
+              <input
+                class="form-control"
+                type="text"
+                name="search"
+                autocomplete="off"
+                placeholder="Search"
+                (keyup)="applyFilter($event.target.value, 'rejects')"
+              />
+            </div>
+          </div>
+          <h3>Rejected</h3>
+
+          <mat-table class="datatable" [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="facilityName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Facility</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityName }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="facilityType">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Type</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.facilityType }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Code #</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row" class="mycolor2">
+                {{ row.nin }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Owner Name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >Owner's Name</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                {{ row?.firstName }} {{ row?.lastName }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="State">
+              <mat-header-cell *matHeaderCellDef mat-sort-header
+                >State</mat-header-cell
+              >
+              <mat-cell
+                *matCellDef="let row"
+                style="text-align: center; padding-left: 50px;"
+              >
+                {{ row?.businessState }}</mat-cell
+              >
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row
+              class="rows"
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="createAcount(row)"
+            ></mat-row>
+          </mat-table>
+          <mat-paginator
+            #paginators
+            [length]="Rejected.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 15, 25, 50, 75, 100]"
+          >
+          </mat-paginator>
+        </div>
+      </div>
     </div>
-                                     
-    <div class="form-group">
-        <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
-        <button type="submit" [disabled]="!fieldOfficerData.valid" class="btn btn-block btn-outline-info">Add Field Officer</button><br/>
 
-    </div>      
-                                                                  
-</form>
-</article>
-</div>
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Lets know how you are progressing</h4>
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <p>Are you sure you are moving the state?</p>
 
-</div> 
-</ng-template>
-<ng-template #admin>
+          <div class="btn-inline" aria-label="Basic example">
+            <button
+              style="
+                background: #00bcd4;
+                border-radius: 0 150px 0 150px;
+                padding: 0 10px 0 10px;
+              "
+              (click)="changeState(template)"
+            >
+              Continue
+            </button>
+            <button
+              type="button"
+              (click)="modalRef.hide()"
+              style="
+                border: 1px solid #00bcd4;
+                background: white;
+                border-radius: 0 150px 0 150px;
+                padding: 0 10px 0 10px;
+              "
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
+    <ng-template #division>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Transfer Field officer</h4>
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="btn-inline" aria-label="Basic example">
+            <select
+              class="form-control"
+              name="transferDivision"
+              [(ngModel)]="transferDivision"
+            >
+              <option selected=""> Select Division</option>
+              <option value="Nakawa">Nakawa</option>
+              <option value="Makindye">Makindye</option>
+              <option value="Central">Central</option>
+              <option value="Lubaga">Rubaga</option>
+              <option value="Kawempe">Kawempe</option>
+            </select>
+          </div>
+          <div
+            style="
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              width: 90%;
+            "
+          >
+            <Button
+              class="btn btn-cp-outline btn-sm"
+              (click)="saveTransfer(); modalRef.hide()"
+              >Transfer</Button
+            >
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #fieldofficer>
+      <div class="container">
+        <div class="card bg-light">
+          <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">
+              Create A Field Officer Account
+            </h4>
+            <form [formGroup]="fieldOfficerData" (submit)="addFieldOfficer()">
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user"></i>
+                  </span>
+                </div>
+                <input
+                  name="firstname"
+                  class="form-control"
+                  placeholder="First name"
+                  type="text"
+                  formControlName="firstname"
+                  [class.invalid]="fieldOfficerData.controls.firstname.invalid"
+                />
+                <input
+                  name="lastname"
+                  class="form-control"
+                  placeholder="Surname"
+                  type="text"
+                  formControlName="lastname"
+                  [class.invalid]="fieldOfficerData.controls.lastname.invalid"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="fieldOfficerData.controls.email.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                </div>
+                <input
+                  name="email"
+                  class="form-control"
+                  placeholder="Email address"
+                  type="email"
+                  formControlName="email"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="fieldOfficerData.controls.phone.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-phone"></i>
+                  </span>
+                </div>
 
-    <div class="container">
-    <div class="card bg-light">
-    <article class="card-body mx-auto" style="max-width: 400px;">
-        <h4 class="card-title mt-3 text-center">Create Admin  Account</h4>
-        <!-- <form [formGroup]="adminForm" (submit)="addAdmin()"> -->
-        <!-- <div class="form-group input-group">
+                <input
+                  name="phone"
+                  class="form-control"
+                  placeholder="Phone number"
+                  type="text"
+                  formControlName="phone"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="
+                  fieldOfficerData.controls.fieldOfficerID.invalid
+                "
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user"></i>
+                  </span>
+                </div>
+
+                <input
+                  name="fieldOfficerID"
+                  class="form-control"
+                  placeholder="Field Officer ID"
+                  type="text"
+                  formControlName="fieldOfficerID"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="fieldOfficerData.controls.division.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-building"></i>
+                  </span>
+                </div>
+                <select
+                  class="form-control"
+                  name="division"
+                  formControlName="division"
+                >
+                  <option selected=""> Select Division</option>
+                  <option value="Nakawa">Nakawa</option>
+                  <option value="Makindye">Makindye</option>
+                  <option value="Central">Central</option>
+                  <option value="Lubaga">Lubaga</option>
+                  <option value="Kawempe">Kawempe</option>
+                </select>
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="fieldOfficerData.controls.role.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                </div>
+                <select class="form-control" name="role" formControlName="role">
+                  <option selected=""> Select Field Officer's role</option>
+                  <option value="leader">Division Leader</option>
+                  <option value="fieldOfficer">Field Officer</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
+                <button
+                  type="submit"
+                  [disabled]="!fieldOfficerData.valid"
+                  class="btn btn-block btn-outline-info"
+                >
+                  Add Field Officer</button
+                ><br />
+              </div>
+            </form>
+          </article>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #admin>
+      <div class="container">
+        <div class="card bg-light">
+          <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Create Admin Account</h4>
+            <!-- <form [formGroup]="adminForm" (submit)="addAdmin()"> -->
+            <!-- <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
              </div>
@@ -582,7 +1078,7 @@
              </div>
             <input name="email" class="form-control" placeholder="Email address" type="email"  formControlName="email" >
         </div> -->
-        <!-- <div class="form-group input-group" [class.invalid] ="adminForm.controls.phone.invalid">
+            <!-- <div class="form-group input-group" [class.invalid] ="adminForm.controls.phone.invalid">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
             </div>
@@ -606,50 +1102,99 @@
         </div>      
                                                                       
     </form> -->
-    <form [formGroup]="adminForm" (submit)="addAdmin()">
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-             </div>
-            <input name="firstname" class="form-control" placeholder="First name" type="text" formControlName="firstname" [class.invalid] ="adminForm.controls.firstname.invalid" >
-            <input name="lastname" class="form-control" placeholder="Surname" type="text"  formControlName="lastname" [class.invalid] ="adminForm.controls.lastname.invalid" >        
-        </div> 
-        <div class="form-group input-group" [class.invalid] ="adminForm.controls.email.invalid">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-             </div>
-            <input name="email" class="form-control" placeholder="Email address" type="email"  formControlName="email" >
-        </div>
-        <div class="form-group input-group" [class.invalid] ="adminForm.controls.phone.invalid">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-            </div>
-            
-            <input name="phone" class="form-control" placeholder="Phone number" type="text"  formControlName="phone" >
-        </div> 
-        <div class="form-group input-group" [class.invalid] ="adminForm.controls.adminId.invalid">
+            <form [formGroup]="adminForm" (submit)="addAdmin()">
+              <div class="form-group input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                  <span class="input-group-text">
+                    <i class="fa fa-user"></i>
+                  </span>
                 </div>
-                
-                <input name="adminId" class="form-control" placeholder="Admin ID" type="text"  formControlName="adminId" >
-            </div>
-       
-       
-                                         
-        <div class="form-group">
-            <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
-            <button type="submit" [disabled]="!adminForm.valid" class="btn btn-block btn-outline-info">Add Admin</button><br/>
-    
-        </div>      
-                                                                      
-    </form>
-    </article>
-    </div>
-    
-    </div> 
-    </ng-template>
-<!--container end.//-->
+                <input
+                  name="firstname"
+                  class="form-control"
+                  placeholder="First name"
+                  type="text"
+                  formControlName="firstname"
+                  [class.invalid]="adminForm.controls.firstname.invalid"
+                />
+                <input
+                  name="lastname"
+                  class="form-control"
+                  placeholder="Surname"
+                  type="text"
+                  formControlName="lastname"
+                  [class.invalid]="adminForm.controls.lastname.invalid"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="adminForm.controls.email.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                </div>
+                <input
+                  name="email"
+                  class="form-control"
+                  placeholder="Email address"
+                  type="email"
+                  formControlName="email"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="adminForm.controls.phone.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-phone"></i>
+                  </span>
+                </div>
 
-    </div>
+                <input
+                  name="phone"
+                  class="form-control"
+                  placeholder="Phone number"
+                  type="text"
+                  formControlName="phone"
+                />
+              </div>
+              <div
+                class="form-group input-group"
+                [class.invalid]="adminForm.controls.adminId.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user"></i>
+                  </span>
+                </div>
+
+                <input
+                  name="adminId"
+                  class="form-control"
+                  placeholder="Admin ID"
+                  type="text"
+                  formControlName="adminId"
+                />
+              </div>
+
+              <div class="form-group">
+                <!-- <button type="submit" class="btn-cp btn-block"> Create Account  </button> -->
+                <button
+                  type="submit"
+                  [disabled]="!adminForm.valid"
+                  class="btn btn-block btn-outline-info"
+                >
+                  Add Admin</button
+                ><br />
+              </div>
+            </form>
+          </article>
+        </div>
+      </div>
+    </ng-template>
+    <!--container end.//-->
+  </div>
 </section>

@@ -21,6 +21,8 @@ export class FacilitiesComponent implements OnInit {
   fieldOfficerData : FormGroup;
   dataSource = new MatTableDataSource()
    displayedColumns = ['facilityName','facilityType', 'Code', 'Location', 'contact','State'];
+   requestColumns = ['facilityName','facilityType', 'fieldOfficer', 'Location', 'contact','State'];
+
   test;
   mySubscription: any;
   facilityRequest = [];
@@ -94,6 +96,7 @@ export class FacilitiesComponent implements OnInit {
     this.getFieldOfficers();
     this.auth.refreshNeeded$.subscribe(()=>{
        this.getFieldOfficers()
+       this.getFacilities();
     })
   }
   
@@ -145,8 +148,12 @@ export class FacilitiesComponent implements OnInit {
     }
     
   }
-  openModalField(template){
+  openModalField(template, fieldOfficer?){
     console.log("fieldofficer");
+    if(fieldOfficer !== undefined){
+      // this.removeFieldOfficer(fieldOfficer)
+      console.log(fieldOfficer)
+    }
     this.modalRef = this.modalService.show(template);
   }
   applyFilter(filterValue: string, section) {
@@ -262,8 +269,9 @@ export class FacilitiesComponent implements OnInit {
           }
       })
       this.facilityRequest.map(data =>{
-        if(data.fieldOfficerID === ""){
+        if(data.fieldOfficerID === "" || data.fieldOfficerID == undefined){
           this.facilitiesLacking.push(data)
+          console.log(this.facilitiesLacking)
         }
       })
     })
@@ -276,9 +284,18 @@ export class FacilitiesComponent implements OnInit {
     console.log(division)
     this.facilitiesLacking.map((data)=>{
       // console.log("first",data)
-      if(division.toUpperCase() == (data.location2.division).toUpperCase()){
-            this.queryFacilityData.push(data)
+      if(division.transfer ===""){
+      console.log(" not transfered")
+        if(division.Division.toUpperCase() == (data.location2.division).toUpperCase()){
+          this.queryFacilityData.push(data)    
+    }
+    
       }
+      else 
+    if(division.transfer.toUpperCase() == (data.location2.division).toUpperCase()){
+      console.log("am here")
+      this.queryFacilityData.push(data)    
+}
     })
   }
   review(row){
@@ -401,6 +418,9 @@ export class FacilitiesComponent implements OnInit {
           if(data.status){
             this.openSnackBar(data.message, 'close')
             this.officerFacilities.length++;
+            this.auth.refreshNeeded$.subscribe(()=>{
+              this.getFacilities();
+           })
           }
          else{
           this.openSnackBar('Connection Error', 'close')
@@ -418,16 +438,36 @@ export class FacilitiesComponent implements OnInit {
       }
     })
   }
-  removeFieldOfficer(id){
-    this.auth.removeField(id).subscribe((data:any) =>{
-      if(data.status){
-        this.getFieldOfficers();
-        this.openSnackBar(data.message, 'close');
-      }
-      else{
-        this.openSnackBar(data.message, 'close');
-      }
-    })
+  removeAdmin(id?){
+     if(id){
+       console.log("fieldOfficer")
+      //  this.auth.removeField(id).subscribe((data:any) =>{
+      // if(data.status){
+      //   this.getFieldOfficers();
+      //   this.openSnackBar(data.message, 'close');
+      // }
+      // else{
+        // this.openSnackBar(data.message, 'close');
+
+      // }
+    // })
+  }
+    else{
+      // let id = this.admindata.adminId
+      // this.noAdmin = true;
+      // console.log(this.admindata);
+      // this.auth.removeAdmin(id).subscribe((data:any) =>{
+      //   if(data.status){
+      //     console.log(data.message)
+      //     this.openSnackBar(data.message, 'close');
+      //   }
+      //   else{
+      //     this.openSnackBar(data.message, 'close');
+      //   }
+      // })
+      console.log("fieldOfficer")
+
+    }
   }
   getAdmins(role){
      this.auth.getAdmin(role).subscribe((data:any)=>{
@@ -447,20 +487,9 @@ export class FacilitiesComponent implements OnInit {
        }
      }) 
   }
-  removeAdmin(){
-    let id = this.admindata.adminId
-    this.noAdmin = true;
-    console.log(this.admindata);
-    this.auth.removeAdmin(id).subscribe((data:any) =>{
-      if(data.status){
-        console.log(data.message)
-        this.openSnackBar(data.message, 'close');
-      }
-      else{
-        this.openSnackBar(data.message, 'close');
-      }
-    })
-  }
+  // removeAdmin(){
+   
+  // }
   addFieldOfficer(){
       var FieldOfficer = new FormData()
       let Data = this.fieldOfficerData.value;
