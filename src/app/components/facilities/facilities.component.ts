@@ -78,7 +78,7 @@ export class FacilitiesComponent implements OnInit {
   // this.awaitReviews = false;
   // this.underReviews = true;
   // this.rejects = false;
-  this.view('underReviews')
+  // this.view('underReviews')
 
     }
 
@@ -369,6 +369,7 @@ export class FacilitiesComponent implements OnInit {
     this.auth.transferDivision(this.transfer).subscribe((data:any)=>{
       if(data.status){
         this.openSnackBar(data.message, "clear")
+        this.getFieldOfficers();
       }
       else{
         this.openSnackBar("Network Error", "clear")
@@ -506,6 +507,9 @@ addAdmin(){
     }
   });
 
+}
+addFacility(){
+  
 }
   load(){
     this.spinner.show();

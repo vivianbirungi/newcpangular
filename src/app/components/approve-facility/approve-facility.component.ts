@@ -92,14 +92,16 @@ export class ApproveFacilityComponent implements OnInit {
    
    let documents = {
     facilityDocuments: this.businessdocuments,
-    businessState: this.businessState
+    businessState: this.businessState,
+    trackingCode: this.businessdata.nin
    }
 
     // console.log(documents)
-    this.tracker.validDocuments(documents, this.businessdata.nin).subscribe((data :any) =>{
+    this.tracker.validDocuments(documents ).subscribe((data :any) =>{
       if(data.status){
-        // this.router.navigate(['/facilities']); 
         this.notifyFieldOfficer(documents)      
+        this.router.navigate(['/facilities']); 
+
       }
       else{
       this.openSnackBar(data.message, "close");
@@ -122,17 +124,23 @@ export class ApproveFacilityComponent implements OnInit {
     console.log(document)
     if(document.businessState == 'pending'){
       console.log(this.businessdata)
-      let notificationdata = [{documents:this.invalidDocuments},
-        {trackingCode:this.businessdata.nin}]
-   this.tracker.sendNotification(notificationdata, this.businessdata.fieldOfficerID).subscribe((data :any) =>{
+      let invalidDocs = {facilityDocuments:this.invalidDocuments,
+        businessState:this.businessState,
+        trackingCode:this.businessdata.nin}
+        let notificationdata = {InvalidDocs : invalidDocs, facilityName: this.businessdata.facilityName, officerid:this.businessdata.fieldOfficerID}
+      
+   this.tracker.sendNotification(notificationdata).subscribe((data :any) =>{
 
-});
+    });
     }
     else{
       console.log("not again")
-      let notificationdata = [{documents:document.facilityDocuments},
-        {trackinCode:this.businessdata.nin}]
-   this.tracker.sendNotification(notificationdata, this.businessdata.fieldOfficerID).subscribe((data :any) =>{
+      let notificationdata = {invalidDocs:{facilityDocuments:document.facilityDocuments,
+        trackinCode:this.businessdata.nin,
+        businessState: this.businessState},
+        facilityName: this.businessdata.facilityName,
+        officerid: this.businessdata.fieldOfficerID}
+   this.tracker.sendNotification(notificationdata).subscribe((data :any) =>{
 
 });
     }

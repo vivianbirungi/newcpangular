@@ -71,11 +71,12 @@ export class SingleFacilityComponent implements OnInit {
    
    let documents = {
     facilityDocuments: this.businessdocuments,
-    businessState: this.businessState
+    businessState: this.businessState,
+    trackingCode: this.businessdata.nin
   }
 
     console.log(documents)
-    this.tracker.validDocuments(documents, this.businessdata.nin).subscribe((data :any) =>{
+    this.tracker.validDocuments(documents).subscribe((data :any) =>{
       if(data.status){
         this.router.navigate(['/data']);
             

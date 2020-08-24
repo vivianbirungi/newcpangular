@@ -88,6 +88,10 @@ getAdmin(role){
 }
 transferDivision(transfer){
   return this.http
-  .post(this.api_url +'v1/account/transferFieldOfficer ', transfer)
+  .post(this.api_url +'v1/account/transferFieldOfficer ', transfer).pipe(
+    tap(() =>  {
+      this._refreshNeeded$.next();
+    })
+  );
 }
 }

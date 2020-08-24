@@ -2,6 +2,7 @@
     <div class="card offBoudary">
         <div class="media">
             <img src="../../../assets/profile.svg" class="mr-3" alt="..." style="flex:1; height:150px; width:150px">
+           
             <div class="media-body" style="flex:4">
               <div class="row">
                   <div class="col-md-8">
@@ -23,6 +24,8 @@
                     </div>
                   </div>
                 <div class="col-md-4 " >
+        <button class="btn btn-outline floatingbtn"  (click)="logout()">Logout</button>
+
                    <div class="card1">
                     <div class="" style="padding: 5px">
                         <b>{{allFacilities?.length}} Facilities</b>
@@ -35,7 +38,8 @@
                 </div>
               </div>
           </div>
-    </div>
+    
+        </div>
 
 
 
@@ -66,13 +70,7 @@
                         <td>{{facility?.email}}</td>
                         <td>{{facility?.businessState}}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Bob</td>
-                        <td>Bob</td>
-                        <td>Loblaw</td>
-                        <td>boblahblah</td>
-                    </tr>
+                   
                    
                 </tbody>
             </table>
@@ -100,12 +98,7 @@
                         <td>{{facility.email}}</td>
                         <td>{{facility.businessState}}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Bob</td>
-                        <td>Loblaw</td>
-                        <td>boblahblah</td>
-                    </tr>
+                    
                   
                 </tbody>
             </table>
@@ -134,12 +127,7 @@
                         <td>{{facility.email}}</td>
                         <td>{{facility.businessState}}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Bob</td>
-                        <td>Loblaw</td>
-                        <td>boblahblah</td>
-                    </tr>
+                  
                 </tbody>
             </table>
         </div>
@@ -150,14 +138,38 @@
 
         <mat-list *ngFor="let notification of notifications">
             <div mat-subheader>Folders</div>
-            <mat-list-item >
+            <mat-list-item   data-toggle="modal" data-target="#exampleModal">
               <mat-icon mat-list-icon>folder</mat-icon>
-              <div mat-line>one</div>
-              <div mat-line> 12/03/2020 </div>
+              <div mat-line>{{notification.facilityName}}</div>
+              <div mat-line> {{now}} </div>
             </mat-list-item>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{notification.facilityName}}</h5><br/>
+                     
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This is to inform you that this facility's approval is pending because; </p><br/>
+                        <ul *ngFor = "let reasons of notification.InvalidDocs.facilityDocuments">
+                            <li *ngIf = "reasons?.docState == 'MISSING'">{{reasons.name}} is {{reasons.docState.toLowerCase()}}</li>
+                            <li *ngIf = "reasons?.docState == 'INVALID'">{{reasons.name}} is {{reasons.docState}} because {{reasons.reason}}</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </mat-list>
       </div>
-
+      
     </div>
   </div>
 </div>

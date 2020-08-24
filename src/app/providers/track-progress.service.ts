@@ -42,9 +42,9 @@ get refreshNeeded$() {
     return this.http
     .get(this.api_url + '/getregfacilities')
   }
-  validDocuments(documents, regcode){
+  validDocuments(documents){
     return this.http
-    .post(this.api_url  +  '/validateDocuments/'+regcode, documents, this.httpOptions);
+    .post(this.api_url  +  '/validateDocuments', documents, this.httpOptions);
   }
   updateStatus(regcode, businessState){
     return this.http
@@ -54,9 +54,9 @@ get refreshNeeded$() {
     return this.http
     .post(this.api_url + '/attachFieldOfficer/'+ data.regcode, data, this.httpOptions)
   }
-  sendNotification(notificationdata, id){
+  sendNotification(notificationdata){
     return this.http
-    .post(this.api_url + '/notifyOfficer/' + id, notificationdata, this.httpOptions)
+    .post(this.api_url + '/notifyOfficer/', notificationdata, this.httpOptions)
   }
   getFieldOfficerFacilities(id){
     return this.http
@@ -64,6 +64,6 @@ get refreshNeeded$() {
   }
   getNotification(id){
     return this.http
-    .get(this.api_url +'' + id)
+    .get(this.api_url +'/getNotification/' + id)
   }
 }

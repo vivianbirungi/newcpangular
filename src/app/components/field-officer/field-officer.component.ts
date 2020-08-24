@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackProgressService } from 'src/app/providers/track-progress.service';
 import { AuthService } from 'src/app/providers/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-field-officer',
@@ -15,11 +16,20 @@ export class FieldOfficerComponent implements OnInit {
   rejectedFacilities = []
   FieldOfficer;
   allFacilities;
-  constructor(public facilities: TrackProgressService, public auth : AuthService) { }
+  // currentTime = new Date()
+  get now() : string { return Date(); }
+  constructor(public facilities: TrackProgressService, public auth : AuthService, public router : Router) { }
 
   ngOnInit() {
-    this.getUser('cp2020003');
-    this.getFacilities('cp2020003');
+    this.FieldOfficer = JSON.parse(localStorage.getItem("fieldOfficer"))
+    // this.getUser('cp2020002');
+    this.getFacilities(this.FieldOfficer.fieldOfficerID);
+    this.getNotifications(this.FieldOfficer.fieldOfficerID)
+  }
+  logout(){
+    console.log("vivian")
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
   getUser(id){
     this.auth.getUser(id).subscribe((data:any) =>{
@@ -63,8 +73,8 @@ export class FieldOfficerComponent implements OnInit {
  getNotifications(id){
    this.facilities.getNotification(id).subscribe((data:any)=>{
      if(data.status){
-     this.notifications = data
-      
+     this.notifications = data.data
+      console.log(this.notifications)
      }
    })
  }

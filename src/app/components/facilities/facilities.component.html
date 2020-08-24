@@ -39,8 +39,23 @@
                       <p><b>Email:</b> &nbsp; {{admindata?.email}}</p> 
                       <p><b>Phone:</b> &nbsp; {{admindata?.phone}}</p> 
                       <p><b>Resposibilities:</b> &nbsp; Review Documents</p> 
-                      <button style="float:right" class="btn btn-outline  btn-sm"  (click)="removeAdmin()">Remove</button>
+                      <button style="float:right" class="btn btn-outline  btn-sm"  (click)="openModalField(remove)">Remove</button>
                   </div>
+                  <ng-template #remove class="container-fluid">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Are you sure???</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure you want to remove this Account?</p>
+                        <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-success btn-md" (click)="removeAdmin()">Yes</button>
+                                </div>
+                                <div  class="col-6"><button class="btn btn-danger btn-md"(click)="modalRef.hide()">No</button></div>
+                            
+                        </div>
+                      </div>
+                   </ng-template>
             </div>
             </div>
           <div class="fieldOfficers" *ngIf="userRole == 'Manager'">
@@ -74,7 +89,7 @@
                                         <span class="faint"> <b>Phone</b> : {{officer?.phone}}</span><br/>
                                         <span class="faint"  data-toggle="tooltip" data-html="true" title="<ul *ngFor='let facility of officerFacilities '><li>{{facility?.facilityName}}</li></ul>">{{officerFacilities?.length}} Facilities</span><br/>
                                         <button class="btn-clear"  data-placement="top" title="add facility" data-toggle="collapse" data-target="#demo" ><i class="fa fa-plus-circle" style="font-size: 20px"></i></button>
-                                        <button type="button" style="float:right" class="btn  btn-outline-info btn-sm">Remove</button><br/>
+                                        <button type="button" style="float:right" class="btn  btn-outline-info btn-sm" (click)="removeFieldOfficer(officer.fieldOfficerID)">Remove</button><br/>
 
                                     </div>
                                 </div>
@@ -84,7 +99,7 @@
                                            
                                             <select class="custom-select" id="validationCustom04" required name="facilityAttached" [(ngModel)]="facilityAttached" >
                                                 <option selected disabled value="">Choose....</option>
-                                                <option *ngFor="let fac of queryFacilityData" value="{{fac.nin}}" >{{fac?.nin}} &nbsp;{{fac?.facilityName}}</option>
+                                                <option *ngFor="let fac of queryFacilityData" value="{{fac.nin}}" >{{fac?.facilityName}} &nbsp; {{fac?.location2.town}}</option>
                                             </select>
                                             <div class="invalid-feedback">  </div>
                                         </div>   
@@ -445,6 +460,7 @@
     </div>
     </div>
    </ng-template>
+
    <ng-template #division >
     <div class="modal-header">
     <h4 class="modal-title pull-left">Transfer Field officer </h4>

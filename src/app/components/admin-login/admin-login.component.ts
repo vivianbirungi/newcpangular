@@ -13,6 +13,7 @@ export class AdminLoginComponent implements OnInit {
   email
   password;
   Admin;
+  fieldOfficer;
   constructor(private auth:AuthService, private router : Router,  private spinner: NgxSpinnerService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -29,21 +30,32 @@ export class AdminLoginComponent implements OnInit {
     this.auth.login(userCredentials).subscribe((data: any)=>{
       if (data.status){
         console.log(data);
-        this.Admin = data.data;
-        let localData = this.Admin;
-        localData.password  = "";
-        localStorage.setItem("Admin", JSON.stringify(localData))
-        localStorage.setItem("role", this.Admin.role)
-        localStorage.setItem("usertype", this.Admin.role)
-        if(this.Admin.role === 'superAdmin'){
-        localStorage.setItem("junior", 'Admin')
-          
-        }else if(this.Admin.role === 'Admin'){
-          localStorage.setItem("junior", 'Manager')
-            
-        }
+        if(data.role == 'field'){
+          this.fieldOfficer = data.data
+          localStorage.setItem("fieldOfficer", JSON.stringify(this.fieldOfficer))
+          localStorage.setItem("role", 'fieldOfficer')
+          localStorage.setItem("usertype", 'fieldOfficer')
+          this.router.navigate(["/fieldOfficer"])
 
-        this.router.navigate(["/facilities"])
+        }
+        else if(data.role == 'Admin'){
+          this.Admin = data.data;
+          let localData = this.Admin;
+          localData.password  = "";
+          localStorage.setItem("Admin", JSON.stringify(localData))
+          localStorage.setItem("role", this.Admin.role)
+          localStorage.setItem("usertype", this.Admin.role)
+          if(this.Admin.role === 'superAdmin'){
+          localStorage.setItem("junior", 'Admin')
+            
+          }else if(this.Admin.role === 'Admin'){
+            localStorage.setItem("junior", 'Manager')
+              
+          }
+  
+          this.router.navigate(["/facilities"])
+        }
+      
 
       }
       else if(!data.status ){
