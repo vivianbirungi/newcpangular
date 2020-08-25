@@ -361,8 +361,53 @@
           </div>
 
           <h3>Facility Requests</h3>
-
-          <mat-table class="datatable" [dataSource]="dataSource" matSort>
+          <table class="table table-hover" id="dev-table" >
+						<thead>
+							<tr>
+								<th>Facility</th>
+								<th>Type</th>
+                <th>Field Officer</th>
+                <th>Contact</th>
+								<th>Action</th>
+                
+							</tr>
+						</thead>
+						<tbody *ngFor= "let request of facilityRequest">
+							<tr>
+								<td>{{request.facilityName}}</td>
+								<td>{{request.facilityType}}</td>
+                <td>{{request.fieldOfficerID}}
+                  <div class="input-group input-group-sm mb-3" *ngIf="request.fieldOfficerID == ''">
+                    <select
+                    class="custom-select"
+                    id="validationCustom04"
+                    required
+                    name="facilityAttached"
+                    [(ngModel)]="facilityAttached"
+                    (click)="queryFieldOfficers(request.location2.Division)"
+                  >
+                    <option selected disabled value="">Choose....</option>
+                    <option
+                      *ngFor="let field of divisionOfficers"
+                      value="{{ field.nin }}"
+                      >{{ field?.fieldOfficer }} &nbsp;
+                      {{ fac?.location2.town }}</option
+                    >
+                  </select>
+                    <!-- <input type="text" class="form-control" [(ngModel)]="fieldOfficerID" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"> -->
+                    <div class="input-group-prepend">
+                      <button class="btn btnfield btn-outline-secondary" type="button" id="button-addon1" (click)="attachFieldOfficer(request, fieldOfficerID)"><i class="fas fa-user-plus"></i></button>
+                    </div>
+                  </div>
+                </td>
+								<td>{{request.email}}</td>
+								<td><button class="btn-cp-outline" (click)="openModal(template, request, 'request')">Received</button></td>
+                
+							</tr>
+							
+						</tbody>
+					</table>
+          <!-- <mat-table class="datatable" [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="facilityName">
               <mat-header-cell *matHeaderCellDef mat-sort-header
                 >Facility</mat-header-cell
@@ -426,15 +471,15 @@
               class="rows"
               *matRowDef="let row; columns: requestColumns"
             ></mat-row>
-          </mat-table>
-          <mat-paginator
+          </mat-table> -->
+          <!-- <mat-paginator
             #paginators
             [length]="facilityRequest.length"
             [pageIndex]="0"
             [pageSize]="5"
             [pageSizeOptions]="[5, 15, 25, 50, 75, 100]"
           >
-          </mat-paginator>
+          </mat-paginator> -->
         </div>
         <div class="table" *ngIf="awaitReviews">
           <div class="my-1" style="float: right;">

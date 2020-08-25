@@ -29,6 +29,7 @@ export class FacilitiesComponent implements OnInit {
   currentInfo;
   IsmodelShow= true;
   facilitiesLacking=[];
+  divisionOfficers = [];
   request = true;
   approvals= false;
   awaitReviews = false;
@@ -296,6 +297,13 @@ export class FacilitiesComponent implements OnInit {
       console.log("am here")
       this.queryFacilityData.push(data)    
 }
+    })
+  }
+  queryFieldOfficers(division){
+    this.fieldOfficers.map((data)=>{
+      if(division.toUpperCase() == (data.Division).toUpperCase()){
+        this.divisionOfficers.push(data)
+      }
     })
   }
   review(row){
